@@ -19,7 +19,15 @@ public class Options {
         return options;
     }
 
-//    SUNROOF,
+    @Override
+    public String toString() {
+        return "Options{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
+    //    SUNROOF,
 //    HEADLAMP,
 //    PARKING_SENSOR,
 //    REAR_CAMERA,

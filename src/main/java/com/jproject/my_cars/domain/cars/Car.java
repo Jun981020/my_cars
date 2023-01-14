@@ -1,5 +1,6 @@
 package com.jproject.my_cars.domain.cars;
 
+import com.jproject.my_cars.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Entity
-public class Car {
+public class Car extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
@@ -42,6 +43,20 @@ public class Car {
         this.getOptions().add(options);
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", year='" + year + '\'' +
+                ", distance_driven='" + distance_driven + '\'' +
+                ", accident_history=" + accident_history +
+                ", area='" + area + '\'' +
+                ", fuel=" + fuel +
+                ", company='" + company + '\'' +
+                ", options=" + options +
+                ", manufacture=" + manufacture +
+                '}';
+    }
 }
