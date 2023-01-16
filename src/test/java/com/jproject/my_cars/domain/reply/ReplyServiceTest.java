@@ -5,7 +5,6 @@ import com.jproject.my_cars.domain.board.BoardRepository;
 import com.jproject.my_cars.domain.member.Member;
 import com.jproject.my_cars.domain.member.MemberRepository;
 import com.jproject.my_cars.domain.member.Role;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
