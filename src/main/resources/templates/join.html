@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragment/head :: header"></th:block>
+    <title>login</title>
+</head>
+<body class="bg-secondary">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<div class="container">
+    <th:block th:replace="fragment/nav :: nav"></th:block>
+    <!-- body -->
+    <div class="container rounded mt-5 mb-5 " style="background-color: #adb5bd;">
+        <div class="text-center p-5"><h2>회원가입을 해주세요</h2></div>
+        <div class="d-flex justify-content-center pt-5 pb-5">
+            <form action="" class="pt-5 w-75 border border-secondary">
+                <div class="mb-3 d-flex justify-content-center">
+                    <label for="id" class="col-1 col-form-label">ID</label>
+                    <div class="w-25">
+                        <input type="password" class="form-control" id="id">
+                    </div>
+                </div>
+
+                <div class="mb-3 d-flex justify-content-center">
+                    <label for="password" class="col-1 col-form-label">Password</label>
+                    <div class="w-25">
+                        <input type="password" class="form-control" id="password">
+                    </div>
+                </div>
+
+                <div class="mb-3 d-flex justify-content-center">
+                    <label for="name" class="col-1 col-form-label">Name</label>
+                    <div class="w-25">
+                        <input type="password" class="form-control" id="name">
+                    </div>
+                </div>
+
+                <div class="mb-3 d-flex justify-content-center">
+                    <label for="email" class="col-1 col-form-label">Email</label>
+                    <div class="w-25">
+                        <input type="password" class="form-control" id="email">
+                    </div>
+                </div>
+
+                <div class="mb-3 d-flex justify-content-center ">
+                    <label for="phone" class="col-1 col-form-label">Phone</label>
+                    <div class="w-25">
+                        <input type="password" class="form-control" id="phone">
+                    </div>
+                </div>
+                <div class="mb-3 d-flex justify-content-center pt-5">
+                    <input type="button" value="아이디 중복확인" class="form-control btn btn-secondary" style="width: 150px;" >
+                    <input type="button" value="회원가입" class="form-control btn btn-secondary" disabled style="width: 150px; margin-left: 30px;" >
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="fragment/footer :: footer"></th:block>
+</div>
+</body>
+</html>

@@ -10,8 +10,13 @@ public class MainController {
         return "여전히 뻔한 헬로우월드";
     }
 
-    @GetMapping("main")
+    @GetMapping("/main")
     public String main(){
         return "main";
+    }
+
+    @GetMapping("/board")
+    public String boardList(){
+        return"board";
     }
 }

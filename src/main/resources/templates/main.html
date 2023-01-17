@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<th:block th:replace = "fragment/head :: header"></th:block>
+<!--Header-->
+<head>
+    <th:block th:replace = "fragment/head :: header"></th:block>
+    <title>Main</title>
+</head>
 <body class="bg-secondary">
 <div class="container">
+    <!--Nav-->
     <th:block th:replace="fragment/nav :: nav"></th:block>
-
-    <div class="container d-flex justify-content-center mt-5 rounded" style="background-color: #adb5bd;">
+    <!--Main Page Body-->
+    <div class="container d-flex justify-content-center mt-5 mb-5 rounded" style="background-color: #adb5bd;">
         <div id="carouselExampleIndicators" class="carousel slide carousel-fade w-75 mt-5" data-bs-ride="carousel" >
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -33,129 +38,7 @@
             </button>
         </div>
     </div>
-    <!-- Footer -->
-    <footer class="text-center text-lg-start text-muted" style="background-color: adb5bd;">
-        <!-- Section: Social media -->
-        <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-            <!-- Left -->
-            <div class="me-5 d-none d-lg-block">
-
-            </div>
-            <!-- Left -->
-
-            <!-- Right -->
-            <div>
-                <a href="" class="me-4 text-reset">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="" class="me-4 text-reset">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="" class="me-4 text-reset">
-                    <i class="fab fa-google"></i>
-                </a>
-                <a href="" class="me-4 text-reset">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="" class="me-4 text-reset">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="" class="me-4 text-reset">
-                    <i class="fab fa-github"></i>
-                </a>
-            </div>
-            <!-- Right -->
-        </section>
-        <!-- Section: Social media -->
-
-        <!-- Section: Links  -->
-        <section class="">
-            <div class="container text-center text-md-start mt-5">
-                <!-- Grid row -->
-                <div class="row mt-3">
-                    <!-- Grid column -->
-                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                        <!-- Content -->
-                        <h6 class="text-uppercase fw-bold mb-4">
-                            <i class="fas fa-gem me-3"></i>MY CARS
-                        </h6>
-                        <p>
-                            마이카는 믿음과 신뢰를 목표로하는 기업입니다.사람을 남기자는 마음으로 고객님들의 소리에 집중하고
-                            귀 기울이는 기업이 되도록 최선을 다하겠습니다.
-                        </p>
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <!-- Links -->
-                        <h6 class="text-uppercase fw-bold mb-4">
-                            바로가기
-                        </h6>
-                        <p>
-                            <a href="#!" class="text-reset">차량검색</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset">게시판</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset">마이페이지</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset">로그인</a>
-                        </p>
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <!-- Links -->
-                        <h6 class="text-uppercase fw-bold mb-4">
-                            약관 및 기타사항
-                        </h6>
-                        <p>
-                            <a href="#!" class="text-reset">개인정보 처리방침</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset">이용약관</a>
-                        </p>
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                        <!-- Links -->
-                        <h6 class="text-uppercase fw-bold mb-4">기타정보</h6>
-                        <p><i class="fas fa-home me-3"></i> <img src="img/icon/free-icon-house-1009900.png" alt="" style="width: 18px; height: 16px;"> 서울시 가나다구 가나다동 32-123</p>
-                        <p>
-                            <i class="fas fa-envelope me-3"></i>
-                            <img src="img/icon/free-icon-envelope-481659.png" alt="" style="width: 18px; height: 16px;">
-                            my_cars@carworld.com
-                        </p>
-                        <p><i class="fas fa-phone me-3"></i>
-                            <img src="img/icon/free-icon-telephone-159832.png" alt="" style="width: 18px; height: 16px;">
-                            + 82 02 1111 2222
-                        </p>
-                        <p><i class="fas fa-print me-3"></i>
-                            <img src="img/icon/free-icon-fax-4553108.png" alt="" style="width: 18px; height: 16px;">
-                            + 82 02 3333 4444
-                        </p>
-                    </div>
-                    <!-- Grid column -->
-                </div>
-                <!-- Grid row -->
-            </div>
-        </section>
-        <!-- Section: Links  -->
-
-        <!-- Copyright -->
-        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-            © 2023 MY_CARS COMPANY FOR SIDE PROJECT
-            <a class="text-reset fw-bold" href="#">sideproject.com</a>
-        </div>
-        <!-- Copyright -->
-    </footer>
-    <!-- Footer -->
+    <th:block th:replace="fragment/footer :: footer"></th:block>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
