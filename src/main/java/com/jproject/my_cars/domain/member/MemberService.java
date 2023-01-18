@@ -21,5 +21,14 @@ public class MemberService {
         return m.getId().describeConstable();
     }
 
+    //아이디 중복확인
+    public boolean check_login_id(String id){
+        if(memberRepository.findByLoginId(id) == null){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
 }
