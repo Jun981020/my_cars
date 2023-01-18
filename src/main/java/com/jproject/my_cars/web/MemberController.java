@@ -4,7 +4,10 @@ import com.jproject.my_cars.domain.member.Member;
 import com.jproject.my_cars.domain.member.MemberService;
 import com.jproject.my_cars.domain.member.Role;
 import com.jproject.my_cars.dto.MemberJoinDto;
+import com.jproject.my_cars.dto.MemberLoginDto;
 import com.jproject.my_cars.dto.TestDto;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +43,21 @@ public class MemberController {
     public boolean check_login_id_pw(@RequestParam("id") String id,
                                      @RequestParam("password") String password){
         return memberService.check_IDPW(id, password);
+    }
+
+    @PostMapping("/member/loginAction")
+    public String login_action(@ModelAttribute MemberLoginDto dto ,HttpServletRequest request){
+        Member member = memberService.getMember(dto.getId());
+        HttpSession session = request.getSession();
+        session.setAttribute("member",member);
+
+        Member member1 = (Member) session.getAttribute("member");
+        System.out.println("member = " + member1);
+        return "redirect:/main";
+    }
+    @GetMapping("/member/mypage")
+    public String my_page(){
+        return "mypage";
     }
 
 }

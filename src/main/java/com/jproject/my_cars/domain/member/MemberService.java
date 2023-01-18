@@ -37,6 +37,10 @@ public class MemberService {
             return true;
         }
     }
+    //회원로그인(entity 가져오기)
+    public Member getMember(String id){
+        return memberRepository.findByLoginId(id);
+    }
 
 
 

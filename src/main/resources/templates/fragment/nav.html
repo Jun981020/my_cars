@@ -21,7 +21,8 @@
             <img src="../img/icon/free-icon-noticeboard-3000409.png" alt="" style="width: 30px ;height: 30px;margin-bottom: 2px;margin-left: 5px;">
         </div>
         <div>
-            <a href="/member/login"><span><b>로그인</b></span></a>
+            <a href="/member/login"><span th:if="${session.member == null}" th:text="로그인"><b></b></span></a>
+            <a href="/member/mypage"><span th:if="${session.member != null}" th:text="마이페이지"><b></b></span></a>
             <img src="../img/icon/free-icon-user-5264565.png" alt="" style="width: 30px ;height: 30px;margin-bottom: 6px;">
         </div>
         <!-- 로그인일땐 마이페이지 비로그인일땐 로그인버튼 -->

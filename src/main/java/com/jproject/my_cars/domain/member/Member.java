@@ -1,11 +1,12 @@
 package com.jproject.my_cars.domain.member;
 
+import com.jproject.my_cars.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 
 @Getter
 @Entity
-public class Member {
+public class Member extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String loginId;
