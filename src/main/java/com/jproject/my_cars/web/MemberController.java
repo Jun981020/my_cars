@@ -35,4 +35,11 @@ public class MemberController {
         return "redirect:/member/login";
     }
 
+    @GetMapping("/member/check_IDPW")
+    @ResponseBody
+    public boolean check_login_id_pw(@RequestParam("id") String id,
+                                     @RequestParam("password") String password){
+        return memberService.check_IDPW(id, password);
+    }
+
 }

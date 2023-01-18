@@ -20,7 +20,6 @@ public class MemberService {
         Member m = memberRepository.save(member);
         return m.getId().describeConstable();
     }
-
     //아이디 중복확인
     public boolean check_login_id(String id){
         if(memberRepository.findByLoginId(id) == null){
@@ -29,6 +28,16 @@ public class MemberService {
             return false;
         }
     }
+    //로그인 기능
+    public boolean check_IDPW(String login_id,String password){
+        Member m = memberRepository.findByLoginIdAndPassword(login_id, password);
+        if(m == null){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
 
 
 }

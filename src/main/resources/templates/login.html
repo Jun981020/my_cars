@@ -13,15 +13,15 @@
 
         <form class="container" method="post" action="/member/loginAction">
             <div class="d-flex flex-row justify-content-center mb-5 pt-5">
-                <label for="member_id" class="col-form-label">Login_ID</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="text" id="member_id" name="nickname" class="form-control w-25" aria-describedby="passwordHelpInline">
+                <label for="id" class="col-form-label">Login_ID</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="text" id="id" name="id" class="form-control w-25" aria-describedby="passwordHelpInline">
             </div>
             <div class="d-flex flex-row justify-content-center pb-5">
                 <label for="password" class="col-form-label">Password</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="text" id="password" name="nickname" class="form-control w-25" aria-describedby="passwordHelpInline">
+                <input type="text" id="password" name="password" class="form-control w-25" aria-describedby="passwordHelpInline">
             </div>
             <div class="d-flex flex-row justify-content-center pb-5">
-                <button class="btn btn-secondary" style="width: 120px; height: 50px;">로그인</button>
+                <button type="button" onclick="check_IDPW()" class="btn btn-secondary" style="width: 120px; height: 50px;">로그인</button>
             </div>
             <div class="text-center h-auto pb-5">
                 혹시 회원이 아니신가요? <b><a href="/member/join">(회원가입 바로가기)</a></b>
@@ -31,4 +31,27 @@
     <th:block th:replace="fragment/footer :: footer"></th:block>
 </div>
 </body>
+<script>
+    function check_IDPW(){
+        const id = $("#id").val();
+        const password = $("#password").val();
+        $.ajax({
+            url : '/member/check_IDPW',
+            data :
+            {
+                id : id,
+                password : password
+            },
+            method : "GET",
+            dataType : "json",
+            contentType: 'application/json'
+        }).done(function(res){
+            if(res){
+               alert("인증완료")
+            }
+        }).fail(function(xhr,status,error){
+                alert("오류발생"+error);
+        })
+    }
+</script>
 </html>

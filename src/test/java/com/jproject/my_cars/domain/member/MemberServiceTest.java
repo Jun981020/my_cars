@@ -38,5 +38,10 @@ class MemberServiceTest {
             return false;
         } else return true;
     }
+    @Test
+    public void login_action(){
+        Member qwer = memberRepository.findByLoginIdAndPassword("qwer","1234");
+        assertThat(qwer.getPassword()).isEqualTo("1234");
+    }
 
 }
