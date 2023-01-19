@@ -16,5 +16,12 @@ public class BoardService {
     public List<Board> boardList(){
         return boardRepository.findAll();
     }
+    @Transactional
+    public void saveBoard(Board board){
+        boardRepository.save(board);
+    }
+    public Board getBoardById(long id){
+        return boardRepository.findById(id).get();
+    }
 
 }

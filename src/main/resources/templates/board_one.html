@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:insert = "~{fragment/head :: header}"></th:block>
+  <title>Board</title>
+</head>
+<body class="bg-secondary">
+<div class="container">
+  <th:block th:insert="~{fragment/nav :: nav}"></th:block>
+  <!-- body -->
+  <div class="container rounded mt-5 mb-5" style="background-color: #adb5bd; height: auto;">
+    <div class="w-100 d-flex flex-row justify-content-center">
+      <div class=" w-50 sm:mt-9 ">
+        <div class="d-flex justify-content-center mt-5 pb-5">
+          <h2 th:text="${board.title}">제목</h2>
+        </div>
+        <div class="d-flex flex-row pt-5 pb-5" style="width: 200px;">
+          <div class="d-flex mr-4 col-3">
+            <img src="/img/icon/user_image.png" alt="" class="rounded-circle" style="width: 40px;height: 40px">
+          </div>
+          <div class="d-flex flex-column ml-3 w-100">
+            <div th:text="${board.member.loginId}">아이디</div>
+            <div th:text="${#temporals.format(board.createAt,'yyyy-MM-dd')}">날짜</div>
+          </div>
+        </div>
+        <div class="pt-5 pb-5">
+          <span th:text="${board.content}">내용</span>
+        </div>
+      </div>
+    </div>
+
+    <!--댓글작성하기-->
+    <div class="d-flex justify-content-center">
+      <form class="d-flex flex-column w-75" action="/reply/writeAction" method="post">
+        <input type="hidden" name="loginId" th:value="${session.member.loginId}">
+        <input type="hidden" name="boardId" th:value="${boardId}">
+        <div class="card mb-2 w-100" style="background-color: #adb5bd;">
+          <div class="card-header">
+            <i class="fa fa-comment fa"></i> 댓글쓰기
+          </div>
+          <div class="card-body" style="background-color: #adb5bd;">
+            <ul class="">
+              <li class="list-group-item">
+                <div class="form-inline mb-2" th:text="${session.member.loginId}">
+                </div>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="content"></textarea>
+                <div class="w-100 float-right"><button type="submit" class="btn btn-secondary mt-3">댓글 등록</button></div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!--댓글리스트 보여주기-->
+    <div class="d-flex w-100 justify-content-center mt-5 pb-5">
+      <div class="border mt-2 w-75 rounded d-flex flex-column">
+        <div th:each="reply:${board.replies}" class="px-4">
+          <div class="d-flex justify-content-start " style="height: 70px;">
+            <img src="/img/icon/user_image.png" alt="" style="width: 36px; height: 36px; border-radius: 3em;" class="ml-2 mt-5 mr-2 mb-2">
+            <div class="mt-5" th:text="${reply.member.loginId}">
+              작성자
+            </div>
+          </div>
+          <div class="d-flex justify-content-center w-100">
+                                    <div class="w-75 rounded" th:text="${reply.content}">
+                                            내용을 입력해주세요
+                                    </div>
+          </div>
+          <div>
+            <div class="d-flex justify-content-end pr-5" th:text="${#temporals.format(reply.createAt,'yyyy-MM-dd')}">
+              작성날짜
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+  <th:block th:insert="~{fragment/footer :: footer}"></th:block>
+</div>
+</body>
+</html>

@@ -28,6 +28,7 @@
                                 <option value="1">비공개</option>
                             </select>
                             <input type="hidden" placeholder="비밀번호를 입력하세요" id="private_content_password" maxlength="4" name="private_content_password" style="width: 200px; margin-left: 20px;" class="rounded">
+                            <input type="hidden" th:value="${session.member.loginId}" name="loginId">
                         </div>
 
                         <button class="btn btn-secondary btn-lg float-right" style="width: 100px;">작성!</button>
@@ -36,7 +37,7 @@
             </div>
         </div>
     </div>
-    <th:block th:replace="~{fragment/footer :: footer}"></th:block>
+    <th:block th:insert="~{fragment/footer :: footer}"></th:block>
 </div>
 </body>
 <script type="text/javascript">

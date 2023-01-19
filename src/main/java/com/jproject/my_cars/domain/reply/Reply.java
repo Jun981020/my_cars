@@ -1,5 +1,6 @@
 package com.jproject.my_cars.domain.reply;
 
+import com.jproject.my_cars.domain.BaseEntity;
 import com.jproject.my_cars.domain.board.Board;
 import com.jproject.my_cars.domain.member.Member;
 import jakarta.persistence.*;
@@ -7,7 +8,7 @@ import lombok.Getter;
 
 @Entity
 @Getter
-public class Reply {
+public class Reply extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)

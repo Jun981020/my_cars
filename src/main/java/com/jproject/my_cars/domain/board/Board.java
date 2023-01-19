@@ -22,13 +22,16 @@ public class Board extends BaseEntity {
     @OneToMany(mappedBy = "board")
     private List<Reply> replies = new ArrayList<>();
 
-    private boolean private_content;
+    private int private_content;
+    private String private_content_password;
 
-    public static Board writeBoard(String title,String content,Member member){
+    public static Board writeBoard(String title,String content,Member member,int private_content,String private_content_password){
         Board board = new Board();
         board.title = title;
         board.content = content;
         board.member = member;
+        board.private_content =private_content;
+        board.private_content_password = private_content_password;
         return board;
     }
 
