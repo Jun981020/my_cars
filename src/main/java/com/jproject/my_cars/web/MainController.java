@@ -15,8 +15,4 @@ public class MainController {
         return "main";
     }
 
-    @GetMapping("/board")
-    public String boardList(){
-        return"board";
-    }
 }

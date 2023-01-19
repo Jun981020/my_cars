@@ -1,5 +1,6 @@
 package com.jproject.my_cars.domain.board;
 
+import com.jproject.my_cars.domain.BaseEntity;
 import com.jproject.my_cars.domain.member.Member;
 import com.jproject.my_cars.domain.reply.Reply;
 import jakarta.persistence.*;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Getter
-public class Board {
+public class Board extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
@@ -20,6 +21,8 @@ public class Board {
     private Member member;
     @OneToMany(mappedBy = "board")
     private List<Reply> replies = new ArrayList<>();
+
+    private boolean private_content;
 
     public static Board writeBoard(String title,String content,Member member){
         Board board = new Board();
@@ -37,6 +40,7 @@ public class Board {
                 ", content='" + content + '\'' +
                 ", member=" + member +
                 ", replies=" + replies +
+                ", private_content=" + private_content +
                 '}';
     }
 }

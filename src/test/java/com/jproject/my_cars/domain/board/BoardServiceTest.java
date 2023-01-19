@@ -46,7 +46,7 @@ class BoardServiceTest {
     @Test
     public void board_list(){
         List<Board> all = boardRepository.findAll();
-        assertThat(all.size()).isEqualTo(3);
+        assertThat(all.size()).isEqualTo(6);
         for (Board board : all) {
             System.out.println("board = " + board);
         }

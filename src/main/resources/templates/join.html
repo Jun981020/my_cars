@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:replace="fragment/head :: header"></th:block>
+    <th:block th:insert = "~{fragment/head :: header}"></th:block>
     <title>login</title>
 </head>
 <body class="bg-secondary">
 <div class="container">
-    <th:block th:replace="fragment/nav :: nav"></th:block>
+    <th:block th:insert="~{fragment/nav :: nav}"></th:block>
     <!-- body -->
     <div class="container rounded mt-5 mb-5 " style="background-color: #adb5bd;">
         <div class="text-center p-5"><h2>회원가입을 해주세요</h2></div>
@@ -53,7 +53,7 @@
             </form>
         </div>
     </div>
-    <th:block th:replace="fragment/footer :: footer"></th:block>
+    <th:block th:replace="~{fragment/footer :: footer}"></th:block>
 </div>
 </body>
 <script>
