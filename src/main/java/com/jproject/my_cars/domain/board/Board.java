@@ -3,6 +3,7 @@ package com.jproject.my_cars.domain.board;
 import com.jproject.my_cars.domain.BaseEntity;
 import com.jproject.my_cars.domain.member.Member;
 import com.jproject.my_cars.domain.reply.Reply;
+import com.jproject.my_cars.dto.BoardWriteDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -33,6 +34,13 @@ public class Board extends BaseEntity {
         board.private_content =private_content;
         board.private_content_password = private_content_password;
         return board;
+    }
+    public Board modifyBoard(BoardWriteDto dto){
+        this.title = dto.getTitle();
+        this.content = dto.getContent();
+        this.private_content = dto.getPrivate_content();
+        this.private_content_password = dto.getPrivate_content_password();
+        return this;
     }
 
     @Override

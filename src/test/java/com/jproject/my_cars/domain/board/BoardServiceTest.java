@@ -51,5 +51,11 @@ class BoardServiceTest {
             System.out.println("board = " + board);
         }
     }
+    //검색바
+    @Test
+    public void findBySearchBar(){
+        List<Board> list = boardRepository.findByTitleLike("%제대로%");
+        assertThat(list.size()).isEqualTo(1);
+    }
 
 }

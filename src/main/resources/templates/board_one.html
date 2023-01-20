@@ -28,6 +28,11 @@
         </div>
       </div>
     </div>
+    <div class="container px-0 mb-5 w-75 d-flex justify-content-end">
+      <button th:if="${session.member.name == board.member.name}" class="btn btn-secondary btn-lg mt-3">
+        <a th:href="@{/board/modify/{num}(num = ${board.id})}" id="title">수정!</a>
+      </button>
+    </div>
 
     <!--댓글작성하기-->
     <div class="d-flex justify-content-center">
