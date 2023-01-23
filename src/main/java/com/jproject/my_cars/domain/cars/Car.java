@@ -1,7 +1,8 @@
 package com.jproject.my_cars.domain.cars;
 
 import com.jproject.my_cars.domain.BaseEntity;
-import com.jproject.my_cars.domain.option.Options;
+import com.jproject.my_cars.domain.cars.img.Img;
+import com.jproject.my_cars.domain.cars.option.Options;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -26,9 +27,10 @@ public class Car extends BaseEntity {
     private List<Options> options = new ArrayList<>();
     @Enumerated(EnumType.STRING)
     private Manufacture manufacture;
-    private String img_path;
+    @OneToMany(mappedBy = "car",cascade = CascadeType.ALL)
+    private List<Img> images = new ArrayList<>();
 
-    public static Car registrationCar(String name, Integer price, String year, String distance_driven, boolean accident_history, String area , Fuel fuel, String company, Manufacture manufacture,String img_path){
+    public static Car registrationCar(String name, Integer price, String year, String distance_driven, boolean accident_history, String area , Fuel fuel, String company, Manufacture manufacture){
         Car cars = new Car();
         cars.name = name;
         cars.price = price;
@@ -39,13 +41,11 @@ public class Car extends BaseEntity {
         cars.fuel = fuel;
         cars.company = company;
         cars.manufacture = manufacture;
-        cars.img_path = img_path;
         return cars;
     }
     public void addOption(Options options){
         this.getOptions().add(options);
     }
-
     @Override
     public String toString() {
         return "Car{" +

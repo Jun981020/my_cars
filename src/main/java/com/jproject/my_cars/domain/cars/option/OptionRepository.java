@@ -1,4 +1,4 @@
-package com.jproject.my_cars.domain.option;
+package com.jproject.my_cars.domain.cars.option;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

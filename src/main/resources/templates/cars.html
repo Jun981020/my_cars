@@ -19,7 +19,7 @@
     <!-- carList -->
     <div class="container d-flex justify-content-around flex-wrap rounded">
       <div class="card m-5" style="width: 22rem;" th:each="list : ${car}">
-        <img th:src="${list.img_path}" class="card-img-top" alt="...">
+        <img th:src="${list.images.}" class="card-img-top" alt="...">
         <div class="card-body" style="background-color: #d1dbe8;">
           <h5 class="card-title" th:text="${list.name}">BWM-320</h5>
           <p class="card-text">가격: [[${list.price}]] (만원)</p>
