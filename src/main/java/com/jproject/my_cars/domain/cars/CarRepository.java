@@ -15,4 +15,6 @@ public interface CarRepository extends JpaRepository<Car,Long> {
     List<Car> findAllByManufacture(Manufacture manufacture);
     //연료별로 보기
     List<Car> findAllByFuel(Fuel fuel);
+    //이름으로 찾기
+    Car findByName(String name);
 }

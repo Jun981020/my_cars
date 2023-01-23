@@ -1,4 +1,4 @@
-package com.jproject.my_cars.domain.cars;
+package com.jproject.my_cars.domain.option;
 
 import jakarta.persistence.*;
 import lombok.Getter;

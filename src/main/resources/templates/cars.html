@@ -17,46 +17,18 @@
     </div>
 
     <!-- carList -->
-    <div class="container d-flex justify-content-around rounded">
-      <div class="card m-5" style="width: 18rem;">
-        <img src="/img/bmw/320_i/bmw_320i_main.webp" class="card-img-top" alt="...">
+    <div class="container d-flex justify-content-around flex-wrap rounded">
+      <div class="card m-5" style="width: 22rem;" th:each="list : ${car}">
+        <img th:src="${list.img_path}" class="card-img-top" alt="...">
         <div class="card-body" style="background-color: #d1dbe8;">
-          <h5 class="card-title">BWM-320</h5>
-          <p class="card-text">가격: </p>
-          <p class="card-text">주행거리: </p>
-          <a href="#" class="btn" style="background-color: #adb5bd;">Go somewhere</a>
-        </div>
-      </div>
-      <div class="card m-5" style="width: 18rem;">
-        <img src="/img/hyundai/sonata/sonata.main.webp" class="card-img-top" alt="...">
-        <div class="card-body" style="background-color: #d1dbe8;">
-          <h5 class="card-title">Sonata</h5>
-          <p class="card-text">가격: </p>
-          <p class="card-text">주행거리: </p>
+          <h5 class="card-title" th:text="${list.name}">BWM-320</h5>
+          <p class="card-text">가격: [[${list.price}]] (만원)</p>
+          <p class="card-text">주행거리: [[${list.distance_driven}]] (KM)</p>
           <a href="#" class="btn" style="background-color: #adb5bd;">Go somewhere</a>
         </div>
       </div>
     </div>
-    <div class="d-flex justify-content-around mt-5 rounded">
-      <div class="card m-5" style="width: 18rem;">
-        <img src="/img/hyundai/tucson/Tucson_main.webp" class="card-img-top" alt="...">
-        <div class="card-body" style="background-color: #d1dbe8;">
-          <h5 class="card-title">Tucson</h5>
-          <p class="card-text">가격: </p>
-          <p class="card-text">주행거리: </p>
-          <a href="#" class="btn" style="background-color: #adb5bd;">Go somewhere</a>
-        </div>
-      </div>
-      <div class="card m-5" style="width: 18rem;">
-        <img src="/img/kia/sorento/sorento_main.webp" class="card-img-top" alt="...">
-        <div class="card-body" style="background-color: #d1dbe8;">
-          <h5 class="card-title">Sorento</h5>
-          <p class="card-text">가격: </p>
-          <p class="card-text">주행거리: </p>
-          <a href="#" class="btn" style="background-color: #adb5bd;">Go somewhere</a>
-        </div>
-      </div>
-    </div>
+
   </div>
   <th:block th:insert="~{fragment/footer :: footer}"></th:block>
 </div>

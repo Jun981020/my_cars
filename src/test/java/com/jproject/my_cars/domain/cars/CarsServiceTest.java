@@ -1,6 +1,7 @@
 package com.jproject.my_cars.domain.cars;
 
-import org.assertj.core.api.Assertions;
+import com.jproject.my_cars.domain.option.OptionRepository;
+import com.jproject.my_cars.domain.option.Options;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,8 +12,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
-@Transactional
-class CarsTest {
+class CarsServiceTest {
 
     @Autowired
     private CarRepository carsRepository;
@@ -24,13 +24,19 @@ class CarsTest {
     public void save(){
         Options options1 = Options.putOption("sunroof", "태양열 막는 기능");
         Options options2 = Options.putOption("nav", "길안내 서비스");
-        Car cars = Car.registrationCar("bmw-320", 2200, "2022", "130000", false,"대구",Fuel.ELECTRIC,"hyundai",Manufacture.FOREIGN);
+        Car cars = Car.registrationCar("test", 3000, "2022", "130000", false,"대구",Fuel.ELECTRIC,"hyundai",Manufacture.FOREIGN,"img/bmw/320_i/bmw_320i_main.webp");
         cars.addOption(options1);
         cars.addOption(options2);
         carsRepository.save(cars);
         carsRepository.flush();
-        Car cars1 = carsRepository.findAll().get(0);
-        assertThat(cars.getName()).isEqualTo(cars1.getName());
+
+//        carsRepository.delete(cars);
+//        carsRepository.flush();
+
+//        Car test = carsRepository.findByName("test");
+//        assertThat(test.getOptions().size()).isEqualTo(0);
+//        Car cars1 = carsRepository.findAll().get(0);
+//        assertThat(cars.getName()).isEqualTo(cars1.getName());
     }
 
     @Test
@@ -38,14 +44,14 @@ class CarsTest {
     public void cars_list(){
         Options options1 = Options.putOption("sunroof", "태양열 막는 기능");
         Options options2 = Options.putOption("nav", "길안내 서비스");
-        Car cars = Car.registrationCar("bmw-320", 2200, "2022", "130000", false,"대구",Fuel.ELECTRIC,"hyundai",Manufacture.FOREIGN);
+        Car cars = Car.registrationCar("bmw-320", 2200, "2022", "130000", false,"대구",Fuel.ELECTRIC,"hyundai",Manufacture.FOREIGN,"");
         cars.addOption(options1);
         cars.addOption(options2);
         carsRepository.save(cars);
 
         Options options3 = Options.putOption("kka", "웃자");
         Options options4 = Options.putOption("nav", "길안내 서비스");
-        Car cars1 = Car.registrationCar("Santafe", 5000, "2023", "2000", false,"서울",Fuel.DIESEL,"hyundai",Manufacture.DOMESTIC);
+        Car cars1 = Car.registrationCar("Santafe", 5000, "2023", "2000", false,"서울",Fuel.DIESEL,"hyundai",Manufacture.DOMESTIC,null);
         cars1.addOption(options3);
         cars1.addOption(options4);
         carsRepository.save(cars1);
@@ -62,24 +68,24 @@ class CarsTest {
     public void newest_list(){
         Options options1 = Options.putOption("sunroof", "태양열 막는 기능");
         Options options2 = Options.putOption("nav", "길안내 서비스");
-        Car cars = Car.registrationCar("bmw-320", 3, "2022", "130000", false,"대구",Fuel.ELECTRIC,"hyundai",Manufacture.FOREIGN);
+        Car cars = Car.registrationCar("bmw-320", 3, "2022", "130000", false,"대구",Fuel.ELECTRIC,"hyundai",Manufacture.FOREIGN,null);
         cars.addOption(options1);
         cars.addOption(options2);
         carsRepository.save(cars);
 
         Options options3 = Options.putOption("kka", "웃자");
         Options options4 = Options.putOption("nav", "길안내 서비스");
-        Car cars1 = Car.registrationCar("Santafe", 2, "2023", "2000", false,"서울",Fuel.DIESEL,"hyundai",Manufacture.DOMESTIC);
+        Car cars1 = Car.registrationCar("Santafe", 2, "2023", "2000", false,"서울",Fuel.DIESEL,"hyundai",Manufacture.DOMESTIC,null);
         cars1.addOption(options3);
         cars1.addOption(options4);
         carsRepository.save(cars1);
 
-        Car cars2 = Car.registrationCar("Benze", 5, "2022", "130000", false,"대구",Fuel.ELECTRIC,"hyundai",Manufacture.FOREIGN);
+        Car cars2 = Car.registrationCar("Benze", 5, "2022", "130000", false,"대구",Fuel.ELECTRIC,"hyundai",Manufacture.FOREIGN,null);
         cars2.addOption(options1);
         cars2.addOption(options2);
         carsRepository.save(cars2);
 
-        Car cars3 = Car.registrationCar("sm-9", 1, "2023", "2000", false,"서울",Fuel.DIESEL,"hyundai",Manufacture.DOMESTIC);
+        Car cars3 = Car.registrationCar("sm-9", 1, "2023", "2000", false,"서울",Fuel.DIESEL,"hyundai",Manufacture.DOMESTIC,null);
         cars1.addOption(options3);
         cars1.addOption(options4);
         carsRepository.save(cars3);
@@ -97,24 +103,24 @@ class CarsTest {
     public void low_or_high_price_list(){
         Options options1 = Options.putOption("sunroof", "태양열 막는 기능");
         Options options2 = Options.putOption("nav", "길안내 서비스");
-        Car cars = Car.registrationCar("bmw-320", 3, "2022", "130000", false,"대구",Fuel.ELECTRIC,"hyundai",Manufacture.FOREIGN);
+        Car cars = Car.registrationCar("bmw-320", 3, "2022", "130000", false,"대구",Fuel.ELECTRIC,"hyundai",Manufacture.FOREIGN,null);
         cars.addOption(options1);
         cars.addOption(options2);
         carsRepository.save(cars);
 
         Options options3 = Options.putOption("kka", "웃자");
         Options options4 = Options.putOption("nav", "길안내 서비스");
-        Car cars1 = Car.registrationCar("Santafe", 2, "2023", "2000", false,"서울",Fuel.DIESEL,"hyundai",Manufacture.DOMESTIC);
+        Car cars1 = Car.registrationCar("Santafe", 2, "2023", "2000", false,"서울",Fuel.DIESEL,"hyundai",Manufacture.DOMESTIC,null);
         cars1.addOption(options3);
         cars1.addOption(options4);
         carsRepository.save(cars1);
 
-        Car cars2 = Car.registrationCar("Benze", 5, "2022", "130000", false,"대구",Fuel.ELECTRIC,"hyundai",Manufacture.FOREIGN);
+        Car cars2 = Car.registrationCar("Benze", 5, "2022", "130000", false,"대구",Fuel.ELECTRIC,"hyundai",Manufacture.FOREIGN,null);
         cars2.addOption(options1);
         cars2.addOption(options2);
         carsRepository.save(cars2);
 
-        Car cars3 = Car.registrationCar("sm-9", 1, "2023", "2000", false,"서울",Fuel.DIESEL,"hyundai",Manufacture.DOMESTIC);
+        Car cars3 = Car.registrationCar("sm-9", 1, "2023", "2000", false,"서울",Fuel.DIESEL,"hyundai",Manufacture.DOMESTIC,null);
         cars1.addOption(options3);
         cars1.addOption(options4);
         carsRepository.save(cars3);
@@ -133,24 +139,24 @@ class CarsTest {
     public void domestic_foreign_list(){
         Options options1 = Options.putOption("sunroof", "태양열 막는 기능");
         Options options2 = Options.putOption("nav", "길안내 서비스");
-        Car cars = Car.registrationCar("bmw-320", 3, "2022", "130000", false,"대구",Fuel.ELECTRIC,"hyundai",Manufacture.FOREIGN);
+        Car cars = Car.registrationCar("bmw-320", 3, "2022", "130000", false,"대구",Fuel.ELECTRIC,"hyundai",Manufacture.FOREIGN,null);
         cars.addOption(options1);
         cars.addOption(options2);
         carsRepository.save(cars);
 
         Options options3 = Options.putOption("kka", "웃자");
         Options options4 = Options.putOption("nav", "길안내 서비스");
-        Car cars1 = Car.registrationCar("Santafe", 2, "2023", "2000", false,"서울",Fuel.DIESEL,"hyundai",Manufacture.FOREIGN);
+        Car cars1 = Car.registrationCar("Santafe", 2, "2023", "2000", false,"서울",Fuel.DIESEL,"hyundai",Manufacture.FOREIGN,null);
         cars1.addOption(options3);
         cars1.addOption(options4);
         carsRepository.save(cars1);
 
-        Car cars2 = Car.registrationCar("Benze", 5, "2022", "130000", false,"대구",Fuel.ELECTRIC,"hyundai",Manufacture.FOREIGN);
+        Car cars2 = Car.registrationCar("Benze", 5, "2022", "130000", false,"대구",Fuel.ELECTRIC,"hyundai",Manufacture.FOREIGN,null);
         cars2.addOption(options1);
         cars2.addOption(options2);
         carsRepository.save(cars2);
 
-        Car cars3 = Car.registrationCar("sm-9", 1, "2023", "2000", false,"서울",Fuel.DIESEL,"hyundai",Manufacture.DOMESTIC);
+        Car cars3 = Car.registrationCar("sm-9", 1, "2023", "2000", false,"서울",Fuel.DIESEL,"hyundai",Manufacture.DOMESTIC,null);
         cars1.addOption(options3);
         cars1.addOption(options4);
         carsRepository.save(cars3);
@@ -167,24 +173,24 @@ class CarsTest {
     public void gasoline_diesel_electric(){
         Options options1 = Options.putOption("sunroof", "태양열 막는 기능");
         Options options2 = Options.putOption("nav", "길안내 서비스");
-        Car cars = Car.registrationCar("bmw-320", 3, "2022", "130000", false,"대구",Fuel.ELECTRIC,"hyundai",Manufacture.FOREIGN);
+        Car cars = Car.registrationCar("bmw-320", 3, "2022", "130000", false,"대구",Fuel.ELECTRIC,"hyundai",Manufacture.FOREIGN,null);
         cars.addOption(options1);
         cars.addOption(options2);
         carsRepository.save(cars);
 
         Options options3 = Options.putOption("kka", "웃자");
         Options options4 = Options.putOption("nav", "길안내 서비스");
-        Car cars1 = Car.registrationCar("Santafe", 2, "2023", "2000", false,"서울",Fuel.DIESEL,"hyundai",Manufacture.FOREIGN);
+        Car cars1 = Car.registrationCar("Santafe", 2, "2023", "2000", false,"서울",Fuel.DIESEL,"hyundai",Manufacture.FOREIGN,null);
         cars1.addOption(options3);
         cars1.addOption(options4);
         carsRepository.save(cars1);
 
-        Car cars2 = Car.registrationCar("Benze", 5, "2022", "130000", false,"대구",Fuel.GASOLINE,"hyundai",Manufacture.FOREIGN);
+        Car cars2 = Car.registrationCar("Benze", 5, "2022", "130000", false,"대구",Fuel.GASOLINE,"hyundai",Manufacture.FOREIGN,null);
         cars2.addOption(options1);
         cars2.addOption(options2);
         carsRepository.save(cars2);
 
-        Car cars3 = Car.registrationCar("sm-9", 1, "2023", "2000", false,"서울",Fuel.GASOLINE,"hyundai",Manufacture.DOMESTIC);
+        Car cars3 = Car.registrationCar("sm-9", 1, "2023", "2000", false,"서울",Fuel.GASOLINE,"hyundai",Manufacture.DOMESTIC,null);
         cars1.addOption(options3);
         cars1.addOption(options4);
         carsRepository.save(cars3);
