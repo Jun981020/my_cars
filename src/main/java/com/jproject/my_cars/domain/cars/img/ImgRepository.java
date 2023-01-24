@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface ImgRepository extends JpaRepository<Img,Long> {
 
-//    @Query("select i from Img i , Car c where i.name like '%main' and c.name = :name")
-//    Img findByNameLikeAndCar(@Param("id")Long id);
+    @Query("select i from Img i , Car c where i.name like '%main' and c.id = :id")
+    List<Img> findMainImg(@Param("id")Long id);
 }

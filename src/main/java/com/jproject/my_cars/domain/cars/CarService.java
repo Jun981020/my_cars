@@ -10,7 +10,6 @@ import java.util.List;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class CarService {
-
     private final CarRepository carRepository;
 
     public List<Car> getAll(){

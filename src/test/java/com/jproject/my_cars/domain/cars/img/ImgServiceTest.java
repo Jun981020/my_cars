@@ -37,7 +37,7 @@ class ImgServiceTest {
         carRepository.save(cars);
         carRepository.flush();
         Car findCar = carRepository.findByName("bmw-320i");
-
+        System.out.println("findCar = " + findCar.getImages());
 
 //        Img i = imgRepository.findById(1L).get();
 //        assertThat(i.getCar().getName()).isEqualTo("test1");
@@ -53,6 +53,13 @@ class ImgServiceTest {
     @Test
     @DisplayName("메인 이미지만 가져오기")
     public void mainImageGet(){
+        List<Car> all = carRepository.findAll();
+        for (Car car : all) {
+            List<Img> mainImg = imgRepository.findMainImg(car.getId());
+            for (Img img : mainImg) {
+                System.out.println("img = " + img);
+            }
+        }
 
     }
 

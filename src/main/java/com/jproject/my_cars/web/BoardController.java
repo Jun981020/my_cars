@@ -36,7 +36,7 @@ public class BoardController {
     @PostMapping("/board/writeAction")
     public String board_write_action(@ModelAttribute BoardWriteDto dto){
         Member member = memberService.getMember(dto.getLoginId());
-        Board board = Board.writeBoard(dto.getTitle(), dto.getContent(), member, 1, "1234");
+        Board board = Board.writeBoard(dto.getTitle(), dto.getContent(), member, dto.getPrivate_content(), dto.getPrivate_content_password());
         boardService.saveBoard(board);
         return "redirect:/board/list";
     }
@@ -47,7 +47,7 @@ public class BoardController {
         model.addAttribute("boardId",board.getId());
         return "board_one";
     }
-    @PostMapping("/board/checkPrivateContent")
+    @GetMapping("/board/checkPrivateContent")
     @ResponseBody
     public boolean checkPassword(@RequestParam Map<String,Object> params, Model model){
         String password = params.get("password").toString();

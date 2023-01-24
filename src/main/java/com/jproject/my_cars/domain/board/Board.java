@@ -22,7 +22,6 @@ public class Board extends BaseEntity {
     private Member member;
     @OneToMany(mappedBy = "board",cascade = CascadeType.ALL)
     private List<Reply> replies = new ArrayList<>();
-
     private int private_content;
     private String private_content_password;
 

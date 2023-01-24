@@ -39,7 +39,7 @@
                     </td>
                     <td th:text="${#temporals.format(board.createAt,'yyyy-MM-dd')}"></td>
                     <td th:if="${board.private_content == 0}" th:text="공개"></td>
-                    <td th:if="${board.private_content == 1}" th:text="비공개"></td>
+                    <td th:unless="${board.private_content == 0}" th:text="비공개"></td>
                 </tr>
             </table>
             <div class="w-100 pt-5 d-flex justify-content-end">
@@ -104,7 +104,7 @@
         $.ajax({
         url : "/board/checkPrivateContent",
         data : params,
-        type : "POST"
+        type : "GET"
         })
         .done(function (req) {
           if(req){

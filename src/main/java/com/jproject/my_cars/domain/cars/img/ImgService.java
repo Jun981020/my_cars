@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ImgService {
     private final ImgRepository imgRepository;
 
-//    public Img findMainImg(){
-//
+//    public Img findMainImg(Long id){
+//        return imgRepository.findMainImg(id);
 //    }
 }
