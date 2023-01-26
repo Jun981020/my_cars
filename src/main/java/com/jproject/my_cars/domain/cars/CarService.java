@@ -15,5 +15,8 @@ public class CarService {
     public List<Car> getAll(){
         return carRepository.findAll();
     }
+    public Car getOne(Long id){
+        return carRepository.findById(id).get();
+    }
 
 }

@@ -3,6 +3,7 @@ package com.jproject.my_cars.domain.cars;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CarRepository extends JpaRepository<Car,Long> {
     //최신순으로 정렬
@@ -17,4 +18,6 @@ public interface CarRepository extends JpaRepository<Car,Long> {
     List<Car> findAllByFuel(Fuel fuel);
     //이름으로 찾기
     Car findByName(String name);
+    //차량번호로 가져오기
+    Optional<Car> findById(Long id);
 }

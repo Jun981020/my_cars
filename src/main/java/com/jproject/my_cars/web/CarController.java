@@ -27,8 +27,9 @@ public class CarController {
     }
     @GetMapping("/cars/carOne/{num}")
     public String car_one(@PathVariable("num")int num,Model model){
-
-
-        return "carsOne";
+        Car car = carService.getOne((long) num);
+        System.out.println("car.getImages() = " + car.getImages());
+        model.addAttribute("car",car);
+        return "cars_one";
     }
 }
