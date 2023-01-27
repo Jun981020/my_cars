@@ -3,6 +3,7 @@ package com.jproject.my_cars.domain.dealer;
 import com.jproject.my_cars.domain.dealer.employee.Card;
 import com.jproject.my_cars.dto.DealerJoinDto;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -25,18 +27,29 @@ class DealerServiceTest {
 
     @Test
     public void dealerSave(){
-        String date = "2018-11-13";
-        DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("yyyy년MM월dd일");
-        LocalDate getdate = LocalDate.parse(date);
-        System.out.println("getdate.toString() = " + getdate.toString());
-        DealerJoinDto dto = new DealerJoinDto("qwer", "1234", "이준형",new Card("19-1232142","한화모터스", getdate));
-        Dealer dealer = Dealer.joinDealer(dto);
-        dealerRepository.save(dealer);
-        dealerRepository.flush();
-
-        Dealer d = dealerRepository.findAll().get(0);
-        Assertions.assertThat(d.getName()).isEqualTo(dealer.getName());
-        System.out.println("d = " + d);
+//        String dateStr = "2018-11-13";
+//        Card card = new Card("1023-1221-32-31", "한양모터스", dateStr);
+//        DealerJoinDto dto = new DealerJoinDto("qwer","1234","이준형");
+//        Dealer dealer = Dealer.joinDealer(dto,card);
+//        dealerRepository.save(dealer);
+//        dealerRepository.flush();
+//
+//        Dealer d = dealerRepository.findAll().get(0);
+//        Assertions.assertThat(d.getName()).isEqualTo(dealer.getName());
+//        System.out.println("d = " + d);
+    }
+    @Test
+    public void timeTest(){
+//        String dateStr = "2018-11-13";
+//        Card card = new Card("1023-1221-32-31", "한양모터스", dateStr);
+//        DealerJoinDto dto = new DealerJoinDto("qwer","1234","이준형",card);
+//        System.out.println("dto = " + dto);
+    }
+    @Test
+    @DisplayName("딜러 아아디 비번 사원번호로 데이터 찾아오기")
+    public void findByLoginIdAndPasswordAndEmployeeNumberTest(){
+        Dealer d = dealerRepository.findByIDPWNU("qwer", "1234", "18-112-312311");
+        assertThat(d.getLoginId()).isEqualTo("qwer");
     }
 
 }

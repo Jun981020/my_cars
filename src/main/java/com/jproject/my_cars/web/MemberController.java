@@ -6,7 +6,9 @@ import com.jproject.my_cars.domain.member.Role;
 import com.jproject.my_cars.dto.MemberJoinDto;
 import com.jproject.my_cars.dto.MemberLoginDto;
 import com.jproject.my_cars.dto.TestDto;
+import com.jproject.my_cars.web.session.SessionManager;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,14 +19,15 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService memberService;
+    private final SessionManager sessionManager;
 
     @GetMapping("/member/login")
     public String loginForm(){
-        return "login";
+        return "member/login";
     }
     @GetMapping("/member/join")
     public String joinForm(){
-        return "join";
+        return "member/join";
     }
     @GetMapping("/member/checkLoginIdDuplicate")
     @ResponseBody
@@ -46,18 +49,17 @@ public class MemberController {
     }
 
     @PostMapping("/member/loginAction")
-    public String login_action(@ModelAttribute MemberLoginDto dto ,HttpServletRequest request){
+    public String login_action(@ModelAttribute MemberLoginDto dto , HttpServletResponse response){
         Member member = memberService.getMember(dto.getId());
-        HttpSession session = request.getSession();
-        session.setAttribute("member",member);
-
-        Member member1 = (Member) session.getAttribute("member");
-        System.out.println("member = " + member1);
+        sessionManager.createSession(member,response);
+//        HttpSession session = request.getSession();
+//        session.setAttribute("member",member);
+//        Member member1 = (Member) session.getAttribute("member");
         return "redirect:/main";
     }
     @GetMapping("/member/mypage")
     public String my_page(){
-        return "mypage";
+        return "member/mypage";
     }
 
 }

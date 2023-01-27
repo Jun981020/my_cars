@@ -16,10 +16,18 @@ public class Card {
     private String company;
     private LocalDate acquisition_date;
 
-    public Card(String employee_number,String company,LocalDate acquisition_date){
+    public Card(String employee_number,String company, String date){
         this.employee_number = employee_number;
         this.company = company;
-        this.acquisition_date = acquisition_date;
+        this.acquisition_date = LocalDate.parse(date);
     }
 
+    @Override
+    public String toString() {
+        return "Card{" +
+                "employee_number='" + employee_number + '\'' +
+                ", company='" + company + '\'' +
+                ", acquisition_date=" + acquisition_date +
+                '}';
+    }
 }

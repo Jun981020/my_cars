@@ -24,13 +24,16 @@ public class Dealer {
     @OneToMany(mappedBy = "dealer",cascade = CascadeType.ALL)
     private List<Car> cars = new ArrayList<>();
 
-    public static Dealer joinDealer(DealerJoinDto dto){
+    public static Dealer joinDealer(DealerJoinDto dto,Card card){
         Dealer dealer = new Dealer();
         dealer.loginId = dto.getLoginId();
         dealer.password = dto.getPassword();
         dealer.name = dto.getName();
+        dealer.phone = dto.getPhone();
+        dealer.card = card;
         return dealer;
     }
+
 
     @Override
     public String toString() {
@@ -39,7 +42,10 @@ public class Dealer {
                 ", loginId='" + loginId + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
                 ", sale_count=" + sale_count +
+                ", card=" + card +
+                ", cars=" + cars +
                 '}';
     }
 }
