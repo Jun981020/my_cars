@@ -3,6 +3,7 @@ package com.jproject.my_cars.domain.cars;
 import com.jproject.my_cars.domain.BaseEntity;
 import com.jproject.my_cars.domain.cars.img.Img;
 import com.jproject.my_cars.domain.cars.option.Options;
+import com.jproject.my_cars.domain.dealer.Dealer;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -29,6 +30,17 @@ public class Car extends BaseEntity {
     private Manufacture manufacture;
     @OneToMany(mappedBy = "car",cascade = CascadeType.ALL)
     private List<Img> images = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "DEALER_ID")
+    private Dealer dealer;
+
+    public void setDealer(Dealer dealer){
+        if(this.dealer != null){
+            this.dealer.getCars().remove(this);
+        }
+        this.dealer = dealer;
+        dealer.getCars().add(this);
+    }
 
     public static Car registrationCar(String name, Integer price, String year, String distance_driven, boolean accident_history, String area , Fuel fuel, String company, Manufacture manufacture){
         Car cars = new Car();
