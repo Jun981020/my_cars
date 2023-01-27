@@ -11,11 +11,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class MemberController {
 
     private final MemberService memberService;
@@ -49,16 +52,22 @@ public class MemberController {
     }
 
     @PostMapping("/member/loginAction")
-    public String login_action(@ModelAttribute MemberLoginDto dto , HttpServletResponse response){
+    public String login_action(@ModelAttribute MemberLoginDto dto , HttpServletResponse response,HttpServletRequest request){
         Member member = memberService.getMember(dto.getId());
+        HttpSession session = request.getSession();
+        session.setAttribute("mode","member");
         sessionManager.createSession(member,response);
+
 //        HttpSession session = request.getSession();
 //        session.setAttribute("member",member);
 //        Member member1 = (Member) session.getAttribute("member");
         return "redirect:/main";
     }
     @GetMapping("/member/mypage")
-    public String my_page(){
+    public String my_page(HttpServletRequest request, Model model){
+        Member member = (Member) sessionManager.getSession(request);
+        log.info("member data: " + member);
+        model.addAttribute("member",member);
         return "member/mypage";
     }
 

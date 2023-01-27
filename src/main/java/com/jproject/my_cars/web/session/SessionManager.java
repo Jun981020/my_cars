@@ -3,6 +3,7 @@ package com.jproject.my_cars.web.session;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -11,9 +12,10 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
+@Slf4j
 public class SessionManager {
 
-    private static final String SESSION_COOKIE_NAME = "SessionId";
+    private static final String SESSION_COOKIE_NAME = "mySessionId";
     private Map<String,Object> sessionStore = new ConcurrentHashMap<>();
 
     //세선생성
@@ -23,6 +25,7 @@ public class SessionManager {
         sessionStore.put(sessionId,value);
 
         Cookie myCookie = new Cookie(SESSION_COOKIE_NAME,sessionId);
+        myCookie.setPath("/");
         response.addCookie(myCookie);
     }
     //세션 가져오기
@@ -31,6 +34,7 @@ public class SessionManager {
         if (find == null){
             return null;
         }
+        log.info("find.getvalue : " + find.getValue());
         return sessionStore.get(find.getValue());
     }
     public void expire(HttpServletRequest request){

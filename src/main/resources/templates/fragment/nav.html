@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<script th:inline="javascript">
+    function getCookie(){
+        	console.log(document.cookie);
+    }
+</script>
 <body>
     <th:block th:fragment = "nav">
     <nav class="d-flex justify-content-around text-white rounded" id="nav" style="height: 70px; font-size: 24px; line-height: 70px; background-color: #adb5bd;">
@@ -21,8 +26,17 @@
             <img src="/img/icon/free-icon-noticeboard-3000409.png" alt="" style="width: 30px ;height: 30px;margin-bottom: 2px;margin-left: 5px;">
         </div>
         <div>
-            <a href="/member/login"><span th:if="${session.SessionId == null}" th:utext="'<b>로그인</b>'"><b></b></span></a>
-            <a href="/member/mypage"><span th:if="${session.SessionId != null}" th:utext="'<b>마이페이지</b>'"><b></b></span></a>
+            <th:block th:if="${session.mode == null}">
+                <a href="/member/login"><span th:utext="'<b>로그인</b>'"><b></b></span></a>
+            </th:block>
+
+            <th:block th:if="${session.mode == member && session.mode != null}" >
+                <a href="/member/mypage"><span  th:utext="'<b>마이페이지</b>'"><b></b></span></a>
+            </th:block>
+
+            <th:block th:if="${session.mode != member}" >
+                <a href="/member/mypage"><span  th:utext="'<b>딜러페이지</b>'"><b></b></span></a>
+            </th:block>
             <img src="/img/icon/free-icon-user-5264565.png" alt="" style="width: 30px ;height: 30px;margin-bottom: 6px;">
         </div>
         <!-- 로그인일땐 마이페이지 비로그인일땐 로그인버튼 -->
