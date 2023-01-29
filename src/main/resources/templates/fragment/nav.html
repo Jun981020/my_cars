@@ -26,17 +26,15 @@
             <img src="/img/icon/free-icon-noticeboard-3000409.png" alt="" style="width: 30px ;height: 30px;margin-bottom: 2px;margin-left: 5px;">
         </div>
         <div>
-            <th:block th:if="${session.mode == null}">
-                <a href="/member/login"><span th:utext="'<b>로그인</b>'"><b></b></span></a>
-            </th:block>
+                <a href="/member/login" th:if="${session.mode} == null" th:utext="'<b>로그인</b>'">
 
-            <th:block th:if="${session.mode == member && session.mode != null}" >
-                <a href="/member/mypage"><span  th:utext="'<b>마이페이지</b>'"><b></b></span></a>
-            </th:block>
+                </a>
+                <a href="/member/mypage" th:if="${session.mode} == member" th:utext="'<b>마이페이지</b>'">
 
-            <th:block th:if="${session.mode != member}" >
-                <a href="/member/mypage"><span  th:utext="'<b>딜러페이지</b>'"><b></b></span></a>
-            </th:block>
+                </a>
+                <a href="/member/mypage" th:if="${session.mode} == dealer" th:utext="'<b>딜러페이지</b>">
+
+                </a>
             <img src="/img/icon/free-icon-user-5264565.png" alt="" style="width: 30px ;height: 30px;margin-bottom: 6px;">
         </div>
         <!-- 로그인일땐 마이페이지 비로그인일땐 로그인버튼 -->
