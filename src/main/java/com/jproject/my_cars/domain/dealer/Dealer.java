@@ -21,7 +21,7 @@ public class Dealer {
     private Integer sale_count;
     @Embedded
     private Card card;
-    @OneToMany(mappedBy = "dealer",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "dealer",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Car> cars = new ArrayList<>();
 
     public static Dealer joinDealer(DealerJoinDto dto,Card card){

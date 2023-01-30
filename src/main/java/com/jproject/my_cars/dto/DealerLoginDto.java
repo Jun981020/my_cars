@@ -7,6 +7,6 @@ public class DealerLoginDto {
 
     private String id;
     private String password;
-    private String number;
+    private String emnumber;
 
 }

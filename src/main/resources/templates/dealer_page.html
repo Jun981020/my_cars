@@ -9,7 +9,7 @@
     <th:block th:insert="~{fragment/nav :: nav}"></th:block>
     <!-- body -->
     <div class="container rounded mt-5 mb-5" style="background-color: #adb5bd;">
-        <div class="text-center p-5"><h2>마이페이지</h2></div>
+        <div class="text-center p-5"><h2>딜러페이지</h2></div>
         <div class="d-flex justify-content-center">
             <table class="table w-75">
                 <thead>
@@ -24,11 +24,11 @@
                 </tr>
                 <tr>
                     <th scope="row">아이디:</th>
-                    <td colspan="4" style="text-align: start;">[[${dealer.login_id}]]</td>
+                    <td colspan="4" style="text-align: start;">[[${dealer.loginId}]]</td>
                 </tr>
                 <tr>
                     <th scope="row">휴대폰 번호:</th>
-                    <td colspan="4" style="text-align: start;">[[${dealer.employee_number}]]</td>
+                    <td colspan="4" style="text-align: start;">[[${dealer.phone}]]</td>
                 </tr>
                 <tr>
                     <th scope="row">회사명:</th>
@@ -36,7 +36,7 @@
                 </tr>
                 <tr>
                     <th scope="row">사원증 번호:</th>
-                    <td colspan="4" style="text-align: start;">[[${dealer.card.phone}]]</td>
+                    <td colspan="4" style="text-align: start;">[[${dealer.card.employee_number}]]</td>
                 </tr>
                 <tr>
                     <th scope="row">사원증 발급일자:</th>
@@ -50,10 +50,12 @@
             </table>
         </div>
         <div class="d-flex justify-content-end w-75 pt-5 pb-5">
-            <button class="btn btn-danger btn-lg" th:onclick="|location.href='@{/member/logout}'|" style="height:45px">
+            <button class="btn btn-danger btn-lg" th:onclick="|location.href='@{/dealer/logout}'|" style="height:45px">
                 로그아웃
             </button>
         </div>
+        <hr>
+
     </div>
     <th:block th:insert="~{fragment/footer :: footer}"></th:block>
 </div>

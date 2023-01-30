@@ -22,10 +22,7 @@ public class MainController {
     }
 
     @GetMapping("/main")
-    public String main(HttpServletRequest request, Model model){
-        Member member = (Member) sessionManager.getSession(request);
-        model.addAttribute("member",member);
-        System.out.println("member = " + member);
+    public String main(){
         return "main";
     }
 }

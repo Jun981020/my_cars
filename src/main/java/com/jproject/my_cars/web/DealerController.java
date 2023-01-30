@@ -9,15 +9,15 @@ import com.jproject.my_cars.web.session.SessionManager;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class DealerController {
     private final DealerService dealerService;
     private final SessionManager sessionManager;
@@ -32,7 +32,14 @@ public class DealerController {
     }
     @PostMapping("/dealer/loginAction")
     public String dealer_login_action(@ModelAttribute DealerLoginDto dto, HttpServletResponse response, HttpServletRequest request){
+        log.info("여기까지 들어옴 dto value:"+dto);
         Dealer dealer = dealerService.findOne(dto.getId());
+        if(sessionManager.getSession(request) != null){
+            sessionManager.expire(request);
+        }
+        if(request.getSession().getAttribute("mode") != null){
+            request.getSession().invalidate();
+        }
         sessionManager.createSession(dealer,response);
         request.getSession().setAttribute("mode","dealer");
         return "redirect:/main";
@@ -50,16 +57,25 @@ public class DealerController {
         return "redirect:/main";
     }
     @GetMapping("/dealer/check_IDPWNU")
+    @ResponseBody
     public boolean dealer_check_id_pw_nu(@RequestParam("id")String id,
                                          @RequestParam("password")String password,
                                          @RequestParam("number")String number){
+        log.info("check_idpwnu");
         return dealerService.check_login_id_pw_num(id,password,number);
     }
-    @GetMapping("/dealer/dealer_page")
+    @GetMapping("/dealer/dealerPage")
     public String dealer_page(HttpServletRequest request, Model model){
         Dealer entity = (Dealer) sessionManager.getSession(request);
+        System.out.println("entity = " + entity);
         model.addAttribute("dealer",entity);
         return "dealer_page";
+    }
+    @GetMapping("/dealer/logout")
+    public String dealer_logout(HttpServletRequest request){
+        sessionManager.expire(request);
+        request.getSession().invalidate();
+        return "redirect:/main";
     }
 
 }
