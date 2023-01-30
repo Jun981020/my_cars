@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class DealerLoginDto {
 
-    private String loginId;
+    private String id;
     private String password;
+    private String number;
+
 }

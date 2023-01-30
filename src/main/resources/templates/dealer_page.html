@@ -14,25 +14,37 @@
             <table class="table w-75">
                 <thead>
                 <tr>
-                    <th colspan="4" style="text-align: center;">[[${member.name}]] 님의 회원정보</th>
+                    <th colspan="4" style="text-align: center;">[[${dealer.name}]] 딜러님의 정보</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <th scope="row">이름:</th>
-                    <td colspan="4" style="text-align: start;">[[${member.name}]]</td>
+                    <td colspan="4" style="text-align: start;">[[${dealer.name}]]</td>
                 </tr>
                 <tr>
-                    <th scope="row">이메일:</th>
-                    <td colspan="4" style="text-align: start;">[[${member.email}]]</td>
+                    <th scope="row">아이디:</th>
+                    <td colspan="4" style="text-align: start;">[[${dealer.login_id}]]</td>
                 </tr>
                 <tr>
                     <th scope="row">휴대폰 번호:</th>
-                    <td colspan="4" style="text-align: start;">[[${member.phone}]]</td>
+                    <td colspan="4" style="text-align: start;">[[${dealer.employee_number}]]</td>
                 </tr>
                 <tr>
-                    <th scope="row">회원등급:</th>
-                    <td colspan="4" style="text-align: start;"><b>[[${member.role}]]</b></td>
+                    <th scope="row">회사명:</th>
+                    <td colspan="4" style="text-align: start;">[[${dealer.card.company}]]</td>
+                </tr>
+                <tr>
+                    <th scope="row">사원증 번호:</th>
+                    <td colspan="4" style="text-align: start;">[[${dealer.card.phone}]]</td>
+                </tr>
+                <tr>
+                    <th scope="row">사원증 발급일자:</th>
+                    <td colspan="4" style="text-align: start;"><b>[[${dealer.card.acquisition_date}]]</b></td>
+                </tr>
+                <tr>
+                    <th scope="row">차량판매횟수:</th>
+                    <td colspan="4" style="text-align: start;"><b>[[${dealer.sale_count}]]</b></td>
                 </tr>
                 </tbody>
             </table>

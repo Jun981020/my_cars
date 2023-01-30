@@ -28,5 +28,7 @@ public class DealerService {
     public boolean check_login_id_pw_num(String id,String pw,String nu){
         return dealerRepository.findByIDPWNU(id, pw, nu) != null;
     }
-
+    public Dealer findOne(String id){
+        return dealerRepository.findByLoginId(id);
+    }
 }

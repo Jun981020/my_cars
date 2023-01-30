@@ -55,8 +55,7 @@ public class MemberController {
     public String login_action(@ModelAttribute MemberLoginDto dto , HttpServletResponse response,HttpServletRequest request){
         Member member = memberService.getMember(dto.getId());
         HttpSession session = request.getSession();
-        session.setAttribute("mode","dealer");
-        System.out.println("session.getAttribute(\"mode\") = " + session.getAttribute("mode"));
+        session.setAttribute("mode","member");
         sessionManager.createSession(member,response);
 
 //        HttpSession session = request.getSession();
@@ -70,6 +69,12 @@ public class MemberController {
         log.info("member data: " + member);
         model.addAttribute("member",member);
         return "member/mypage";
+    }
+    @GetMapping("/member/logout")
+    public String member_logout(HttpServletRequest request){
+        sessionManager.expire(request);
+        request.getSession().invalidate();
+        return "redirect:/main";
     }
 
 }

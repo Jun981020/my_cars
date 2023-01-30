@@ -16,5 +16,4 @@ public class DealerJoinDto {
     private String company;
     private String acquisition_date;
 
-
 }
