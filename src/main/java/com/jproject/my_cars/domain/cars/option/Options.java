@@ -19,14 +19,7 @@ public class Options {
         return options;
     }
 
-    @Override
-    public String toString() {
-        return "Options{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
+
     //    SUNROOF,
 //    HEADLAMP,
 //    PARKING_SENSOR,

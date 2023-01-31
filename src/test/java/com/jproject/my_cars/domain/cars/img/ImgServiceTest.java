@@ -30,7 +30,7 @@ class ImgServiceTest {
         Options options1 = Options.putOption("sunroof", "태양열 막는 기능");
         Options options2 = Options.putOption("nav", "길안내 서비스");
         Img img = Img.addImg("bmw-320-main", "img/bmw/320_i/bmw_320i_main.webp");
-        Car cars = Car.registrationCar("bmw-320i", 3000, "2022", "130000", false,"대구", Fuel.ELECTRIC,"BMW", Manufacture.FOREIGN);
+        Car cars = Car.registrationCar("bmw-320i", 3000, "2022", "130000", false,"대구", "ELECTRIC","BMW", "FOREIGN");
         cars.addOption(options1);
         cars.addOption(options2);
         img.setCar(cars);

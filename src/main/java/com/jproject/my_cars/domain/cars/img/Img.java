@@ -29,13 +29,4 @@ public class Img {
         car.getImages().add(this);
     }
 
-    @Override
-    public String toString() {
-        return "Img{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", path='" + path + '\'' +
-                ", car=" + car +
-                '}';
-    }
 }

@@ -3,11 +3,13 @@ package com.jproject.my_cars.web;
 import com.jproject.my_cars.domain.cars.Car;
 import com.jproject.my_cars.domain.cars.CarService;
 import com.jproject.my_cars.domain.cars.img.ImgService;
+import com.jproject.my_cars.dto.CarPostsDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,11 +21,12 @@ public class CarController {
     private final CarService carService;
     private final ImgService imgService;
 
-    @GetMapping("/cars")
-    public String cars(Model model){
+    @GetMapping(value = "/cars")
+    @ResponseBody
+    public ResponseEntity<List<Car>> cars(Model model){
         List<Car> car = carService.getAll();
         model.addAttribute("car",car);
-        return "cars";
+        return new ResponseEntity<>(car, HttpStatus.OK);
     }
     @GetMapping("/cars/carOne/{num}")
     public String car_one(@PathVariable("num")int num,Model model){
@@ -31,5 +34,15 @@ public class CarController {
         System.out.println("car.getImages() = " + car.getImages());
         model.addAttribute("car",car);
         return "cars_one";
+    }
+    @PostMapping("/cars/posts")
+    public String car_posts(){
+
+        return "";
+    }
+    @PostMapping("/dto")
+    @ResponseBody
+    public ResponseEntity<CarPostsDto> dtoTest(@ModelAttribute() CarPostsDto dto){
+        return ResponseEntity.ok(dto);
     }
 }

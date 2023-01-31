@@ -1,5 +1,6 @@
 package com.jproject.my_cars.domain.cars;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jproject.my_cars.domain.BaseEntity;
 import com.jproject.my_cars.domain.cars.img.Img;
 import com.jproject.my_cars.domain.cars.option.Options;
@@ -21,15 +22,15 @@ public class Car extends BaseEntity {
     private String distance_driven;
     private boolean accident_history;
     private String area;
-    @Enumerated(EnumType.STRING)
-    private Fuel fuel;
+    private String fuel;
     private String company;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Options> options = new ArrayList<>();
-    @Enumerated(EnumType.STRING)
-    private Manufacture manufacture;
+    private String manufacture;
+    @JsonIgnore
     @OneToMany(mappedBy = "car",cascade = CascadeType.ALL)
     private List<Img> images = new ArrayList<>();
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DEALER_ID")
     private Dealer dealer;
@@ -42,7 +43,7 @@ public class Car extends BaseEntity {
         dealer.getCars().add(this);
     }
 
-    public static Car registrationCar(String name, Integer price, String year, String distance_driven, boolean accident_history, String area , Fuel fuel, String company, Manufacture manufacture){
+    public static Car registrationCar(String name, Integer price, String year, String distance_driven, boolean accident_history, String area , String fuel, String company, String manufacture){
         Car cars = new Car();
         cars.name = name;
         cars.price = price;
@@ -57,21 +58,5 @@ public class Car extends BaseEntity {
     }
     public void addOption(Options options){
         this.getOptions().add(options);
-    }
-    @Override
-    public String toString() {
-        return "Car{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", year='" + year + '\'' +
-                ", distance_driven='" + distance_driven + '\'' +
-                ", accident_history=" + accident_history +
-                ", area='" + area + '\'' +
-                ", fuel=" + fuel +
-                ", company='" + company + '\'' +
-                ", options=" + options +
-                ", manufacture=" + manufacture +
-                '}';
     }
 }
