@@ -6,6 +6,8 @@ import com.jproject.my_cars.domain.cars.option.Options;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -20,6 +22,10 @@ class CarsServiceTest {
     private CarRepository carsRepository;
     @Autowired
     private OptionRepository optionRepository;
+    @LocalServerPort
+    private int port;
+    @Autowired
+    private TestRestTemplate restTemplate;
 
     @Test
     //차량등록
@@ -208,5 +214,9 @@ class CarsServiceTest {
         assertThat(electric_list.size()).isEqualTo(1);
     }
 
+    @Test
+    public void response_entity_test(){
+        String uri = "http://localhost:"+port+"/cars";
+    }
 
 }

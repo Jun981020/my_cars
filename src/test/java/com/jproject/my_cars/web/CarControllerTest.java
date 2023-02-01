@@ -35,8 +35,9 @@ class CarControllerTest {
         mockMvc.perform(get("/cars"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(content().)
+//                .andExpect(content().string())
                 .andDo(print());
     }
+
 
 }
