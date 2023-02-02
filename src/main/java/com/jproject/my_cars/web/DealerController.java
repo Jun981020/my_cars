@@ -24,11 +24,11 @@ public class DealerController {
 
     @GetMapping("/dealer/login")
     public String dealer_login(){
-        return "dealer_login";
+        return "dealer/dealer_login";
     }
     @GetMapping("/dealer/join")
     public String dealer_join(){
-        return "dealer_join";
+        return "dealer/dealer_join";
     }
     @PostMapping("/dealer/loginAction")
     public String dealer_login_action(@ModelAttribute DealerLoginDto dto, HttpServletResponse response, HttpServletRequest request){
@@ -69,7 +69,7 @@ public class DealerController {
         Dealer entity = (Dealer) sessionManager.getSession(request);
         System.out.println("entity = " + entity);
         model.addAttribute("dealer",entity);
-        return "dealer_page";
+        return "dealer/dealer_page";
     }
     @GetMapping("/dealer/logout")
     public String dealer_logout(HttpServletRequest request){

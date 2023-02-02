@@ -27,11 +27,11 @@ public class BoardController {
     public String board_list(Model model){
         List<Board> boards = boardService.boardList();
         model.addAttribute("list",boards);
-        return "board";
+        return "board/board";
     }
     @GetMapping("/board/write")
     public String board_write(){
-        return "board_write";
+        return "board/board_write";
     }
     @PostMapping("/board/writeAction")
     public String board_write_action(@ModelAttribute BoardWriteDto dto){
@@ -45,7 +45,7 @@ public class BoardController {
         Board board = boardService.findBoardByBoardId((long) num).get();
         model.addAttribute("board",board);
         model.addAttribute("boardId",board.getId());
-        return "board_one";
+        return "board/board_one";
     }
     @GetMapping("/board/checkPrivateContent")
     @ResponseBody
@@ -63,7 +63,7 @@ public class BoardController {
     public String board_modify(@PathVariable("num")int num,Model model){
         Board board = boardService.findBoardByBoardId((long)num).get();
         model.addAttribute("board",board);
-        return "board_modify";
+        return "board/board_modify";
     }
     @PutMapping("/board/modifyAction/{num}")
     public String board_modify_action(@PathVariable("num")int num,@ModelAttribute BoardWriteDto dto){
@@ -81,7 +81,7 @@ public class BoardController {
         String s = "%"+str+"%";
         List<Board> boards = boardService.searchStringWith(s);
         model.addAttribute("list",boards);
-        return "board";
+        return "board/board";
     }
 
 }
