@@ -9,73 +9,184 @@
     <th:block th:insert="~{fragment/nav :: nav}"></th:block>
     <!-- body -->
     <div class="container rounded mt-5 mb-5" style="background-color: #adb5bd;">
-        <div class="text-center p-5"><h2>차량등록</h2></div>
-        <div class="px-5 w-auto h-auto text-center pt-5 d-flex flex-column align-items-center text-center" style="border-radius: 30px;">
-            <table class="table table-striped" style="border-radius: 60px;">
-                <tr>
-                    <td>번호</td>
-                    <td>아이디</td>
-                    <td>제목</td>
-                    <td>등록날짜</td>
-                    <td>공개&비밀</td>
-                </tr>
-                <tr th:each="board : ${list}">
-                    <td th:text="${board.id}"></td>
-                    <td th:text="${board.member.name}"></td>
-                    <td>
-                        <a th:if="${board.private_content == 1}"
-                           th:href="@{/board/boardOne/{num}(num = ${board.id})}"
-                           th:id="${board.id}"
-                           th:text="${board.title}" onclick="checkLogin(); getId(this.getAttribute('id'));"
-                           class="title"
-                           data-toggle="modal" data-target="#exampleModalCenter">
-                        </a>
-                        <a th:unless="${board.private_content == 1}"
-                           th:href="@{/board/boardOne/{num}(num = ${board.id})}"
-                           th:text="${board.title}" onclick="return checkLogin();"
-                           class="title"
-                        >
-                        </a>
-                    </td>
-                    <td th:text="${#temporals.format(board.createAt,'yyyy-MM-dd')}"></td>
-                    <td th:if="${board.private_content == 0}" th:text="공개"></td>
-                    <td th:unless="${board.private_content == 0}" th:text="비공개"></td>
-                </tr>
-            </table>
-            <div class="w-100 pt-5 d-flex justify-content-end">
-                <button class="btn btn-secondary" onclick="location.href = '/board/write' ">글쓰기</button>
-            </div>
-            <div class="container p-5 w-75">
-                <form class="form-group d-flex justify-content-around"action="/board/search">
-                    <input type="text" name="str" class="form-control mr-2 mt-2" id="exampleFormControlInput1" placeholder="찾으시는 글제목을 입력해주세요!" style="border-radius: 30px;height: 30px;">
-                    <button class="btn ml-2" type="submit" style="background-color: rgba(31, 163, 150, 0)"><img src="/img/icon/free-icon-search-6968650.png" alt="" style="width: 30px; height: 30px;"></button>
-                </form>
-            </div>
-        </div>
-    </div>
+        <div class="d-flex justify-content-center w-100 pt-5">
+            <form class="was-validated w-75">
+                <div class="mb-3">
+                    <label for="validationTextarea1" class="form-label">차량 이름</label>
+                    <input type="text" class="form-control" id="validationTextarea1" placeholder="차량이름을 입력해주세요" required>
+                    <div class="invalid-feedback">
+                        차량이름은 필수입니다.
+                    </div>
+                </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header d-flex justify-content-center">
-                    <h5 class="modal-title" id="exampleModalLongTitle">비밀글입니다.</h5>
+                <div class="mb-3">
+                    <label for="validationTextarea2" class="form-label">차량 가격(:만원)</label>
+                    <input type="text" class="form-control" id="validationTextarea2" placeholder="차량가격을 입력해주세요" required>
+                    <div class="invalid-feedback">
+                        차량가격은 필수입니다.
+                    </div>
                 </div>
-                <!--        <form method="post" action="/board/check_private_content">-->
-                <div class="modal-body d-flex justify-content-center">
-                    <input type="password" name="password" class="w-75" id="password" maxlength="4">
+
+                <div class="mb-3">
+                    <label for="validationTextarea" class="form-label">년식</label>
+                    <select name="year" class="form-select">
+                    </select>
+                    <div class="invalid-feedback">
+                        년식을 선택해주세요.
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                    <button class="btn btn-primary" id="shoot">확인</button>
+
+                <div class="mb-3">
+                    <label for="validationTextarea" class="form-label">차량 주행거리(:KM)</label>
+                    <input type="text" class="form-control" id="validationTextarea" placeholder="주행거리를 입력해주세요" required>
+                    <div class="invalid-feedback">
+                        주행거리는 필수입니다.
+                    </div>
                 </div>
-                <!--        </form>-->
-            </div>
+
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="validationFormCheck2" name="radio-stacked" required>
+                    <label class="form-check-label" for="validationFormCheck2">사고기록 유</label>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input type="radio" class="form-check-input" id="validationFormCheck3" name="radio-stacked" required>
+                    <label class="form-check-label" for="validationFormCheck3">사고기록 무</label>
+                    <div class="invalid-feedback">사고유무는 필수입니다.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="validationTextarea" class="form-label">지역</label>
+                    <select name="" class="form-select" id="area">
+                        <option value="">서울</option>
+                        <option value="">경기</option>
+                        <option value="">대구</option>
+                        <option value="">부산</option>
+                        <option value="">세종</option>
+                        <option value="">대전</option>
+                        <option value="">광주</option>
+                        <option value="">강릉</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        지역을 선택해주세요.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="validationTextarea" class="form-label">연료</label>
+                    <select name="" class="form-select" id="fuel">
+                        <option value="">휘발유</option>
+                        <option value="">경유</option>
+                        <option value="">전기</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        연료를 선택해주세요
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="validationTextarea" class="form-label">제조사</label>
+                    <select name="" class="form-select" id="">
+                        <option value="">hyundai</option>
+                        <option value="">kia</option>
+                        <option value="">bmw</option>
+                        <option value="">benze</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        제조사를 선택해주세요
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <span>옵션 선택</span>
+                    <select class="form-select" name="options">
+                        <option value="123">선루프</option>
+                        <option value="1">헤드램프</option>
+                        <option value="2">파워전동 트렁크</option>
+                        <option value="3">고스트 도어 클로징</option>
+                        <option value="412">전동접이 사이드미러</option>
+                        <option value="32">알리미늄 휠</option>
+                        <option value="1">루프랙</option>
+                        <option value="13">열선 스티어링 휠</option>
+                        <option value="42">주차감지 센서</option>
+                        <option value="123">선루프</option>
+                        <option value="312">선루프</option>
+                        <option value="42">선루프</option>
+                        <option value="1234">선루프</option>
+                    </select>
+                    <ul id="ulList">
+
+                    </ul>
+                </div>
+
+                <div class="mb-3">
+                    <h5>최소 1장의 메인사진과 5장의 사이드 사진을 등록해야합니다.</h5>
+                    <div class="mb-3">
+                        <span>메인사진</span>
+                        <input type="file" class="form-control" aria-label="file example" required>
+                        <div class="invalid-feedback">메인 사진은 필수입니다.</div>
+                    </div>
+                    <div class="mb-3">
+                        <span>사이드사진1</span>
+                        <input type="file" class="form-control" aria-label="file example" required>
+                        <div class="invalid-feedback">사진을 등록해주세요</div>
+                    </div>
+                    <div class="mb-3">
+                        <span>사이드사진2</span>
+                        <input type="file" class="form-control" aria-label="file example" required>
+                        <div class="invalid-feedback">사진을 등록해주세요</div>
+                    </div>
+                    <div class="mb-3">
+                        <span>사이드사진3</span>
+                        <input type="file" class="form-control" aria-label="file example" required>
+                        <div class="invalid-feedback">사진을 등록해주세요</div>
+                    </div>
+                    <div class="mb-3">
+                        <span>사이드사진4</span>
+                        <input type="file" class="form-control" aria-label="file example" required>
+                        <div class="invalid-feedback">사진을 등록해주세요</div>
+                    </div>
+                    <div class="mb-3">
+                        <span>사이드사진5</span>
+                        <input type="file" class="form-control" aria-label="file example" required>
+                        <div class="invalid-feedback">사진을 등록해주세요</div>
+                    </div>
+                    <div class="mb-3">
+                        <span>사이드사진6</span>
+                        <input type="file" class="form-control" aria-label="file example">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <button class="btn btn-primary" type="submit" disabled>Submit form</button>
+                </div>
+            </form>
         </div>
+
     </div>
     <th:block th:insert="~{fragment/footer :: footer}"></th:block>
 </div>
 </body>
 <script th:inline="javascript">
+        $(document).ready(function(){
+        getYear();
+    })
+
+    function getYear(){
+        var date = new Date();
+        var selYear = date.getFullYear();
+
+        for(var i = selYear;i >=2000; i--){
+            $("select[name=year]").append("<option value = " + i + ">" +i +"</option>");
+        }
+    }
+
+    $("select[name=options]").change(function(){
+        var text = $("select[name=options] option:selected").text();
+        var value = $(this).val();
+        $("#ulList").append("<li value ="+value+ ">" +text+"</li>");
+    })
+
+
 </script>
 </html>

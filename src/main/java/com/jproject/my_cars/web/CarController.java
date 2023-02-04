@@ -40,7 +40,7 @@ public class CarController {
     }
     @GetMapping("/cars/posts")
     public String car_posts(){
-        return "cars/posts";
+        return "cars/cars_posts";
     }
     @PostMapping("/cars/postsAction")
     public String cars_posts_action(){
