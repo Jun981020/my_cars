@@ -4,11 +4,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class OptionService {
+    private final OptionRepository optionRepository;
 
-    private final OptionRepository repository;
+    public List<Options> getOptionsList(){
+        return optionRepository.findAll();
+    }
 
 }

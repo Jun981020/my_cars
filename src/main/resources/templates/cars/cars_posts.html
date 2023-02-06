@@ -13,7 +13,7 @@
             <form class="was-validated w-75">
                 <div class="mb-3">
                     <label for="validationTextarea1" class="form-label">차량 이름</label>
-                    <input type="text" class="form-control" id="validationTextarea1" placeholder="차량이름을 입력해주세요" required>
+                    <input type="text" name="name" class="form-control" id="validationTextarea1" placeholder="차량이름을 입력해주세요" required>
                     <div class="invalid-feedback">
                         차량이름은 필수입니다.
                     </div>
@@ -21,7 +21,7 @@
 
                 <div class="mb-3">
                     <label for="validationTextarea2" class="form-label">차량 가격(:만원)</label>
-                    <input type="text" class="form-control" id="validationTextarea2" placeholder="차량가격을 입력해주세요" required>
+                    <input type="text" name="price" class="form-control" id="validationTextarea2" placeholder="차량가격을 입력해주세요" required>
                     <div class="invalid-feedback">
                         차량가격은 필수입니다.
                     </div>
@@ -38,34 +38,34 @@
 
                 <div class="mb-3">
                     <label for="validationTextarea" class="form-label">차량 주행거리(:KM)</label>
-                    <input type="text" class="form-control" id="validationTextarea" placeholder="주행거리를 입력해주세요" required>
+                    <input type="text" name="distance_driven" class="form-control" id="validationTextarea" placeholder="주행거리를 입력해주세요" required>
                     <div class="invalid-feedback">
                         주행거리는 필수입니다.
                     </div>
                 </div>
 
-                <div class="form-check">
-                    <input type="radio" class="form-check-input" id="validationFormCheck2" name="radio-stacked" required>
+                <div class="form-check mb-3">
+                    <input type="radio" value="true" class="form-check-input" id="validationFormCheck2" name="accident_history" required>
                     <label class="form-check-label" for="validationFormCheck2">사고기록 유</label>
                 </div>
 
                 <div class="form-check mb-3">
-                    <input type="radio" class="form-check-input" id="validationFormCheck3" name="radio-stacked" required>
+                    <input type="radio" value="false" class="form-check-input" id="validationFormCheck3" name="accident_history" required>
                     <label class="form-check-label" for="validationFormCheck3">사고기록 무</label>
                     <div class="invalid-feedback">사고유무는 필수입니다.</div>
                 </div>
 
                 <div class="mb-3">
                     <label for="validationTextarea" class="form-label">지역</label>
-                    <select name="" class="form-select" id="area">
-                        <option value="">서울</option>
-                        <option value="">경기</option>
-                        <option value="">대구</option>
-                        <option value="">부산</option>
-                        <option value="">세종</option>
-                        <option value="">대전</option>
-                        <option value="">광주</option>
-                        <option value="">강릉</option>
+                    <select name="area" class="form-select" id="area">
+                        <option value="서울">서울</option>
+                        <option value="경기">경기</option>
+                        <option value="대구">대구</option>
+                        <option value="부산">부산</option>
+                        <option value="세종">세종</option>
+                        <option value="대전">대전</option>
+                        <option value="광주">광주</option>
+                        <option value="강릉">강릉</option>
                     </select>
                     <div class="invalid-feedback">
                         지역을 선택해주세요.
@@ -74,10 +74,10 @@
 
                 <div class="mb-3">
                     <label for="validationTextarea" class="form-label">연료</label>
-                    <select name="" class="form-select" id="fuel">
-                        <option value="">휘발유</option>
-                        <option value="">경유</option>
-                        <option value="">전기</option>
+                    <select name="fuel" class="form-select" id="fuel">
+                        <option value="휘발유">휘발유</option>
+                        <option value="경유">경유</option>
+                        <option value="전기">전기</option>
                     </select>
                     <div class="invalid-feedback">
                         연료를 선택해주세요
@@ -86,11 +86,11 @@
 
                 <div class="mb-3">
                     <label for="validationTextarea" class="form-label">제조사</label>
-                    <select name="" class="form-select" id="">
-                        <option value="">hyundai</option>
-                        <option value="">kia</option>
-                        <option value="">bmw</option>
-                        <option value="">benze</option>
+                    <select name="company" class="form-select" id="">
+                        <option value="HYUNDAI">hyundai</option>
+                        <option value="KIA">kia</option>
+                        <option value="BMW">bmw</option>
+                        <option value="BENZ">benz</option>
                     </select>
                     <div class="invalid-feedback">
                         제조사를 선택해주세요
@@ -100,6 +100,7 @@
                 <div class="mb-3">
                     <span>옵션 선택</span>
                     <select class="form-select" name="options">
+                        <option disabled selected>옵션을 선택해주세요!</option>
                         <option value="123">선루프</option>
                         <option value="1">헤드램프</option>
                         <option value="2">파워전동 트렁크</option>
@@ -123,37 +124,37 @@
                     <h5>최소 1장의 메인사진과 5장의 사이드 사진을 등록해야합니다.</h5>
                     <div class="mb-3">
                         <span>메인사진</span>
-                        <input type="file" class="form-control" aria-label="file example" required>
+                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example" required>
                         <div class="invalid-feedback">메인 사진은 필수입니다.</div>
                     </div>
                     <div class="mb-3">
                         <span>사이드사진1</span>
-                        <input type="file" class="form-control" aria-label="file example" required>
+                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example" required>
                         <div class="invalid-feedback">사진을 등록해주세요</div>
                     </div>
                     <div class="mb-3">
                         <span>사이드사진2</span>
-                        <input type="file" class="form-control" aria-label="file example" required>
+                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example" required>
                         <div class="invalid-feedback">사진을 등록해주세요</div>
                     </div>
                     <div class="mb-3">
                         <span>사이드사진3</span>
-                        <input type="file" class="form-control" aria-label="file example" required>
+                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example" required>
                         <div class="invalid-feedback">사진을 등록해주세요</div>
                     </div>
                     <div class="mb-3">
                         <span>사이드사진4</span>
-                        <input type="file" class="form-control" aria-label="file example" required>
+                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example" required>
                         <div class="invalid-feedback">사진을 등록해주세요</div>
                     </div>
                     <div class="mb-3">
                         <span>사이드사진5</span>
-                        <input type="file" class="form-control" aria-label="file example" required>
+                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example" required>
                         <div class="invalid-feedback">사진을 등록해주세요</div>
                     </div>
                     <div class="mb-3">
                         <span>사이드사진6</span>
-                        <input type="file" class="form-control" aria-label="file example">
+                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example">
                     </div>
                 </div>
 
@@ -170,6 +171,21 @@
 <script th:inline="javascript">
         $(document).ready(function(){
         getYear();
+
+
+        $.ajax({
+            type : "get",
+            url : "/cars/getOptionList",
+
+            success : function(data){
+                $(data).each(function(){
+                    alert(data);
+                })
+            },
+            error : function(){
+                alert("에러 발생")
+            }
+        })
     })
 
     function getYear(){

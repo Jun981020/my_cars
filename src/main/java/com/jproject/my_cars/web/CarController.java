@@ -3,11 +3,14 @@ package com.jproject.my_cars.web;
 import com.jproject.my_cars.domain.cars.Car;
 import com.jproject.my_cars.domain.cars.CarService;
 import com.jproject.my_cars.domain.cars.img.ImgService;
+import com.jproject.my_cars.domain.cars.option.OptionService;
+import com.jproject.my_cars.domain.cars.option.Options;
 import com.jproject.my_cars.domain.dealer.Dealer;
 import com.jproject.my_cars.dto.CarPostsDto;
 import com.jproject.my_cars.web.session.SessionManager;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,10 +23,12 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class CarController {
     private final CarService carService;
     private final ImgService imgService;
     private final SessionManager sessionManager;
+    private final OptionService optionService;
 
     @GetMapping(value = "/cars")
     public String cars(Model model){
@@ -45,8 +50,13 @@ public class CarController {
     @PostMapping("/cars/postsAction")
     public String cars_posts_action(){
 
-
         return "";
+    }
+    @GetMapping("/cars/getOptionList")
+    @ResponseBody
+    public List<Options> cars_get_option_list(){
+        log.info("들어옴");
+        return optionService.getOptionsList();
     }
 
 
