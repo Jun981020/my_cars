@@ -10,7 +10,7 @@
     <!-- body -->
     <div class="container rounded mt-5 mb-5" style="background-color: #adb5bd;">
         <div class="d-flex justify-content-center w-100 pt-5">
-            <form class="was-validated w-75">
+            <form class="was-validated w-75" name="frm" method="post" action="/cars/postsAction" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="validationTextarea1" class="form-label">차량 이름</label>
                     <input type="text" name="name" class="form-control" id="validationTextarea1" placeholder="차량이름을 입력해주세요" required>
@@ -58,6 +58,7 @@
                 <div class="mb-3">
                     <label for="validationTextarea" class="form-label">지역</label>
                     <select name="area" class="form-select" id="area">
+                        <option selected disabled>지역을 선택하세요!</option>
                         <option value="서울">서울</option>
                         <option value="경기">경기</option>
                         <option value="대구">대구</option>
@@ -100,24 +101,13 @@
                 <div class="mb-3">
                     <span>옵션 선택</span>
                     <select class="form-select" name="options">
-                        <option disabled selected>옵션을 선택해주세요!</option>
-                        <option value="123">선루프</option>
-                        <option value="1">헤드램프</option>
-                        <option value="2">파워전동 트렁크</option>
-                        <option value="3">고스트 도어 클로징</option>
-                        <option value="412">전동접이 사이드미러</option>
-                        <option value="32">알리미늄 휠</option>
-                        <option value="1">루프랙</option>
-                        <option value="13">열선 스티어링 휠</option>
-                        <option value="42">주차감지 센서</option>
-                        <option value="123">선루프</option>
-                        <option value="312">선루프</option>
-                        <option value="42">선루프</option>
-                        <option value="1234">선루프</option>
+                        <option selected disabled>옵션을 선택해주세요</option>
+                        <option th:each="option : ${options}" th:value="${option.name}" th:text="${option.name}">옵션</option>
                     </select>
                     <ul id="ulList">
 
                     </ul>
+                    <input type="hidden" name="options" value="">
                 </div>
 
                 <div class="mb-3">
@@ -159,7 +149,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <button class="btn btn-primary" type="submit" disabled>Submit form</button>
+                    <button class="btn btn-secondary" name="submit" type="submit">등록</button>
                 </div>
             </form>
         </div>
@@ -169,25 +159,11 @@
 </div>
 </body>
 <script th:inline="javascript">
-        $(document).ready(function(){
+
+    $(document).ready(function(){
         getYear();
-
-
-        $.ajax({
-            type : "get",
-            url : "/cars/getOptionList",
-
-            success : function(data){
-                $(data).each(function(){
-                    alert(data);
-                })
-            },
-            error : function(){
-                alert("에러 발생")
-            }
-        })
     })
-
+    <!--년도 option 만들기-->
     function getYear(){
         var date = new Date();
         var selYear = date.getFullYear();
@@ -196,13 +172,23 @@
             $("select[name=year]").append("<option value = " + i + ">" +i +"</option>");
         }
     }
-
+    <!--옵션기능 배열화-->
+    let optionList = [];
     $("select[name=options]").change(function(){
         var text = $("select[name=options] option:selected").text();
         var value = $(this).val();
         $("#ulList").append("<li value ="+value+ ">" +text+"</li>");
+        optionList.push(value);
     })
 
+    $("button[name=submit]").on('click',function(){
+        const result =  confirm("차량등록을 하시겠습니까?");
+        if(result){
+           $("input[name=options]").attr("value",optionList);
+        }else{
+            return null;
+        }
+    })
 
 </script>
 </html>

@@ -2,6 +2,7 @@ package com.jproject.my_cars.domain.cars.img;
 
 import com.jproject.my_cars.domain.cars.Car;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 
 @Entity
