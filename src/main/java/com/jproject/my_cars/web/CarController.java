@@ -52,12 +52,23 @@ public class CarController {
         return "cars/cars_posts";
     }
     @PostMapping("/cars/postsAction")
-    public String cars_posts_action(@ModelAttribute CarPostsDto dto, @RequestParam("images")List<MultipartFile> images,@RequestParam("options")String str) throws IOException {
+    public String cars_posts_action(@ModelAttribute CarPostsDto dto,
+                                    @RequestParam(value = "images",required = false)List<MultipartFile> images,
+                                    @RequestParam("options")String str,
+                                    HttpServletRequest request) throws IOException {
+        System.out.println("str = " + str);
+        //session dealer 정보 가져오기
+        Dealer dealer = (Dealer) sessionManager.getSession(request);
+        //options 배열 분리하기
+        String[] options = str.split(",");
+
+        for (String option : options) {
+            System.out.println("option = " + option);
+        }
+        //car entity 생성
+        Car car = carService.registration(dealer,dto,options);
         //img 저장
-        imgService.uploadImg(images,dto.getName());
-
-
-
+        imgService.uploadImg(images,dto.getName(),car);
 
         return "redirect:/main";
     }

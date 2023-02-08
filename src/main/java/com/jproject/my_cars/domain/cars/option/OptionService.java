@@ -15,5 +15,8 @@ public class OptionService {
     public List<Options> getOptionsList(){
         return optionRepository.findAll();
     }
+    public Options getOptionOne(String name){
+        return optionRepository.findByName(name);
+    }
 
 }

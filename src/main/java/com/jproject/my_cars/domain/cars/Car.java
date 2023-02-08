@@ -16,15 +16,21 @@ import java.util.List;
 public class Car extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    //차량이름
     private String name;
+    //차량가격
     private Integer price;
+    //출시년도
     private String year;
+    //주행거리
     private String distance_driven;
+    //사고이력
     private boolean accident_history;
+    //판매지역
     private String area;
+    //연료
     private String fuel;
-    private String company;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     private List<Options> options = new ArrayList<>();
     private String manufacture;
     @JsonIgnore
@@ -43,7 +49,7 @@ public class Car extends BaseEntity {
         dealer.getCars().add(this);
     }
 
-    public static Car registrationCar(String name, Integer price, String year, String distance_driven, boolean accident_history, String area , String fuel, String company, String manufacture){
+    public static Car registrationCar(String name, Integer price, String year, String distance_driven, boolean accident_history, String area , String fuel, String manufacture){
         Car cars = new Car();
         cars.name = name;
         cars.price = price;
@@ -52,11 +58,10 @@ public class Car extends BaseEntity {
         cars.accident_history = accident_history;
         cars.area = area;
         cars.fuel = fuel;
-        cars.company = company;
         cars.manufacture = manufacture;
         return cars;
     }
     public void addOption(Options options){
-        this.getOptions().add(options);
+        this.options.add(options);
     }
 }

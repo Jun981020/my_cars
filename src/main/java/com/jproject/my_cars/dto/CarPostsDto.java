@@ -15,7 +15,7 @@ public class CarPostsDto {
     private Integer price;
     private String year;
     private String distance_driven;
-    private boolean accident_history;
+    private String accident_history;
     private String area;
     private String fuel;
     private String company;

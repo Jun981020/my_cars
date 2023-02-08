@@ -87,7 +87,7 @@
 
                 <div class="mb-3">
                     <label for="validationTextarea" class="form-label">제조사</label>
-                    <select name="company" class="form-select" id="">
+                    <select name="manufacture" class="form-select" id="">
                         <option value="HYUNDAI">hyundai</option>
                         <option value="KIA">kia</option>
                         <option value="BMW">bmw</option>
@@ -100,53 +100,53 @@
 
                 <div class="mb-3">
                     <span>옵션 선택</span>
-                    <select class="form-select" name="options">
+                    <select class="form-select" id="options">
                         <option selected disabled>옵션을 선택해주세요</option>
                         <option th:each="option : ${options}" th:value="${option.name}" th:text="${option.name}">옵션</option>
                     </select>
                     <ul id="ulList">
 
                     </ul>
-                    <input type="hidden" name="options" value="">
+                    <input type="hidden" name="options">
                 </div>
 
-                <div class="mb-3">
-                    <h5>최소 1장의 메인사진과 5장의 사이드 사진을 등록해야합니다.</h5>
-                    <div class="mb-3">
-                        <span>메인사진</span>
-                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example" required>
-                        <div class="invalid-feedback">메인 사진은 필수입니다.</div>
-                    </div>
-                    <div class="mb-3">
-                        <span>사이드사진1</span>
-                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example" required>
-                        <div class="invalid-feedback">사진을 등록해주세요</div>
-                    </div>
-                    <div class="mb-3">
-                        <span>사이드사진2</span>
-                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example" required>
-                        <div class="invalid-feedback">사진을 등록해주세요</div>
-                    </div>
-                    <div class="mb-3">
-                        <span>사이드사진3</span>
-                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example" required>
-                        <div class="invalid-feedback">사진을 등록해주세요</div>
-                    </div>
-                    <div class="mb-3">
-                        <span>사이드사진4</span>
-                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example" required>
-                        <div class="invalid-feedback">사진을 등록해주세요</div>
-                    </div>
-                    <div class="mb-3">
-                        <span>사이드사진5</span>
-                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example" required>
-                        <div class="invalid-feedback">사진을 등록해주세요</div>
-                    </div>
-                    <div class="mb-3">
-                        <span>사이드사진6</span>
-                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example">
-                    </div>
-                </div>
+<!--                <div class="mb-3">-->
+<!--                    <h5>최소 1장의 메인사진과 5장의 사이드 사진을 등록해야합니다.</h5>-->
+<!--                    <div class="mb-3">-->
+<!--                        <span>메인사진</span>-->
+<!--                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example" required>-->
+<!--                        <div class="invalid-feedback">메인 사진은 필수입니다.</div>-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <span>사이드사진1</span>-->
+<!--                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example" required>-->
+<!--                        <div class="invalid-feedback">사진을 등록해주세요</div>-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <span>사이드사진2</span>-->
+<!--                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example" required>-->
+<!--                        <div class="invalid-feedback">사진을 등록해주세요</div>-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <span>사이드사진3</span>-->
+<!--                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example" required>-->
+<!--                        <div class="invalid-feedback">사진을 등록해주세요</div>-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <span>사이드사진4</span>-->
+<!--                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example" required>-->
+<!--                        <div class="invalid-feedback">사진을 등록해주세요</div>-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <span>사이드사진5</span>-->
+<!--                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example" required>-->
+<!--                        <div class="invalid-feedback">사진을 등록해주세요</div>-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <span>사이드사진6</span>-->
+<!--                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example">-->
+<!--                    </div>-->
+<!--                </div>-->
 
                 <div class="mb-3">
                     <button class="btn btn-secondary" name="submit" type="submit">등록</button>
@@ -174,11 +174,12 @@
     }
     <!--옵션기능 배열화-->
     let optionList = [];
-    $("select[name=options]").change(function(){
-        var text = $("select[name=options] option:selected").text();
+    $("select[id=options]").change(function(){
+        var text = $("select[id=options] option:selected").text();
         var value = $(this).val();
         $("#ulList").append("<li value ="+value+ ">" +text+"</li>");
-        optionList.push(value);
+        optionList.push(text);
+        console.log(optionList);
     })
 
     $("button[name=submit]").on('click',function(){
