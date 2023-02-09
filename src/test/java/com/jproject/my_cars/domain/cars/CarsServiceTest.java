@@ -22,10 +22,6 @@ class CarsServiceTest {
     private CarRepository carsRepository;
     @Autowired
     private OptionRepository optionRepository;
-    @LocalServerPort
-    private int port;
-    @Autowired
-    private TestRestTemplate restTemplate;
 
 //    @Test
 //    //차량등록
@@ -215,8 +211,9 @@ class CarsServiceTest {
 //    }
 
     @Test
-    public void response_entity_test(){
-        String uri = "http://localhost:"+port+"/cars";
+    public void getImgList(){
+        Car car = carsRepository.findByName("BMW-320i");
+        System.out.println("car.getImages() = " + car.getImages().get(0).getPath());
     }
 
 }

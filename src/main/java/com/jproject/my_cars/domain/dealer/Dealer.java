@@ -31,6 +31,7 @@ public class Dealer {
         dealer.name = dto.getName();
         dealer.phone = dto.getPhone();
         dealer.card = card;
+        dealer.sale_count = 0;
         return dealer;
     }
 

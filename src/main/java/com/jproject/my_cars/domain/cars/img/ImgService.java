@@ -42,7 +42,7 @@ public class ImgService {
                 log.info("savedName: " + savedName);
                 // 파일을 불러올 때 사용할 파일 경로
                 //새로운 디렉토리 생성 -- path + 제조사 + 차량종류 + 고유번호
-                String newDir = path +"/"+ car.getManufacture() +"/" + carName.toLowerCase() + "-" + uuid;
+                String newDir = path +"/"+ car.getManufacture().toLowerCase() +"/" + carName.toLowerCase() + "-" + uuid;
                 Files.createDirectory(Path.of(newDir));
                 log.info("newDir: " + newDir);
 
@@ -67,11 +67,12 @@ public class ImgService {
                 // file name 과 확장자 결합
                 String savedName = fileName + extension;
                 // 파일을 불러올 때 사용할 파일 경로
-                String newDir = path +"/"+ car.getManufacture() +"/" + carName.toLowerCase() + "-" + uuid;
+                String newDir = path +"/"+ car.getManufacture().toLowerCase() +"/" + carName.toLowerCase() + "-" + uuid;
                 String savedPath = newDir + "/" +savedName;
                 image.transferTo(new File(savedPath));
 
-                String dbPath = savedPath.substring(newDir.lastIndexOf("/img")) +"/"+savedName;
+                String dbPath = newDir.substring(newDir.lastIndexOf("/img"))+ "/" +savedName;
+                log.info("dbPath: " + dbPath);
                 Img img = Img.addImg(fileName, dbPath);
                 img.setCar(car);
                 imgRepository.save(img);

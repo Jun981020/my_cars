@@ -101,7 +101,7 @@
                     </tr>
                     <tr>
                         <th>제조사:</th>
-                        <td th:text="${car.company}">null</td>
+                        <td th:text="${car.manufacture}">null</td>
                     </tr>
                 </table>
             </div>
@@ -124,15 +124,15 @@
                 <table class="table table-hover w-50">
                     <tr>
                         <th>딜러이름</th>
-                        <td>뭐시기</td>
+                        <td th:text="${car.dealer.name}">뭐시기</td>
                     </tr>
                     <tr>
                         <th>차량 판매수</th>
-                        <td>뭐시기</td>
+                        <td th:text="${car.dealer.sale_count} + '개'">뭐시기</td>
                     </tr>
                     <tr>
-                        <th>사원증</th>
-                        <td>뭐시기</td>
+                        <th>딜러 휴대폰번호</th>
+                        <td th:text="${car.dealer.phone}">뭐시기</td>
                     </tr>
                 </table>
                 <p class="my-5">(차량에 관심이 있으시다면 아래 버튼을 눌러주세요^^)</p>

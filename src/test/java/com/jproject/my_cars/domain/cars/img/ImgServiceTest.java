@@ -94,7 +94,6 @@ class ImgServiceTest {
         String contentType = "image/webp";
         String filePath = "src/test/resources/img/testImg";
         MockMultipartFile mockMultipartFile = getMockMultipartFile(fileName, contentType, filePath);
-
     }
     private MockMultipartFile getMockMultipartFile(String fileName, String contentType, String path) throws IOException {
         FileInputStream fileInputStream = new FileInputStream(new File(path));
