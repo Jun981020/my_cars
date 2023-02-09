@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,14 +27,21 @@ public class ImgService {
         for (MultipartFile image : images) {
             if(!image.isEmpty() && findMainIndex ==0){
                 String origName = image.getOriginalFilename();
+                String uuid = UUID.randomUUID().toString();
                 // 파일 이름으로 쓸 uuid + main 표시 이름 생성
-                String fileName = UUID.randomUUID() + ":" +carName + "main";
+                String fileName = uuid + ":" +carName + "main";
+                fileName.substring(carName.length());
                 // 확장자 추출(ex : .png)
                 String extension = origName.substring(origName.lastIndexOf("."));
                 // file name 과 확장자 결합
                 String savedName = fileName + extension;
                 // 파일을 불러올 때 사용할 파일 경로
-                String savedPath = path + savedName;
+
+                //새로운 디렉토리 생성 --path + 제조사 + 차량종류 + 고유번호
+                String newDir = path + car.getManufacture() + carName + uuid;
+
+                carName.toLowerCase();
+                String savedPath = path + car.getManufacture() +savedName;
                 image.transferTo(new File(savedPath));
                 Img img = Img.addImg(fileName, savedPath);
                 img.setCar(car);
@@ -42,7 +50,7 @@ public class ImgService {
             }else if(!image.isEmpty() && findMainIndex !=0){
                 String origName = image.getOriginalFilename();
                 // 파일 이름으로 쓸 uuid + main 표시 이름 생성
-                String fileName = UUID.randomUUID()+ ":" + carName + ":side" + findMainIndex;
+                String fileName = UUID.randomUUID()+ ":" + carName + "side" + findMainIndex;
                 // 확장자 추출(ex : .png)
                 String extension = origName.substring(origName.lastIndexOf("."));
                 // file name 과 확장자 결합

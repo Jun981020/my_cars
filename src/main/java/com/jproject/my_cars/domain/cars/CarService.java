@@ -5,6 +5,7 @@ import com.jproject.my_cars.domain.cars.option.Options;
 import com.jproject.my_cars.domain.dealer.Dealer;
 import com.jproject.my_cars.dto.CarPostsDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Slf4j
 public class CarService {
     private final CarRepository carRepository;
     private final OptionRepository optionRepository;
@@ -39,6 +41,7 @@ public class CarService {
         car.setDealer(dealer);
         for (String name : options) {
             Options findOption = optionRepository.findByName(name);
+            log.info("findOption : " + findOption);
             car.addOption(findOption);
         }
         carRepository.save(car);

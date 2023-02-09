@@ -9,9 +9,13 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -20,6 +24,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @Transactional
 class ImgServiceTest {
+    @Value("${file.dir}")
+    private String path;
 
     @Autowired
     private ImgRepository imgRepository;
@@ -61,6 +67,10 @@ class ImgServiceTest {
             }
         }
 
+    }
+    @Test
+    public void makeDir() throws IOException {
+        Files.createDirectory(Paths.get(path+"/kakao"));
     }
 
 }
