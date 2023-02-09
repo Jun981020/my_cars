@@ -11,12 +11,18 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -70,7 +76,29 @@ class ImgServiceTest {
     }
     @Test
     public void makeDir() throws IOException {
-        Files.createDirectory(Paths.get(path+"/kakao"));
+        String newDir = path + "/bmw" + "/bmw320-" + UUID.randomUUID();
+        Path directory = Files.createDirectory(Paths.get(newDir));
+        System.out.println("directory = " + directory);
+    }
+    @Test
+    public void bindingPath() throws IOException {
+        String newDir = path + "/bmw" + "/bmw320-" + UUID.randomUUID();
+        String substring = newDir.substring(newDir.lastIndexOf("/img"));
+        System.out.println("substring = " + substring);
+        Files.createDirectory(Paths.get(newDir));
+
+    }
+    @Test
+    public void multipartFileTest() throws IOException {
+        String fileName = "testImg";
+        String contentType = "image/webp";
+        String filePath = "src/test/resources/img/testImg";
+        MockMultipartFile mockMultipartFile = getMockMultipartFile(fileName, contentType, filePath);
+
+    }
+    private MockMultipartFile getMockMultipartFile(String fileName, String contentType, String path) throws IOException {
+        FileInputStream fileInputStream = new FileInputStream(new File(path));
+        return new MockMultipartFile(fileName, fileName + "." + contentType, contentType, fileInputStream);
     }
 
 }
