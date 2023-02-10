@@ -30,10 +30,12 @@ public class MemberService {
     }
     //로그인 기능
     public boolean check_IDPW(String login_id,String password){
-        Member member = memberRepository.findByLoginId(login_id);
-        if(member.getPassword().equals(password)){
-            return true;
-        }else return false;
+        if(memberRepository.findByLoginId(login_id) == null){
+            return false;
+        }else if(!memberRepository.findByLoginId(login_id).getPassword().equals(password)){
+            return false;
+        }
+        return true;
     }
     //회원로그인(entity 가져오기)
     public Member getMember(String id){

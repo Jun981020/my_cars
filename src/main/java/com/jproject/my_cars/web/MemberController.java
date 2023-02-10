@@ -48,7 +48,9 @@ public class MemberController {
     @ResponseBody
     public boolean check_login_id_pw(@RequestParam("id") String id,
                                      @RequestParam("password") String password){
-        return memberService.check_IDPW(id, password);
+        boolean b = memberService.check_IDPW(id, password);
+        log.info("check_IDPW return : " + b);
+        return b;
     }
 
     @PostMapping("/member/loginAction")
