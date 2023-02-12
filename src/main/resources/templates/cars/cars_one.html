@@ -158,12 +158,29 @@
                 method : "GET",
                 }).done(function(res){
                     if(res.Member != null){
-
+                        doUpPoint();
+                    }else{
+                        alert("딜러님은 관심표현을 할수없습니다. 회원으로 로그인 해주세요");
                     }
                 }).fail(function(xhr,status,error){
                     alert("오류발생"+error);
             })
     }
+
+    function getMemberId(){
+        let memberId = null;
+        $.ajax({
+                url : '/main/getSessionMemberId',
+                method : "GET",
+                async: false
+                }).done(function(res){
+                    memberId = res;
+                }).fail(function(xhr,status,error){
+                    alert("오류발생"+error);
+            })
+        return memberId;
+    }
+
     function getMode(){
         var mode = [[${session.mode}]];
         if(mode == null){
@@ -172,6 +189,26 @@
         }else{
             getObject();
         }
+    }
+    function doUpPoint(){
+        var carNum = [[${car.id}]];
+        var memberNum = getMemberId();
+        $.ajax({
+                url : '/cars/upPoint',
+                method : "GET",
+                data : {carNum : carNum,
+                        memberNum : memberNum}
+                }).done(function(res){
+                    var length = res.length;
+                    console.log(length);
+                    if(length != 0){
+                        alert(res);
+                    }else{
+                        location.reload();
+                    }
+                }).fail(function(xhr,status,error){
+                    alert("오류발생"+error);
+            })
     }
 </script>
 </body>

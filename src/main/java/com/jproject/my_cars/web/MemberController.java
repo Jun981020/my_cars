@@ -5,7 +5,6 @@ import com.jproject.my_cars.domain.member.MemberService;
 import com.jproject.my_cars.domain.member.Role;
 import com.jproject.my_cars.dto.MemberJoinDto;
 import com.jproject.my_cars.dto.MemberLoginDto;
-import com.jproject.my_cars.dto.TestDto;
 import com.jproject.my_cars.web.session.SessionManager;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -55,7 +54,7 @@ public class MemberController {
 
     @PostMapping("/member/loginAction")
     public String login_action(@ModelAttribute MemberLoginDto dto , HttpServletResponse response,HttpServletRequest request){
-        Member member = memberService.getMember(dto.getId());
+        Member member = memberService.getMemberByLoginId(dto.getId());
         HttpSession session = request.getSession();
         session.setAttribute("mode","member");
         sessionManager.createSession(member,response);

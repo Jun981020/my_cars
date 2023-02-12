@@ -40,6 +40,7 @@ public class Car extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DEALER_ID")
     private Dealer dealer;
+    private Integer point;
 
     public void setDealer(Dealer dealer){
         if(this.dealer != null){
@@ -59,9 +60,13 @@ public class Car extends BaseEntity {
         cars.area = area;
         cars.fuel = fuel;
         cars.manufacture = manufacture;
+        cars.point = 0;
         return cars;
     }
     public void addOption(Options options){
         this.options.add(options);
+    }
+    public void upPoint(){
+        this.point++;
     }
 }

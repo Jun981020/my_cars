@@ -38,4 +38,10 @@ public class MainController {
         map.put(typeName,sessionManager.getSession(request));
         return map;
     }
+    @GetMapping("/main/getSessionMemberId")
+    @ResponseBody
+    public Long get_session_member_id(HttpServletRequest request){
+        Member m = (Member) sessionManager.getSession(request);
+        return m.getId();
+    }
 }

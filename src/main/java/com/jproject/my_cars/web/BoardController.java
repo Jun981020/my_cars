@@ -1,7 +1,6 @@
 package com.jproject.my_cars.web;
 
 import com.jproject.my_cars.domain.board.Board;
-import com.jproject.my_cars.domain.board.BoardRepository;
 import com.jproject.my_cars.domain.board.BoardService;
 import com.jproject.my_cars.domain.member.Member;
 import com.jproject.my_cars.domain.member.MemberService;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -35,7 +33,7 @@ public class BoardController {
     }
     @PostMapping("/board/writeAction")
     public String board_write_action(@ModelAttribute BoardWriteDto dto){
-        Member member = memberService.getMember(dto.getLoginId());
+        Member member = memberService.getMemberByLoginId(dto.getLoginId());
         Board board = Board.writeBoard(dto.getTitle(), dto.getContent(), member, dto.getPrivate_content(), dto.getPrivate_content_password());
         boardService.saveBoard(board);
         return "redirect:/board/list";

@@ -26,6 +26,10 @@ public class CarService {
     public Car getOne(Long id){
         return carRepository.findById(id).get();
     }
+    @Transactional
+    public void carUpPoint(Car car){
+        car.upPoint();
+    }
 
     @Transactional
     public Car registration(Dealer dealer, CarPostsDto dto,String[] options) {

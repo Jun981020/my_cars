@@ -8,10 +8,8 @@ import com.jproject.my_cars.domain.reply.Reply;
 import com.jproject.my_cars.domain.reply.ReplyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,7 +23,7 @@ public class ReplyController {
     public String reply_write_action(@RequestParam("loginId") String loginId,
                                      @RequestParam("boardId") String boardId,
                                      @RequestParam("content") String content){
-        Member m = memberService.getMember(loginId);
+        Member m = memberService.getMemberByLoginId(loginId);
         Board b = boardService.getBoardById(Long.parseLong(boardId));
         Reply reply = Reply.createReply(m, b, content);
         reply.setBoard(b);

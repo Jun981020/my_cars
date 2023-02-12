@@ -1,6 +1,7 @@
 package com.jproject.my_cars.domain.member;
 
-import com.jproject.my_cars.dto.MemberJoinDto;
+import com.jproject.my_cars.domain.cars.Car;
+import com.jproject.my_cars.domain.cars.CarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,7 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final CarRepository carRepository;
 
     @Transactional
     //회원가입 폼에서 회원가입하기
@@ -38,8 +40,14 @@ public class MemberService {
         return true;
     }
     //회원로그인(entity 가져오기)
-    public Member getMember(String id){
+    public Member getMemberByLoginId(String id){
         return memberRepository.findByLoginId(id);
+    }
+    public Member getMemberById(Long id){
+        return memberRepository.findById(id).get();
+    }
+    public boolean addLikesList(Member member, Car car){
+        return member.isCheckDuplicateLikes(car);
     }
 
 

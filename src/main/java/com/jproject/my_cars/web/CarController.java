@@ -6,6 +6,8 @@ import com.jproject.my_cars.domain.cars.img.ImgService;
 import com.jproject.my_cars.domain.cars.option.OptionService;
 import com.jproject.my_cars.domain.cars.option.Options;
 import com.jproject.my_cars.domain.dealer.Dealer;
+import com.jproject.my_cars.domain.member.Member;
+import com.jproject.my_cars.domain.member.MemberService;
 import com.jproject.my_cars.dto.CarPostsDto;
 import com.jproject.my_cars.web.session.SessionManager;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -27,6 +30,7 @@ public class CarController {
     private final ImgService imgService;
     private final SessionManager sessionManager;
     private final OptionService optionService;
+    private final MemberService memberService;
 
     @GetMapping(value = "/cars")
     public String cars(Model model){
@@ -72,6 +76,20 @@ public class CarController {
     public List<Options> cars_get_option_list(){
         log.info("들어옴");
         return optionService.getOptionsList();
+    }
+    @GetMapping("/cars/upPoint")
+    @ResponseBody
+    public String car_up_point(Integer carNum,Integer memberNum){
+        Car car = carService.getOne((long)carNum);
+        Member member = memberService.getMemberById((long) memberNum);
+        carService.carUpPoint(car);
+        boolean b = memberService.addLikesList(member, car);
+        if(!b){
+            return "이미 관심표현을 하신 차량입니다";
+        }else {
+            return "";
+        }
+
     }
 
 

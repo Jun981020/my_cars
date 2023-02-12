@@ -1,8 +1,11 @@
 package com.jproject.my_cars.domain.member;
 
 import com.jproject.my_cars.domain.BaseEntity;
+import com.jproject.my_cars.domain.cars.Car;
 import jakarta.persistence.*;
 import lombok.Getter;
+
+import java.util.*;
 
 @Getter
 @Entity
@@ -16,6 +19,8 @@ public class Member extends BaseEntity {
     private String phone;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @Embedded
+    private List<Car> likes = new ArrayList<>();
 
     public static Member createMember(String loginId,String password,String name, String email, String phone, Role role){
         Member members = new Member();
@@ -27,7 +32,28 @@ public class Member extends BaseEntity {
         members.role = role;
         return members;
     }
+    public void addLikes(Car car){
+        getLikes().add(car);
+    }
+    public boolean isCheckDuplicateLikes(Car car){
+        int result = 0;
 
+        if(getLikes().isEmpty()){
+            addLikes(car);
+        }else{
+            long count = getLikes().stream().filter(
+                    c -> Objects.equals(c.getId(), car.getId())
+            ).count();
+            result = (int) count;
+        }
+
+        if(result == 0){
+            addLikes(car);
+            return true;
+        }else{
+            return false;
+        }
+    }
     @Override
     public String toString() {
         return "Member{" +
