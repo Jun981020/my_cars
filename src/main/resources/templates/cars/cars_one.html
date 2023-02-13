@@ -138,7 +138,7 @@
                 <p class="my-5">(차량에 관심이 있으시다면 아래 버튼을 눌러주세요^^)</p>
                 <button type="button" onclick="getMode()" class="btn btn-secondary position-relative my-5">
                     관심있어요!!
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    <span th:text="${car.point}" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                         1
                         <span class="visually-hidden">unread messages</span>
                     </span>

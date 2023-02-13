@@ -80,16 +80,17 @@ public class CarController {
     @GetMapping("/cars/upPoint")
     @ResponseBody
     public String car_up_point(Integer carNum,Integer memberNum){
-        Car car = carService.getOne((long)carNum);
-        Member member = memberService.getMemberById((long) memberNum);
-        carService.carUpPoint(car);
-        boolean b = memberService.addLikesList(member, car);
-        if(!b){
-            return "이미 관심표현을 하신 차량입니다";
-        }else {
+        boolean result = carService.isCarUpPoint(carNum, memberNum);
+        if(result){
             return "";
+        }else{
+            return "이미 관심표현한 차량입니다";
         }
-
+    }
+    @GetMapping("/cars/remove/{id}")
+    public String cars_remove(@PathVariable("id")int id){
+        carService.removeCar((long)id);
+        return "redirect:/dealer/dealerPage";
     }
 
 

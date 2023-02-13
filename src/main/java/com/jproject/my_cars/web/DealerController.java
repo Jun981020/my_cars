@@ -1,5 +1,6 @@
 package com.jproject.my_cars.web;
 
+import com.jproject.my_cars.domain.cars.Car;
 import com.jproject.my_cars.domain.dealer.Dealer;
 import com.jproject.my_cars.domain.dealer.DealerService;
 import com.jproject.my_cars.domain.dealer.employee.Card;
@@ -13,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Controller
@@ -33,7 +36,7 @@ public class DealerController {
     @PostMapping("/dealer/loginAction")
     public String dealer_login_action(@ModelAttribute DealerLoginDto dto, HttpServletResponse response, HttpServletRequest request){
         log.info("여기까지 들어옴 dto value:"+dto);
-        Dealer dealer = dealerService.findOne(dto.getId());
+        Dealer dealer = dealerService.findOneByLoginId(dto.getId());
         if(sessionManager.getSession(request) != null){
             sessionManager.expire(request);
         }
@@ -66,9 +69,10 @@ public class DealerController {
     }
     @GetMapping("/dealer/dealerPage")
     public String dealer_page(HttpServletRequest request, Model model){
-        Dealer entity = (Dealer) sessionManager.getSession(request);
-        System.out.println("entity = " + entity);
-        model.addAttribute("dealer",entity);
+        Dealer data = (Dealer) sessionManager.getSession(request);
+        List<Car> list = dealerService.findOneOfDealerPage(data.getId());
+        model.addAttribute("dealer",data);
+        model.addAttribute("list",list);
         return "dealer/dealer_page";
     }
     @GetMapping("/dealer/logout")

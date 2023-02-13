@@ -20,4 +20,6 @@ public interface CarRepository extends JpaRepository<Car,Long> {
     Car findByName(String name);
     //차량번호로 가져오기
     Optional<Car> findById(Long id);
+    //해당차량 삭제
+
 }

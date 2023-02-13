@@ -1,5 +1,6 @@
 package com.jproject.my_cars.domain.member;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jproject.my_cars.domain.BaseEntity;
 import com.jproject.my_cars.domain.cars.Car;
 import jakarta.persistence.*;
@@ -19,8 +20,11 @@ public class Member extends BaseEntity {
     private String phone;
     @Enumerated(EnumType.STRING)
     private Role role;
-    @Embedded
-    private List<Car> likes = new ArrayList<>();
+    @ElementCollection
+    @CollectionTable(name = "LIKES",joinColumns = @JoinColumn(name = "MEMBER_ID"))
+    @Column(name = "LIKES")
+    @JsonIgnore
+    private List<Long> likes = new ArrayList<>();
 
     public static Member createMember(String loginId,String password,String name, String email, String phone, Role role){
         Member members = new Member();
@@ -33,7 +37,7 @@ public class Member extends BaseEntity {
         return members;
     }
     public void addLikes(Car car){
-        getLikes().add(car);
+        getLikes().add(car.getId());
     }
     public boolean isCheckDuplicateLikes(Car car){
         int result = 0;
@@ -42,7 +46,7 @@ public class Member extends BaseEntity {
             addLikes(car);
         }else{
             long count = getLikes().stream().filter(
-                    c -> Objects.equals(c.getId(), car.getId())
+                    c -> Objects.equals(c, car.getId())
             ).count();
             result = (int) count;
         }

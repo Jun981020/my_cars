@@ -1,5 +1,6 @@
 package com.jproject.my_cars.domain.dealer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jproject.my_cars.domain.cars.Car;
 import com.jproject.my_cars.domain.dealer.employee.Card;
 import com.jproject.my_cars.dto.DealerJoinDto;
@@ -24,6 +25,10 @@ public class Dealer {
     @OneToMany(mappedBy = "dealer",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Car> cars = new ArrayList<>();
 
+    public void saleCar(Car car){
+        this.sale_count++;
+        this.cars.remove(car);
+    }
     public static Dealer joinDealer(DealerJoinDto dto,Card card){
         Dealer dealer = new Dealer();
         dealer.loginId = dto.getLoginId();

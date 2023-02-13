@@ -1,8 +1,12 @@
 package com.jproject.my_cars.domain.dealer;
 
+import com.jproject.my_cars.domain.cars.Car;
+import com.jproject.my_cars.dto.DealerPageResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -28,7 +32,14 @@ public class DealerService {
     public boolean check_login_id_pw_num(String id,String pw,String nu){
         return dealerRepository.findByIDPWNU(id, pw, nu) != null;
     }
-    public Dealer findOne(String id){
+    public Dealer findOneByLoginId(String id){
         return dealerRepository.findByLoginId(id);
+    }
+    public Dealer findOneById(Long id){
+        return dealerRepository.findById(id).get();
+    }
+
+    public List<Car> findOneOfDealerPage(Long id) {
+        return findOneById(id).getCars();
     }
 }

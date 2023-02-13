@@ -3,6 +3,8 @@ package com.jproject.my_cars.domain.cars;
 import com.jproject.my_cars.domain.cars.option.OptionRepository;
 import com.jproject.my_cars.domain.cars.option.Options;
 import com.jproject.my_cars.domain.dealer.Dealer;
+import com.jproject.my_cars.domain.member.Member;
+import com.jproject.my_cars.domain.member.MemberRepository;
 import com.jproject.my_cars.dto.CarPostsDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +21,7 @@ import java.util.List;
 public class CarService {
     private final CarRepository carRepository;
     private final OptionRepository optionRepository;
+    private final MemberRepository memberRepository;
 
     public List<Car> getAll(){
         return carRepository.findAll();
@@ -27,8 +30,15 @@ public class CarService {
         return carRepository.findById(id).get();
     }
     @Transactional
-    public void carUpPoint(Car car){
-        car.upPoint();
+    public boolean isCarUpPoint(Integer carNum,Integer memberNum){
+        Car car = carRepository.findById((long) carNum).get();
+        Member member = memberRepository.findById((long) memberNum).get();
+        if(member.isCheckDuplicateLikes(car)){
+            car.upPoint();
+            return true;
+        }else{
+            return false;
+        }
     }
 
     @Transactional
@@ -51,4 +61,10 @@ public class CarService {
         carRepository.save(car);
         return car;
     }
+    @Transactional
+    public void removeCar(Long id){
+        Car car = carRepository.findById(id).get();
+        carRepository.delete(car);
+    }
+
 }
