@@ -92,6 +92,13 @@ public class CarController {
         carService.removeCar((long)id);
         return "redirect:/dealer/dealerPage";
     }
+    @GetMapping("/cars/modify/{id}")
+    public String cars_modify(@PathVariable("id")int id,Model model){
+        Car car = carService.getOne((long) id);
+        model.addAttribute("car",car);
+        model.addAttribute("options",optionService.getOptionsList());
+        return "cars/cars_modify";
+    }
 
 
 }
