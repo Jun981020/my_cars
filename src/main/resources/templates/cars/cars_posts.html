@@ -114,37 +114,44 @@
                     <h5>최소 1장의 메인사진과 5장의 사이드 사진을 등록해야합니다.</h5>
                     <div class="mb-3">
                         <span>메인사진</span>
-                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example" required>
+                        <input type="file" multiple="multiple" onchange="readURL(this,1);" name="images" class="form-control" required aria-label="file example">
+                        <img class="pt-5 pb-3" id="preview1" style="width:300px; height:200px">
                         <div class="invalid-feedback">메인 사진은 필수입니다.</div>
                     </div>
                     <div class="mb-3">
                         <span>사이드사진1</span>
-                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example" required>
+                        <input type="file" multiple="multiple" onchange="readURL(this,2);" name="images" class="form-control" required aria-label="file example">
+                        <img class="pt-5 pb-3" id="preview2" style="width:300px; height:200px">
                         <div class="invalid-feedback">사진을 등록해주세요</div>
                     </div>
                     <div class="mb-3">
                         <span>사이드사진2</span>
-                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example" required>
+                        <input type="file" multiple="multiple" onchange="readURL(this,3);" name="images" class="form-control" required aria-label="file example">
+                        <img class="pt-5 pb-3" id="preview3" style="width:300px; height:200px">
                         <div class="invalid-feedback">사진을 등록해주세요</div>
                     </div>
                     <div class="mb-3">
                         <span>사이드사진3</span>
-                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example" required>
+                        <input type="file" multiple="multiple" onchange="readURL(this,4);" name="images" class="form-control" required aria-label="file example">
+                        <img class="pt-5 pb-3" id="preview4" style="width:300px; height:200px">
                         <div class="invalid-feedback">사진을 등록해주세요</div>
                     </div>
                     <div class="mb-3">
                         <span>사이드사진4</span>
-                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example" required>
+                        <input type="file" multiple="multiple" onchange="readURL(this,5);" name="images" class="form-control" required aria-label="file example">
+                        <img class="pt-5 pb-3" id="preview5" style="width:300px; height:200px">
                         <div class="invalid-feedback">사진을 등록해주세요</div>
                     </div>
                     <div class="mb-3">
                         <span>사이드사진5</span>
-                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example" required>
+                        <input type="file" multiple="multiple" onchange="readURL(this,6);" name="images" class="form-control" required aria-label="file example">
+                        <img class="pt-5 pb-3" id="preview6" style="width:300px; height:200px">
                         <div class="invalid-feedback">사진을 등록해주세요</div>
                     </div>
                     <div class="mb-3">
                         <span>사이드사진6</span>
-                        <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example">
+                        <input type="file" multiple="multiple" onchange="readURL(this,7);" name="images" class="form-control" aria-label="file example">
+                        <img class="pt-5 pb-3" id="preview7" style="width:300px; height:200px">
                     </div>
                 </div>
 
@@ -190,6 +197,18 @@
             return null;
         }
     })
+
+    function readURL(input,num) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('preview'+num).src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+      } else {
+        document.getElementById('preview'+num).src = "";
+      }
+    }
 
 </script>
 </html>

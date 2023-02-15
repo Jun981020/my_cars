@@ -5,6 +5,7 @@ import com.jproject.my_cars.domain.BaseEntity;
 import com.jproject.my_cars.domain.cars.img.Img;
 import com.jproject.my_cars.domain.cars.option.Options;
 import com.jproject.my_cars.domain.dealer.Dealer;
+import com.jproject.my_cars.dto.CarPostsDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -68,5 +69,16 @@ public class Car extends BaseEntity {
     }
     public void upPoint(){
         this.point++;
+    }
+    public Car carModify(CarPostsDto dto){
+        this.name = dto.getName();
+        this.price = dto.getPrice();
+        this.year = dto.getYear();
+        this.distance_driven = dto.getDistance_driven();
+        this.accident_history = Boolean.parseBoolean(dto.getAccident_history());
+        this.area = dto.getArea();
+        this.fuel = dto.getFuel();
+        this.manufacture = dto.getManufacture();
+        return this;
     }
 }

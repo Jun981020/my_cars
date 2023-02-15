@@ -9,6 +9,7 @@ import com.jproject.my_cars.domain.dealer.Dealer;
 import com.jproject.my_cars.domain.member.Member;
 import com.jproject.my_cars.domain.member.MemberService;
 import com.jproject.my_cars.dto.CarPostsDto;
+import com.jproject.my_cars.dto.ImagesFiles;
 import com.jproject.my_cars.web.session.SessionManager;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -61,9 +62,6 @@ public class CarController {
         //options 배열 분리하기
         String[] options = str.split(",");
 
-        for (String option : options) {
-            System.out.println("option = " + option);
-        }
         //car entity 생성
         Car car = carService.registration(dealer,dto,options);
         //img 저장
@@ -98,6 +96,20 @@ public class CarController {
         model.addAttribute("car",car);
         model.addAttribute("options",optionService.getOptionsList());
         return "cars/cars_modify";
+    }
+    @PutMapping("/cars/modifyAction")
+    public String cars_modify_action(@RequestParam(value = "id")int id,
+                                     @ModelAttribute CarPostsDto dto,
+                                     @ModelAttribute ImagesFiles files,
+                                     @RequestParam(value = "options",required = false)String str,
+                                     HttpServletRequest request){
+        Long carNum = (long)id;
+        String[] options = str.split(",");
+        Car car = carService.getOne(carNum);
+        carService.modifyCar(carNum,dto,options);
+        List<HashMap<String, MultipartFile>> list = files.setImageList();
+        imgService.modifyImg(list,dto.getName(),car);
+        return "redirect:/main";
     }
 
 

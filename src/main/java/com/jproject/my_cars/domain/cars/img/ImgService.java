@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -80,5 +81,11 @@ public class ImgService {
             }
         }
     }
+    public void modifyImg(List<HashMap<String,MultipartFile>> images, String carName, Car car){
+        String uuid = UUID.randomUUID().toString();
+        for (HashMap<String, MultipartFile> image : images) {
+        }
 
+
+    }
 }

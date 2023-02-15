@@ -66,5 +66,16 @@ public class CarService {
         Car car = carRepository.findById(id).get();
         carRepository.delete(car);
     }
+    @Transactional
+    public void modifyCar(Long carNum,CarPostsDto dto,String[] options){
+        Car entity = carRepository.findById(carNum).get();
+        Car car = entity.carModify(dto);
+
+        car.getOptions().clear();
+        for (String name : options) {
+            Options findOption = optionRepository.findByName(name);
+            car.addOption(findOption);
+        }
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.jproject.my_cars.domain.cars.option;
 
+import com.jproject.my_cars.dto.OptionsDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 
