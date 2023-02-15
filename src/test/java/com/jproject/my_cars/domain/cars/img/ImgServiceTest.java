@@ -2,10 +2,7 @@ package com.jproject.my_cars.domain.cars.img;
 
 import com.jproject.my_cars.domain.cars.Car;
 import com.jproject.my_cars.domain.cars.CarRepository;
-import com.jproject.my_cars.domain.cars.Fuel;
-import com.jproject.my_cars.domain.cars.Manufacture;
 import com.jproject.my_cars.domain.cars.option.Options;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,9 +19,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
-
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -98,6 +91,16 @@ class ImgServiceTest {
     private MockMultipartFile getMockMultipartFile(String fileName, String contentType, String path) throws IOException {
         FileInputStream fileInputStream = new FileInputStream(new File(path));
         return new MockMultipartFile(fileName, fileName + "." + contentType, contentType, fileInputStream);
+    }
+    @Test
+    public void findPath(){
+        List<String> fullPath = imgRepository.findPathByCarId(2L);
+        for (String path : fullPath) {
+            String substring = path.substring(0,path.lastIndexOf("/"));
+            System.out.println("substring = " + substring);
+        };
+
+
     }
 
 }

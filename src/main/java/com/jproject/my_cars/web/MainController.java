@@ -23,11 +23,12 @@ public class MainController {
 
     @GetMapping("/hello")
     public String test(){
-        return "여전히 뻔한 헬로우월드";
+        return "test";
     }
 
     @GetMapping("/main")
-    public String main(){
+    public String main(HttpServletRequest request){
+        System.out.println("request.getSession().getServletContext().getRealPath(\"/\") = " + request.getSession().getServletContext().getRealPath("/"));
         return "main";
     }
     @GetMapping("/main/getSessionTypeName")

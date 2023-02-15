@@ -124,6 +124,7 @@
                         <span>메인사진</span>
                         <input type="file" multiple="multiple" onchange="readURL(this,1);" name="main" class="form-control" aria-label="file example">
                         <img class="pt-5 pb-3" id="preview1" th:src="${car.images[0].path}" style="width:300px; height:200px">
+                        <div th:text="${car.images[0].path}"></div>
                     </div>
                     <div class="mb-3">
                         <span>사이드사진1</span>

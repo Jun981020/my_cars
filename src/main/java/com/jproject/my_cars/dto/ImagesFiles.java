@@ -22,42 +22,34 @@ public class ImagesFiles {
 
     public List<HashMap<String,MultipartFile>> setImageList(){
         List<HashMap<String, MultipartFile>> list = new ArrayList<>();
-        if(this.getMain() != null){
-            HashMap<String, MultipartFile> map = new HashMap<>();
-            map.put("main",getMain());
-            list.add(map);
+
+        if(this.getMain().getOriginalFilename() != null){
+            setList("main",getMain(),list);
         }
-        if(this.getSide1() != null){
-            HashMap<String, MultipartFile> map = new HashMap<>();
-            map.put("side1",getSide1());
-            list.add(map);
+        if(this.getSide1().getOriginalFilename() != null){
+            setList("side1",getSide1(),list);
         }
-        if(this.getSide2() != null){
-            HashMap<String, MultipartFile> map = new HashMap<>();
-            map.put("side2",getSide2());
-            list.add(map);
+        if(this.getSide2().getOriginalFilename() != null){
+            setList("side2",getSide2(),list);
         }
-        if(this.getSide3() != null){
-            HashMap<String, MultipartFile> map = new HashMap<>();
-            map.put("side3",getSide3());
-            list.add(map);
+        if(this.getSide3().getOriginalFilename() != null){
+            setList("side3",getSide3(),list);
         }
-        if(this.getSide4() != null){
-            HashMap<String, MultipartFile> map = new HashMap<>();
-            map.put("side4",getSide4());
-            list.add(map);
+        if(this.getSide4().getOriginalFilename() != null){
+            setList("side4",getSide4(),list);
         }
-        if(this.getSide5() != null){
-            HashMap<String, MultipartFile> map = new HashMap<>();
-            map.put("side5",getSide5());
-            list.add(map);
+        if(this.getSide5().getOriginalFilename() != null){
+            setList("side4",getSide5(),list);
         }
-        if(this.getSide6() != null){
-            HashMap<String, MultipartFile> map = new HashMap<>();
-            map.put("side6",getSide6());
-            list.add(map);
+        if(this.getSide6() != null && this.getSide6().getOriginalFilename() != null){
+            setList("side6",getSide6(),list);
         }
         return list;
+    }
+    public void setList(String filterName,MultipartFile file,List<HashMap<String, MultipartFile>> list){
+        HashMap<String,MultipartFile> map = new HashMap<>();
+        map.put(filterName,file);
+        list.add(map);
     }
 
 

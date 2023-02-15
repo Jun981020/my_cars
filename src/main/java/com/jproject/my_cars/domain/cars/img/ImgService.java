@@ -25,6 +25,8 @@ public class ImgService {
     private final ImgRepository imgRepository;
     @Value("${file.dir}")
     private String path;
+    @Value("${file.change.dir}")
+    private String changePath;
 
     //차량등록 폼에서 넘어온 이미지 리스트를 메인 사진과 사이드 사진으로 저장
     public void uploadImg(List<MultipartFile> images, String carName, Car car) throws IOException {
@@ -81,11 +83,39 @@ public class ImgService {
             }
         }
     }
-    public void modifyImg(List<HashMap<String,MultipartFile>> images, String carName, Car car){
-        String uuid = UUID.randomUUID().toString();
+    public void modifyImg(List<HashMap<String,MultipartFile>> images, String carName, Car car) throws IOException {
+        //해당 차량의 전체 이미지 파일 경로는 가져옴
+        List<String> pathList = imgRepository.findPathByCarId(car.getId());
+        //해당 차량의 디렉토리 찾기
+        String str = pathList.get(0);
         for (HashMap<String, MultipartFile> image : images) {
+            if(image.get("main") != null){
+               changeImg("main",car.getId(),image);
+            }
+            if(image.get("side1") != null){
+                changeImg("side1",car.getId(),image);
+            }
+            if(image.get("side2") != null){
+                changeImg("side2",car.getId(),image);
+            }
+            if(image.get("side3") != null){
+                changeImg("side3",car.getId(),image);
+            }
+            if(image.get("side4") != null){
+                changeImg("side4",car.getId(),image);
+            }
+            if(image.get("side5") != null){
+                changeImg("side5",car.getId(),image);
+            }
+            if(image.get("side6") != null){
+                changeImg("side6",car.getId(),image);
+            }
         }
-
-
+    }
+    public void changeImg(String filter,Long id,HashMap<String, MultipartFile> image) throws IOException {
+        List<String> pathList = imgRepository.findPathByCarId(id);
+        String mainImgPath = changePath + pathList.stream().filter(s -> s.contains(filter)).findFirst().get();
+        Files.delete(Path.of(mainImgPath));
+        image.get(filter).transferTo(new File(mainImgPath));
     }
 }

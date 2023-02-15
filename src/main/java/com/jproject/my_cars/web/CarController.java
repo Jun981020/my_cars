@@ -102,12 +102,16 @@ public class CarController {
                                      @ModelAttribute CarPostsDto dto,
                                      @ModelAttribute ImagesFiles files,
                                      @RequestParam(value = "options",required = false)String str,
-                                     HttpServletRequest request){
+                                     HttpServletRequest request) throws IOException {
         Long carNum = (long)id;
         String[] options = str.split(",");
+        //car entity 가져오기
         Car car = carService.getOne(carNum);
+        //options & car 정보 수정
         carService.modifyCar(carNum,dto,options);
+        //imgList 넘겨주기
         List<HashMap<String, MultipartFile>> list = files.setImageList();
+        System.out.println("list.size() = " + list.size());
         imgService.modifyImg(list,dto.getName(),car);
         return "redirect:/main";
     }
