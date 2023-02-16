@@ -28,7 +28,7 @@
                                 <option value="1">비공개</option>
                             </select>
                             <input type="hidden" placeholder="비밀번호를 입력하세요" id="private_content_password" maxlength="4" name="private_content_password" style="width: 200px; margin-left: 20px;" class="rounded">
-                            <input type="hidden" th:value="${session.member.loginId}" name="loginId">
+                            <input type="hidden" id="memberId" name="memberId">
                         </div>
 
                         <button class="btn btn-secondary btn-lg float-right" style="width: 100px;">작성!</button>
@@ -40,22 +40,5 @@
     <th:block th:insert="~{fragment/footer :: footer}"></th:block>
 </div>
 </body>
-<script type="text/javascript">
-    function checking(){
-        if(private_content.value == 1){
-            $('#private_content_password').attr('type','text');
-        }else{
-            $('#private_content_password').attr('type','hidden');
-        }
-    }
-    function nepCheck(){
-
-      if($("#private_content_password").val() == 0 && private_content.value == 1){
-        alert("비공개 글은 비밀번호를 입력해야 합니다.");
-        $("#private_content_password").focus();
-        return false;
-      }
-
-    }
-</script>
+<th:block th:insert="~{fragment/footer :: js}"></th:block>
 </html>

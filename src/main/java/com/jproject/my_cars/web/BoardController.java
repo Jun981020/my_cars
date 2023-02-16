@@ -33,9 +33,7 @@ public class BoardController {
     }
     @PostMapping("/board/writeAction")
     public String board_write_action(@ModelAttribute BoardWriteDto dto){
-        Member member = memberService.getMemberByLoginId(dto.getLoginId());
-        Board board = Board.writeBoard(dto.getTitle(), dto.getContent(), member, dto.getPrivate_content(), dto.getPrivate_content_password());
-        boardService.saveBoard(board);
+        boardService.saveBoard(dto);
         return "redirect:/board/list";
     }
     @GetMapping("/board/boardOne/{num}")

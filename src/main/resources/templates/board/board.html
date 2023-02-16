@@ -26,7 +26,7 @@
                         <a th:if="${board.private_content == 1}"
                            th:href="@{/board/boardOne/{num}(num = ${board.id})}"
                            th:id="${board.id}"
-                           th:text="${board.title}" onclick="checkLogin(); getId(this.getAttribute('id'));"
+                           th:text="${board.title}" onclick="return checkLogin(); getId(this.getAttribute('id'));"
                            class="title"
                            data-toggle="modal" data-target="#exampleModalCenter">
                         </a>
@@ -76,24 +76,22 @@
     <th:block th:insert="~{fragment/footer :: footer}"></th:block>
 </div>
 </body>
+<th:block th:insert="~{fragment/footer :: js}"></th:block>
 <script th:inline="javascript">
-  function checkLogin(){
-    const user  = [[${session.member}]];
-    if(user == null){
-      alert("로그인먼저 해주세요");
-      location.href='/member/login';
-      return false;
-    }
-  }
 
     $(document).ready(function(){
         $("#shoot").click(checking_ps);
     });
-
-    var num;
-    function getId(data){
-      num = data;
-    }
+    $("#shoot").click(function(){
+        var params = {
+            password : $("#password").val(),
+            board : num
+        }
+    })
+<!--    var num;-->
+<!--    function getId(data){-->
+<!--      num = data;-->
+<!--    }-->
 
     function checking_ps(){
         var params = {
@@ -101,20 +99,20 @@
             board : num
         }
 
-        $.ajax({
-        url : "/board/checkPrivateContent",
-        data : params,
-        type : "GET"
-        })
-        .done(function (req) {
-          if(req){
-            location.href = "/board/boardOne/"+num;
-          }else{
-             $("#password").val('');
-             $("#password").attr("placeholder","비밀번호가 틀립니다.");
-          }
-        });
-    }
+<!--        $.ajax({-->
+<!--        url : "/board/checkPrivateContent",-->
+<!--        data : params,-->
+<!--        type : "GET"-->
+<!--        })-->
+<!--        .done(function (req) {-->
+<!--          if(req){-->
+<!--            location.href = "/board/boardOne/"+num;-->
+<!--          }else{-->
+<!--             $("#password").val('');-->
+<!--             $("#password").attr("placeholder","비밀번호가 틀립니다.");-->
+<!--          }-->
+<!--        });-->
+<!--    }-->
 
 </script>
 </html>

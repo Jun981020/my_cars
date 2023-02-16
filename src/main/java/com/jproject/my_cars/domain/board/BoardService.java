@@ -1,5 +1,7 @@
 package com.jproject.my_cars.domain.board;
 
+import com.jproject.my_cars.domain.member.Member;
+import com.jproject.my_cars.domain.member.MemberRepository;
 import com.jproject.my_cars.dto.BoardWriteDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,12 +16,14 @@ import java.util.Optional;
 public class BoardService {
 
     private final BoardRepository boardRepository;
-
+    private final MemberRepository memberRepository;
     public List<Board> boardList(){
         return boardRepository.findAll();
     }
     @Transactional
-    public void saveBoard(Board board){
+    public void saveBoard(BoardWriteDto dto){
+        Member member = memberRepository.findById((long) dto.getMemberId()).get();
+        Board board = Board.writeBoard(dto.getTitle(), dto.getContent(),member,dto.getPrivate_content(), dto.getPrivate_content_password());
         boardRepository.save(board);
     }
     public Board getBoardById(long id){

@@ -1,7 +1,6 @@
 package com.jproject.my_cars.domain.cars.img;
 
 import com.jproject.my_cars.domain.cars.Car;
-import com.jproject.my_cars.exception.ModifyImgException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

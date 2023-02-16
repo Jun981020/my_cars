@@ -45,6 +45,10 @@ public class MainController {
     @ResponseBody
     public Long get_session_member_id(HttpServletRequest request){
         Member m = (Member) sessionManager.getSession(request);
-        return m.getId();
+        if(m == null){
+            return null;
+        }else{
+            return m.getId();
+        }
     }
 }

@@ -28,8 +28,8 @@ public class Board extends BaseEntity {
     public static Board writeBoard(String title,String content,Member member,int private_content,String private_content_password){
         Board board = new Board();
         board.title = title;
-        board.content = content;
         board.member = member;
+        board.content = content;
         board.private_content =private_content;
         board.private_content_password = private_content_password;
         return board;
