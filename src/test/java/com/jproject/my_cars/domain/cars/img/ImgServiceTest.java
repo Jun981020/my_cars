@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -99,7 +101,21 @@ class ImgServiceTest {
             String substring = path.substring(0,path.lastIndexOf("/"));
             System.out.println("substring = " + substring);
         };
-
+    }
+    @Test
+    public void dbPath(){
+        String savedName = "BMW-320i-main.webp";
+        String newDir = "/Users/ijunhyeong/IdeaProjects/my_cars/src/main/webapp/img/cars/bmw/bmw-320i-ca7b02ca-1a09-4026-ab12-738100ef8c91";
+        String dbPath = newDir.substring(newDir.lastIndexOf("/webapp"))+ "/" +savedName;
+        System.out.println("dbPath = " + dbPath);
+    }
+    @Test
+    public void mapForEach(){
+        HashMap<String,Integer> map = new HashMap<>();
+        map.put("one",1);
+        map.put("two",2);
+        map.put("three",3);
+        map.put("four",4);
 
     }
 

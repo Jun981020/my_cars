@@ -36,7 +36,9 @@ public class MainController {
     public HashMap<String,Object> get_session_type_name(HttpServletRequest request){
         HashMap<String, Object> map = new HashMap<>();
         String typeName = sessionManager.getSession(request).getClass().getSimpleName();
+        System.out.println("typeName = " + typeName);
         map.put(typeName,sessionManager.getSession(request));
+        System.out.println("map = " + map);
         return map;
     }
     @GetMapping("/main/getSessionMemberId")

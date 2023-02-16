@@ -20,36 +20,33 @@ public class ImagesFiles {
     private MultipartFile side5;
     private MultipartFile side6;
 
-    public List<HashMap<String,MultipartFile>> setImageList(){
-        List<HashMap<String, MultipartFile>> list = new ArrayList<>();
-
-        if(this.getMain().getOriginalFilename() != null){
-            setList("main",getMain(),list);
-        }
-        if(this.getSide1().getOriginalFilename() != null){
-            setList("side1",getSide1(),list);
-        }
-        if(this.getSide2().getOriginalFilename() != null){
-            setList("side2",getSide2(),list);
-        }
-        if(this.getSide3().getOriginalFilename() != null){
-            setList("side3",getSide3(),list);
-        }
-        if(this.getSide4().getOriginalFilename() != null){
-            setList("side4",getSide4(),list);
-        }
-        if(this.getSide5().getOriginalFilename() != null){
-            setList("side4",getSide5(),list);
-        }
-        if(this.getSide6() != null && this.getSide6().getOriginalFilename() != null){
-            setList("side6",getSide6(),list);
-        }
-        return list;
-    }
-    public void setList(String filterName,MultipartFile file,List<HashMap<String, MultipartFile>> list){
+    public HashMap<String,MultipartFile> setImageList(){
         HashMap<String,MultipartFile> map = new HashMap<>();
+        if(!getMain().getOriginalFilename().isEmpty()){
+            setList("main",getMain(),map);
+        }
+        if(!getSide1().getOriginalFilename().isEmpty()){
+            setList("side1",getSide1(),map);
+        }
+        if(!getSide2().getOriginalFilename().isEmpty()){
+            setList("side2",getSide2(),map);
+        }
+        if(!getSide3().getOriginalFilename().isEmpty()){
+            setList("side3",getSide3(),map);
+        }
+        if(!getSide4().getOriginalFilename().isEmpty()){
+            setList("side4",getSide4(),map);
+        }
+        if(!getSide5().getOriginalFilename().isEmpty()) {
+            setList("side4",getSide5(),map);
+        }
+        if(getSide6() != null && !(getSide6().getOriginalFilename().isEmpty())){
+            setList("side6",getSide6(),map);
+        }
+        return map;
+    }
+    public void setList(String filterName,MultipartFile file,HashMap<String,MultipartFile> map){
         map.put(filterName,file);
-        list.add(map);
     }
 
 

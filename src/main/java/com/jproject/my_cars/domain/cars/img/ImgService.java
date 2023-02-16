@@ -1,6 +1,8 @@
 package com.jproject.my_cars.domain.cars.img;
 
 import com.jproject.my_cars.domain.cars.Car;
+import com.jproject.my_cars.exception.ModifyImgException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -55,7 +57,7 @@ public class ImgService {
                 image.transferTo(new File((savePath)));
 
                 //db에 저장될 경로 핸들링
-                String dbPath = newDir.substring(newDir.lastIndexOf("/img"))+ "/" +savedName;
+                String dbPath = newDir.substring(newDir.lastIndexOf("/webapp"))+ "/" +savedName;
                 log.info("dbPath: " + dbPath);
                 Img img = Img.addImg(fileName, dbPath);
                 img.setCar(car);
@@ -74,7 +76,7 @@ public class ImgService {
                 String savedPath = newDir + "/" +savedName;
                 image.transferTo(new File(savedPath));
 
-                String dbPath = newDir.substring(newDir.lastIndexOf("/img"))+ "/" +savedName;
+                String dbPath = newDir.substring(newDir.lastIndexOf("/webapp"))+ "/" +savedName;
                 log.info("dbPath: " + dbPath);
                 Img img = Img.addImg(fileName, dbPath);
                 img.setCar(car);
@@ -83,39 +85,29 @@ public class ImgService {
             }
         }
     }
-    public void modifyImg(List<HashMap<String,MultipartFile>> images, String carName, Car car) throws IOException {
+    public void modifyImg(HashMap<String,MultipartFile> map, String carName, Car car) throws IOException {
         //해당 차량의 전체 이미지 파일 경로는 가져옴
         List<String> pathList = imgRepository.findPathByCarId(car.getId());
         //해당 차량의 디렉토리 찾기
         String str = pathList.get(0);
-        for (HashMap<String, MultipartFile> image : images) {
-            if(image.get("main") != null){
-               changeImg("main",car.getId(),image);
+        map.forEach( (key, value) -> {
+            try{
+                changeImg(key,car.getId(),value);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-            if(image.get("side1") != null){
-                changeImg("side1",car.getId(),image);
-            }
-            if(image.get("side2") != null){
-                changeImg("side2",car.getId(),image);
-            }
-            if(image.get("side3") != null){
-                changeImg("side3",car.getId(),image);
-            }
-            if(image.get("side4") != null){
-                changeImg("side4",car.getId(),image);
-            }
-            if(image.get("side5") != null){
-                changeImg("side5",car.getId(),image);
-            }
-            if(image.get("side6") != null){
-                changeImg("side6",car.getId(),image);
-            }
-        }
+        });
+
+
+//        if(image.get("side6") != null){
+//            changeImg("side6",car.getId(),image);
+//        }
     }
-    public void changeImg(String filter,Long id,HashMap<String, MultipartFile> image) throws IOException {
+    public void changeImg(String filter,Long id,MultipartFile image) throws IOException {
         List<String> pathList = imgRepository.findPathByCarId(id);
         String mainImgPath = changePath + pathList.stream().filter(s -> s.contains(filter)).findFirst().get();
+        System.out.println("mainImgPath = " + mainImgPath);
         Files.delete(Path.of(mainImgPath));
-        image.get(filter).transferTo(new File(mainImgPath));
+        image.transferTo(new File(mainImgPath));
     }
 }

@@ -22,6 +22,7 @@ public class Dealer {
     private Integer sale_count;
     @Embedded
     private Card card;
+    @JsonIgnore
     @OneToMany(mappedBy = "dealer",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Car> cars = new ArrayList<>();
 

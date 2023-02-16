@@ -42,7 +42,6 @@ public class CarController {
     @GetMapping("/cars/carOne/{num}")
     public String car_one(@PathVariable("num")int num,Model model){
         Car car = carService.getOne((long) num);
-        System.out.println("car.getImages() = " + car.getImages());
         model.addAttribute("car",car);
         return "cars/cars_one";
     }
@@ -110,9 +109,9 @@ public class CarController {
         //options & car 정보 수정
         carService.modifyCar(carNum,dto,options);
         //imgList 넘겨주기
-        List<HashMap<String, MultipartFile>> list = files.setImageList();
-        System.out.println("list.size() = " + list.size());
-        imgService.modifyImg(list,dto.getName(),car);
+        HashMap<String, MultipartFile> map = files.setImageList();
+        System.out.println("list.size() = " + map.size());
+        imgService.modifyImg(map,dto.getName(),car);
         return "redirect:/main";
     }
 

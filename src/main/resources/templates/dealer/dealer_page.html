@@ -70,7 +70,9 @@
                     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                         <div class="accordion-body" th:each="cars : ${list}">
                             <div class="d-flex">
-                                <img class="border" th:src="${cars.images[0].path}" alt="" style="width: 400px;height: 300px;">
+                                <a th:href="@{/cars/carOne/{num}(num = ${cars.id})}">
+                                    <img class="border"  th:src="${cars.images[0].path}" alt="" style="width: 400px;height: 300px;">
+                                </a>
                                 <div class="d-flex justify-content-center w-100">
                                     <table class="table w-75">
                                         <thead>
