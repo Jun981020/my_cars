@@ -38,6 +38,7 @@ public class BoardController {
     }
     @GetMapping("/board/boardOne/{num}")
     public String board_one(@PathVariable("num") int num,Model model){
+        //이곳에서는 두개의 액션으로 받을수가 있음
         Board board = boardService.findBoardByBoardId((long) num).get();
         model.addAttribute("board",board);
         model.addAttribute("boardId",board.getId());
