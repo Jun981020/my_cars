@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Getter
 @AllArgsConstructor
-public class DealerBoard extends Board {
+public class DealerBoard extends Board{
 
     @Column(name = "DEALER_BOARD_ID")
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

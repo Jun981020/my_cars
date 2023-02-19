@@ -1,5 +1,6 @@
 package com.jproject.my_cars.domain.board;
 
+import com.jproject.my_cars.domain.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
@@ -11,7 +12,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-public class Board {
+public class Board extends BaseEntity {
 
     private String title;
     private String content;
