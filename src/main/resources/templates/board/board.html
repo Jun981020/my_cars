@@ -10,6 +10,10 @@
     <!-- body -->
     <div class="container rounded mt-5 mb-5" style="background-color: #adb5bd;">
         <div class="text-center p-5"><h2>게시판</h2></div>
+        <div class="d-flex justify-content-center">
+            <button type="button" id="member" onclick="change1()" class="btn btn-light">회원게시판</button>
+            <button type="button" id="dealer" onclick="change2()" class="btn btn-outline-light">딜러게시판</button>
+        </div>
         <div class="px-5 w-auto h-auto text-center pt-5 d-flex flex-column align-items-center text-center" style="border-radius: 30px;">
             <table class="table table-striped" style="border-radius: 60px;">
                 <tr>
@@ -98,6 +102,7 @@
             password : $("#password").val(),
             board : num
         }
+    }
 
 <!--        $.ajax({-->
 <!--        url : "/board/checkPrivateContent",-->
@@ -113,6 +118,23 @@
 <!--          }-->
 <!--        });-->
 <!--    }-->
+   function change1(){
+        $("#dealer").removeClass("btn-light");
+        $("#dealer").addClass("btn-outline-light");
+
+        $("#member").removeClass("btn-outline-light");
+        $("#member").addClass("btn-light");
+
+
+    }
+    function change2(){
+        $("#member").removeClass("btn-light");
+        $("#member").addClass("btn-outline-light");
+
+        $("#dealer").removeClass("btn-outline-light");
+        $("#dealer").addClass("btn-light");
+    }
+
 
 </script>
 </html>
