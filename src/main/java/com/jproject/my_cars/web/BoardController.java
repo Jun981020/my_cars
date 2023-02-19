@@ -25,21 +25,17 @@ public class BoardController {
     private final DealerBoardService dealerBoardService;
     private final MemberBoardService memberBoardService;
     private final MemberService memberService;
-    @GetMapping("/board/list")
+    @GetMapping("/board/list/member")
     public String board_list(Model model){
         List<MemberBoard> memberBoards = memberBoardService.memberBoardList();
         model.addAttribute("list",memberBoards);
-        return "board/board";
+        return "board/board_member";
     }
-    @GetMapping("/board/list/{code}")
-    public String board_list_code(@PathVariable("code")String code,Model model){
-        log.info("호출주우우우웅₩");
-        if(code.equals("dealer")){
-            List<DealerBoard> dealerBoards = dealerBoardService.dealerBoardList();
-            model.addAttribute("list",dealerBoards);
-            return "board/board :: #codeList";
-        }
-        return null;
+    @GetMapping("/board/list/dealer")
+    public String board_list_dealer(Model model){
+        List<DealerBoard> dealerBoards = dealerBoardService.dealerBoardList();
+        model.addAttribute("list",dealerBoards);
+        return "board/board_dealer";
     }
     @GetMapping("/board/write/{data}")
     public String board_write(){
