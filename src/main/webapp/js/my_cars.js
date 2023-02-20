@@ -63,4 +63,44 @@ function checkSessionEmpty(){
                     });
     return result;
 }
+function refresh1(){
+        $("#dealer").removeClass("btn-light");
+        $("#dealer").addClass("btn-outline-light");
+
+        $("#member").removeClass("btn-outline-light");
+        $("#member").addClass("btn-light");
+
+        let code = "member";
+        location.href = '/board/list/' + code;
+}
+function refresh2(){
+        $("#member").removeClass("btn-light");
+        $("#member").addClass("btn-outline-light");
+
+        $("#dealer").removeClass("btn-outline-light");
+        $("#dealer").addClass("btn-light");
+
+        let code = "dealer";
+        location.href = '/board/list/' + code;
+}
+function boardWriteButton(){
+    checkLogin();
+    checkModeAndSendBoardWrite();
+}
+function checkModeAndSendBoardWrite(){
+    $.ajax({
+        url : "/main/getSessionTypeName",
+        type : "GET",
+        dataType : "JSON"
+    }).done(function(res){
+        if(res.Member != null){
+            let memberId = getSessionMemberId();
+            location.href = '/board/write/'+'member/'+memberId;
+        }else{
+            let dealerId = getSessionDealerId();
+            location.href = '/board/write/'+'dealer/'+dealerId;
+        }
+
+    })
+}
 console.log('현재 이페이지에 적용중입니다.');
