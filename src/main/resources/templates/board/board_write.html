@@ -12,7 +12,7 @@
         <div class="pt-5 pb-5">
             <h2 class="text-center mt-5"> 게시글을 작성하세요! </h2>
             <div class="d-flex justify-content-center w-100">
-                <form class="d-flex flex-column w-75" action="/board/writeAction" method="post" onsubmit="return nepCheck();">
+                <form class="d-flex flex-column w-75" th:action="@{/board/writeAction/{data}(data=${data})}" method="post" onsubmit="return nepCheck();">
                     <div class="form-group pt-3 pb-3">
                         <label for="exampleFormControlTextarea1" class="pb-2">제목을 입력해주세요</label>
                         <input type="text" class="form-group w-100 rounded" name="title"  style="height: 40px;">
@@ -28,7 +28,7 @@
                                 <option value="1">비공개</option>
                             </select>
                             <input type="hidden" placeholder="비밀번호를 입력하세요" id="private_content_password" maxlength="4" name="private_content_password" style="width: 200px; margin-left: 20px;" class="rounded">
-                            <input type="hidden" id="memberId" name="memberId">
+                            <input type="hidden" name="num" th:value="${num}">
                         </div>
 
                         <button class="btn btn-secondary btn-lg float-right" style="width: 100px;">작성!</button>

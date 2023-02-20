@@ -5,17 +5,17 @@ import com.jproject.my_cars.domain.board.dealer_board.DealerBoardService;
 import com.jproject.my_cars.domain.board.member_board.MemberBoard;
 import com.jproject.my_cars.domain.board.member_board.MemberBoardService;
 import com.jproject.my_cars.domain.member.MemberService;
+import com.jproject.my_cars.dto.BoardWriteDto;
+import com.jproject.my_cars.dto.DealerWriteBoardDto;
+import com.jproject.my_cars.dto.MemberWriteBoardDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -37,15 +37,33 @@ public class BoardController {
         model.addAttribute("list",dealerBoards);
         return "board/board_dealer";
     }
-    @GetMapping("/board/write/{data}")
-    public String board_write(){
+    @GetMapping("/board/write/{data}/{num}")
+    public String board_write(@PathVariable("data")String data,@PathVariable(value = "num")String num,Model model){
+        if(data == null){
+            throw new NoSuchBoardWriteData("회원또는 딜러로 로그인하지 않았습니다.");
+        }
+        model.addAttribute("data",data);
+        model.addAttribute("num",num);
         return "board/board_write";
     }
-//    @PostMapping("/board/writeAction")
-//    public String board_write_action(@ModelAttribute BoardWriteDto dto){
-//        boardService.saveBoard(dto);
-//        return "redirect:/board/list";
+//    @ExceptionHandler(NoSuchBoardWriteData.class)
+//    public String noData(RedirectAttributes rds){
+//        String message = "회원또는 딜러로 로그인하지 않았습니다";
+//        rds.addFlashAttribute("fail.",message);
+//        return "redirect:/main";
 //    }
+    @PostMapping("/board/writeAction/member")
+    public String board_write_action(@ModelAttribute MemberWriteBoardDto dto){
+        System.out.println("dto = " + dto);
+        memberBoardService.save(dto);
+        return "redirect:/board/list/member";
+    }
+    @PostMapping("/board/writeAction/dealer")
+    public String board_write_action(@ModelAttribute DealerWriteBoardDto dto){
+        System.out.println("dto = " + dto);
+        dealerBoardService.save(dto);
+        return "redirect:/board/list/dealer";
+    }
 //    @GetMapping("/board/boardOne/{num}")
 //    public String board_one(@PathVariable("num") int num,Model model){
 //        //이곳에서는 두개의 액션으로 받을수가 있음

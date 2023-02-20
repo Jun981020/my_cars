@@ -17,9 +17,22 @@ function getSessionMemberId(){
                     }).done(function(res){
                         memberId = res;
                         }).fail(function(xhr,status,error){
-                            alert("오류발생 getMemberId()"+error);
+                            alert("오류발생 getSessionMemberId()"+error);
                         });
     return memberId;
+}
+function getSessionDealerId(){
+    let dealerId = null;
+    $.ajax({
+            url : '/main/getSessionDealerId',
+            method : "GET",
+            async: false
+                    }).done(function(res){
+                        dealerId = res;
+                        }).fail(function(xhr,status,error){
+                            alert("오류발생 getSessionDealerId()"+error);
+                        });
+    return dealerId;
 }
 //board_write page 비공개글에 비밀번호를 입력하지 않을시 false 리턴 입력하면 input hidden태그에 memberId value로 넣어줌
 function nepCheck(){
@@ -27,18 +40,27 @@ function nepCheck(){
             alert("비공개 글은 비밀번호를 입력해야 합니다.");
             $("#private_content_password").focus();
             return false;
-      }else{
-        let memberId = getSessionMemberId();
-        $("#memberId").attr('value',memberId);
       }
 }
 
 function checkLogin(){
-    let user  = getSessionMemberId();
-    if(user.length == 0){
+    let result = checkSessionEmpty();
+    if(!result){
       alert("로그인먼저 해주세요");
       location.href='/member/login';
-      return false;
     }
+}
+function checkSessionEmpty(){
+    var result = null;
+    $.ajax({
+            url : '/main/getSessionEmpty',
+            method : "GET",
+            async: false
+                    }).done(function(res){
+                    result = res;
+                    }).fail(function(xhr,status,error){
+                            alert("오류발생 checkSessionEmpty()"+error);
+                    });
+    return result;
 }
 console.log('현재 이페이지에 적용중입니다.');

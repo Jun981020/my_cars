@@ -2,7 +2,7 @@ package com.jproject.my_cars.domain.board.dealer_board;
 
 import com.jproject.my_cars.domain.board.Board;
 import com.jproject.my_cars.domain.dealer.Dealer;
-import com.jproject.my_cars.dto.DealerBoardWriteDto;
+import com.jproject.my_cars.dto.DealerWriteBoardDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,12 +24,15 @@ public class DealerBoard extends Board{
     public DealerBoard(){
 
     }
-    public static DealerBoard writeDealerBoard(DealerBoardWriteDto dto){
+    public static DealerBoard writeDealerBoard(DealerWriteBoardDto dto){
         DealerBoard dealerBoard = new DealerBoard();
         dealerBoard.setTitle(dto.getTitle());
         dealerBoard.setContent(dto.getContent());
         dealerBoard.setPrivate_content(dto.getPrivate_content());
         dealerBoard.setPrivate_content_password(dto.getPrivate_content_password());
         return dealerBoard;
+    }
+    public void setDealer(Dealer dealer){
+        this.dealer = dealer;
     }
 }

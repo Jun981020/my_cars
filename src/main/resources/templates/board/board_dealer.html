@@ -47,7 +47,7 @@
         </tr>
       </table>
       <div class="w-100 pt-5 d-flex justify-content-end">
-        <button class="btn btn-secondary" onclick="location.href = '/board/write' ">글쓰기</button>
+        <button class="btn btn-secondary" onclick="boardWriteButton()">글쓰기</button>
       </div>
       <div class="container p-5 w-75">
         <form class="form-group d-flex justify-content-around"action="/board/search">
@@ -89,7 +89,7 @@ function refresh1(){
         $("#member").removeClass("btn-outline-light");
         $("#member").addClass("btn-light");
 
-         let code = "member";
+        let code = "member";
         location.href = '/board/list/' + code;
 }
 function refresh2(){
@@ -101,6 +101,28 @@ function refresh2(){
 
         let code = "dealer";
         location.href = '/board/list/' + code;
+}
+function boardWriteButton(){
+    checkLogin();
+    checkModeAndSendBoardWrite();
+}
+function checkModeAndSendBoardWrite(){
+    $.ajax({
+        url : "/main/getSessionTypeName",
+        type : "GET",
+        dataType : "JSON"
+    }).done(function(res){
+        if(res.Member != null){
+            alert(res.Member);
+            alert(res.Dealer);
+            let memberId = getSessionDealerId();
+            location.href = '/board/write/'+'member/'+memberId;
+        }else{
+            let dealerId = getSessionDealerId();
+            location.href = '/board/write/'+'dealer/'+dealerId;
+        }
+
+    })
 }
 </script>
 </html>

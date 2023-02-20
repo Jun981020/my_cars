@@ -1,5 +1,6 @@
 package com.jproject.my_cars.web;
 
+import com.jproject.my_cars.domain.dealer.Dealer;
 import com.jproject.my_cars.domain.member.Member;
 import com.jproject.my_cars.web.session.SessionManager;
 import jakarta.servlet.http.HttpServletRequest;
@@ -49,6 +50,31 @@ public class MainController {
             return null;
         }else{
             return m.getId();
+        }
+    }
+    @GetMapping("/main/getSessionEmpty")
+    @ResponseBody
+    public boolean get_session_empty(HttpServletRequest request){
+        boolean result;
+        Object session = sessionManager.getSession(request);
+        if(session != null){
+            result = true;
+            System.out.println("result = " + result);
+            return true;
+        }else{
+            result = false;
+            System.out.println("result = " + result);
+            return false;
+        }
+    }
+    @GetMapping("/main/getSessionDealerId")
+    @ResponseBody
+    public Long get_session_dealer_id(HttpServletRequest request){
+        Dealer d = (Dealer) sessionManager.getSession(request);
+        if(d == null){
+            return null;
+        }else{
+            return d.getId();
         }
     }
 }
