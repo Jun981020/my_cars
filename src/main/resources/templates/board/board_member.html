@@ -28,15 +28,15 @@
                     <td th:text="${board.member.name}"></td>
                     <td>
                         <a th:if="${board.private_content == 1}"
-                           th:href="@{/board/boardOne/{num}(num = ${board.id})}"
+                           th:href="@{/board/memberBoard/{num}(num = ${board.id})}"
                            th:id="${board.id}"
-                           th:text="${board.title}" onclick="return checkLogin(); getId(this.getAttribute('id'));"
+                           th:text="${board.title}"
                            class="title"
                            data-toggle="modal" data-target="#exampleModalCenter">
                         </a>
                         <a th:unless="${board.private_content == 1}"
-                           th:href="@{/board/boardOne/{num}(num = ${board.id})}"
-                           th:text="${board.title}" onclick="return checkLogin();"
+                           th:href="@{/board/memberBoard/{num}(num = ${board.id})}"
+                           th:text="${board.title}"
                            class="title"
                         >
                         </a>

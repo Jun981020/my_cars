@@ -27,4 +27,8 @@ public class MemberBoardService {
         memberBoard.setMember(member);
         memberBoardRepository.save(memberBoard);
     }
+
+    public MemberBoard findByNum(long num) {
+        return memberBoardRepository.findById(num).get();
+    }
 }

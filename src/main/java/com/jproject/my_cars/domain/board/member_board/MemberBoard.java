@@ -1,6 +1,7 @@
 package com.jproject.my_cars.domain.board.member_board;
 
 import com.jproject.my_cars.domain.board.Board;
+import com.jproject.my_cars.domain.board.reply.member_board_reply.MemberBoardReply;
 import com.jproject.my_cars.domain.member.Member;
 import com.jproject.my_cars.dto.MemberWriteBoardDto;
 import jakarta.persistence.*;
@@ -18,7 +19,8 @@ public class MemberBoard extends Board {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
-
+    @OneToMany(mappedBy = "memberBoard",cascade = CascadeType.ALL)
+    private List<MemberBoardReply> replies = new ArrayList<>();
     public static MemberBoard writeMemberBoard(MemberWriteBoardDto dto){
         MemberBoard memberBoard = new MemberBoard();
         memberBoard.setTitle(dto.getTitle());

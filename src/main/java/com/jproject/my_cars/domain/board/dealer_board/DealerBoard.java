@@ -1,6 +1,7 @@
 package com.jproject.my_cars.domain.board.dealer_board;
 
 import com.jproject.my_cars.domain.board.Board;
+import com.jproject.my_cars.domain.board.reply.dealer_board_reply.DealerBoardReply;
 import com.jproject.my_cars.domain.dealer.Dealer;
 import com.jproject.my_cars.dto.DealerWriteBoardDto;
 import jakarta.persistence.*;
@@ -21,6 +22,8 @@ public class DealerBoard extends Board{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DEALER_ID")
     private Dealer dealer;
+    @OneToMany(mappedBy = "dealerBoard",cascade = CascadeType.ALL)
+    private List<DealerBoardReply> replies = new ArrayList<>();
     public DealerBoard(){
 
     }

@@ -29,4 +29,8 @@ public class DealerBoardService {
         dealerBoard.setDealer(dealer);
         dealerBoardRepository.save(dealerBoard);
     }
+
+    public DealerBoard findByNum(long num) {
+        return dealerBoardRepository.findById(num).get();
+    }
 }

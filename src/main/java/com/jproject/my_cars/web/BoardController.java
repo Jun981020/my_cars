@@ -64,14 +64,18 @@ public class BoardController {
         dealerBoardService.save(dto);
         return "redirect:/board/list/dealer";
     }
-//    @GetMapping("/board/boardOne/{num}")
-//    public String board_one(@PathVariable("num") int num,Model model){
-//        //이곳에서는 두개의 액션으로 받을수가 있음
-//        Board board = boardService.findBoardByBoardId((long) num).get();
-//        model.addAttribute("board",board);
-//        model.addAttribute("boardId",board.getId());
-//        return "board/board_one";
-//    }
+    @GetMapping("/board/memberBoard/{num}")
+    public String member_board_one(@PathVariable("num") int num,Model model){
+        MemberBoard board = memberBoardService.findByNum((long)num);
+        model.addAttribute("board",board);
+        return "board/board_one";
+    }
+    @GetMapping("/board/dealerBoard/{num}")
+    public String dealer_board_one(@PathVariable("num") int num,Model model){
+        DealerBoard board = dealerBoardService.findByNum((long)num);
+        model.addAttribute("board",board);
+        return "board/board_one";
+    }
 //    @GetMapping("/board/checkPrivateContent")
 //    @ResponseBody
 //    public boolean checkPassword(@RequestParam Map<String,Object> params, Model model){
