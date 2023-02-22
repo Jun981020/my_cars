@@ -39,9 +39,9 @@
 
     <!--댓글작성하기-->
     <div class="d-flex justify-content-center">
-      <form class="d-flex flex-column w-75" action="/reply/writeAction" method="post">
-<!--        <input type="hidden" name="loginId" th:value="${session.member.loginId}">-->
-<!--        <input type="hidden" name="boardId" th:value="${boardId}">-->
+      <form class="d-flex flex-column w-75" th:action="@{/reply/writeAction/{data}(data=${cat})}" method="post">
+        <input type="hidden" id="loginId" name="loginId">
+        <input type="hidden" name="boardId" th:value="${board.id}">
         <div class="card mb-2 w-100" style="background-color: #adb5bd;">
           <div class="card-header">
             <i class="fa fa-comment fa"></i> 댓글쓰기
@@ -52,7 +52,8 @@
 <!--                <div class="form-inline mb-2" th:text="${session.member.loginId}">-->
 <!--                </div>-->
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="content"></textarea>
-                <div class="w-100 float-right"><button type="submit" class="btn btn-secondary mt-3">댓글 등록</button></div>
+                <div class="w-100 float-right"><button type="submit" onclick="getSessionDataForWriteReply()" class="btn btn-secondary mt-3">댓글 등록</button>
+                </div>
               </li>
             </ul>
           </div>
@@ -87,4 +88,5 @@
   <th:block th:insert="~{fragment/footer :: footer}"></th:block>
 </div>
 </body>
+<th:block th:insert="~{fragment/footer :: js}"></th:block>
 </html>

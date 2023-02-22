@@ -68,12 +68,14 @@ public class BoardController {
     public String member_board_one(@PathVariable("num") int num,Model model){
         MemberBoard board = memberBoardService.findByNum((long)num);
         model.addAttribute("board",board);
+        model.addAttribute("cat","member");
         return "board/board_one";
     }
     @GetMapping("/board/dealerBoard/{num}")
     public String dealer_board_one(@PathVariable("num") int num,Model model){
         DealerBoard board = dealerBoardService.findByNum((long)num);
         model.addAttribute("board",board);
+        model.addAttribute("cat","dealer");
         return "board/board_one";
     }
 //    @GetMapping("/board/checkPrivateContent")

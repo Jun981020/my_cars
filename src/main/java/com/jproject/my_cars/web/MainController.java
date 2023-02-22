@@ -1,5 +1,7 @@
 package com.jproject.my_cars.web;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jproject.my_cars.domain.dealer.Dealer;
 import com.jproject.my_cars.domain.member.Member;
 import com.jproject.my_cars.web.session.SessionManager;
@@ -7,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -76,5 +79,22 @@ public class MainController {
         }else{
             return d.getId();
         }
+    }
+    @GetMapping("/main/getSessionTypeLoginId")
+    @ResponseBody
+    public String get_session_type_login_id(HttpServletRequest request) throws JsonProcessingException {
+        HashMap<String, String> map = new HashMap<>();
+        String typeName = sessionManager.getSession(request).getClass().getSimpleName();
+        if(typeName.equals("Member")){
+            Member member = (Member) sessionManager.getSession(request);
+            map.put("data",member.getLoginId());
+        }else{
+            Dealer dealer = (Dealer) sessionManager.getSession(request);
+            map.put("data",dealer.getLoginId());
+        }
+        //Hashmap 을 JSON으로 변환
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonString = mapper.writeValueAsString(map);
+        return jsonString;
     }
 }

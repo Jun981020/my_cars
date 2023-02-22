@@ -1,5 +1,6 @@
 package com.jproject.my_cars.web;
 
+import com.jproject.my_cars.domain.board.reply.member_board_reply.MemberBoardReplyService;
 import com.jproject.my_cars.domain.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -9,20 +10,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequiredArgsConstructor
 public class ReplyController {
-//
-//    private final MemberService memberService;
-////    private final BoardService boardService;
-//    private final ReplyService replyService;
 
-//    @PostMapping("/reply/writeAction")
-//    public String reply_write_action(@RequestParam("loginId") String loginId,
-//                                     @RequestParam("boardId") String boardId,
-//                                     @RequestParam("content") String content){
-//        Member m = memberService.getMemberByLoginId(loginId);
-//        Board b = boardService.getBoardById(Long.parseLong(boardId));
-//        Reply reply = Reply.createReply(m, b, content);
-//        reply.setBoard(b);
-//        replyService.saveReply(reply);
-//        return "redirect:/board/boardOne/"+boardId;
-//    }
+    private final MemberService memberService;
+    private final MemberBoardReplyService memberBoardReplyService;
+
+    @PostMapping("/reply/writeAction/member")
+    public String reply_write_action_member(@RequestParam("loginId") String loginId,
+                                            @RequestParam("boardId") String boardId,
+                                            @RequestParam("content") String content){
+
+        return "redirect:/board/boardOne/"+boardId;
+    }
+    @PostMapping("/reply/writeAction/dealer")
+    public String reply_write_action_dealer(@RequestParam("loginId") String loginId,
+                                     @RequestParam("boardId") String boardId,
+                                     @RequestParam("content") String content){
+        return "redirect:/board/boardOne/"+boardId;
+    }
 }

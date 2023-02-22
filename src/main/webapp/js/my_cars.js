@@ -100,7 +100,25 @@ function checkModeAndSendBoardWrite(){
             let dealerId = getSessionDealerId();
             location.href = '/board/write/'+'dealer/'+dealerId;
         }
-
     })
+}
+function getSessionTypeLoginId(){
+    let id = null;
+    $.ajax({
+        url: "/main/getSessionTypeLoginId",
+        type: "GET",
+        async: false,
+        success: function(response) {
+            // JSON 데이터를 객체로 변환
+            var data = JSON.parse(response);
+            id = data.data;
+        }
+    });
+    return id;
+}
+function getSessionDataForWriteReply(){
+    checkLogin();
+    let num = getSessionTypeLoginId();
+    $("loginId").attr("value",num);
 }
 console.log('현재 이페이지에 적용중입니다.');
