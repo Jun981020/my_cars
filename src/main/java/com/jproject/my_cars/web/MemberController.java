@@ -1,5 +1,7 @@
 package com.jproject.my_cars.web;
 
+import com.jproject.my_cars.domain.board.member_board.MemberBoard;
+import com.jproject.my_cars.domain.board.member_board.MemberBoardService;
 import com.jproject.my_cars.domain.member.Member;
 import com.jproject.my_cars.domain.member.MemberService;
 import com.jproject.my_cars.domain.member.Role;
@@ -15,6 +17,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @Slf4j
@@ -22,6 +26,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final SessionManager sessionManager;
+    private final MemberBoardService memberBoardService;
 
     @GetMapping("/member/login")
     public String loginForm(){
@@ -67,8 +72,9 @@ public class MemberController {
     @GetMapping("/member/mypage")
     public String my_page(HttpServletRequest request, Model model){
         Member member = (Member) sessionManager.getSession(request);
-        log.info("member data: " + member);
+        List<MemberBoard> memberBoardList = memberBoardService.getMemberBoardList();
         model.addAttribute("member",member);
+        model.addAttribute("boardList",memberBoardList);
         return "member/mypage";
     }
     @GetMapping("/member/logout")

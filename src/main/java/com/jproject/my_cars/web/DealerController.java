@@ -1,5 +1,7 @@
 package com.jproject.my_cars.web;
 
+import com.jproject.my_cars.domain.board.dealer_board.DealerBoard;
+import com.jproject.my_cars.domain.board.dealer_board.DealerBoardService;
 import com.jproject.my_cars.domain.cars.Car;
 import com.jproject.my_cars.domain.dealer.Dealer;
 import com.jproject.my_cars.domain.dealer.DealerService;
@@ -24,6 +26,7 @@ import java.util.List;
 public class DealerController {
     private final DealerService dealerService;
     private final SessionManager sessionManager;
+    private final DealerBoardService dealerBoardService;
 
     @GetMapping("/dealer/login")
     public String dealer_login(){
@@ -70,9 +73,11 @@ public class DealerController {
     @GetMapping("/dealer/dealerPage")
     public String dealer_page(HttpServletRequest request, Model model){
         Dealer data = (Dealer) sessionManager.getSession(request);
-        List<Car> list = dealerService.findOneOfDealerPage(data.getId());
+        List<DealerBoard>  dealerBoardList= dealerBoardService.getDealerBoardList();
+        List<Car> carList = dealerService.findOneOfDealerPage(data.getId());
         model.addAttribute("dealer",data);
-        model.addAttribute("list",list);
+        model.addAttribute("boardList",dealerBoardList);
+        model.addAttribute("list",carList);
         return "dealer/dealer_page";
     }
     @GetMapping("/dealer/logout")

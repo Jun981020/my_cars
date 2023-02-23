@@ -60,14 +60,14 @@
         <hr>
          <!--딜러 개인 등록한 차량 리스트-->
         <div class="d-flex justify-content-center py-5">
-            <div class="accordion w-75" id="accordionExample">
+            <div class="accordion w-75" id="accordionExample1">
                 <div class="accordion-item" style="background-color: #adb5bd;" >
-                    <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="background-color: #cad0d6;">
+                    <h2 class="accordion-header" id="headingOne1">
+                        <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1" style="background-color: #cad0d6;">
                             <span class="w-100 text-center"><b>등록한 차량보기</b></span>
                         </button>
                     </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div id="collapseOne1" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                         <div class="accordion-body" th:each="cars : ${list}">
                             <div class="d-flex">
                                 <a th:href="@{/cars/carOne/{num}(num = ${cars.id})}">
@@ -101,6 +101,33 @@
                             <div class="d-flex justify-content-around pt-5 pb-3">
                                 <button class="btn btn-lg btn-secondary" th:carId="${cars.id}" th:onclick="modifyCar(this.getAttribute('carId'))">차량수정</button>
                                 <button class="btn btn-lg btn-danger" th:carId="${cars.id}" th:onclick="removeCar(this.getAttribute('carId'))">차량삭제</button>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!--딜러가 쓴 게시물 보기-->
+        <div class="d-flex justify-content-center py-5">
+            <div class="accordion w-75" id="accordionExample2">
+                <div class="accordion-item" style="background-color: #adb5bd;" >
+                    <h2 class="accordion-header" id="headingOne2">
+                        <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne2" aria-expanded="true" aria-controls="collapseOne2" style="background-color: #cad0d6;">
+                            <span class="w-100 text-center"><b>등록한 게시물 보기</b></span>
+                        </button>
+                    </h2>
+                    <div id="collapseOne2" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="row">
+                                <div class="col-md-8 offset-md-2">
+                                    <div class="list-group-flush">
+                                        <a th:href="@{/board/dealerBoard/{num}(num = ${board.id})}" th:each="board : ${boardList}" th:text="${board.title}" class="list-group-item list-group-item-action border rounded-lg my-3 py-3 text-center">
+
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                             <hr>
                         </div>

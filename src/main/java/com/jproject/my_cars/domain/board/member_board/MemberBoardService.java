@@ -44,4 +44,8 @@ public class MemberBoardService {
     public void deleteBoard(long num) {
         memberBoardRepository.deleteById(num);
     }
+
+    public List<MemberBoard> getMemberBoardList() {
+        return memberBoardRepository.findAll();
+    }
 }

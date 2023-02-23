@@ -45,4 +45,7 @@ public class DealerBoardService {
     public void deleteBoard(long num) {
         dealerBoardRepository.deleteById(num);
     }
+    public List<DealerBoard> getDealerBoardList(){
+        return dealerBoardRepository.findAll();
+    }
 }
