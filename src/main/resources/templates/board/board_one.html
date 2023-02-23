@@ -35,7 +35,7 @@
 <!--      <button th:if="${session.member.name == board.member.name}" class="btn btn-secondary btn-lg mt-3">-->
 <!--        <a th:href="@{/board/modify/{num}(num = ${board.id})}" id="title">수정!</a>-->
 <!--      </button>-->
-      <button id="edit-btn" class="btn btn-secondary btn-lg mt-3" style="display:hidden">
+      <button id="edit-btn" class="btn btn-secondary btn-lg mt-3" style="display:none">
         수정!
       </button>
     </div>
@@ -94,11 +94,16 @@
 </body>
 <script th:inline="javascript">
 $(document).ready(function() {
-  $("#edit-btn").click(function() {
       let client = getSessionTypeLoginId();
       let writer = [[${writer}]];
-
-  });
+      if(client == writer){
+        $('#edit-btn').css('display', 'block');
+      }
+      $("#edit-btn").click(function(){
+        const boardId = [[${board.id}]];
+        const cat = [[${cat}]];
+        location.href = "/board/modify/"+cat+"/"+boardId;
+      })
 });
 </script>
 </html>

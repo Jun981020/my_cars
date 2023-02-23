@@ -4,6 +4,7 @@ import com.jproject.my_cars.domain.dealer.Dealer;
 import com.jproject.my_cars.domain.dealer.DealerRepository;
 import com.jproject.my_cars.domain.dealer.DealerService;
 import com.jproject.my_cars.dto.BoardWriteDto;
+import com.jproject.my_cars.dto.DealerBoardModifyDto;
 import com.jproject.my_cars.dto.DealerWriteBoardDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,5 +33,16 @@ public class DealerBoardService {
 
     public DealerBoard findByNum(long num) {
         return dealerBoardRepository.findById(num).get();
+    }
+
+    @Transactional
+    public void modifyBoard(long num, DealerBoardModifyDto dto) {
+        DealerBoard dealerBoard = dealerBoardRepository.findById(num).get();
+        dealerBoard.modifyDealerBoard(dto);
+    }
+
+    @Transactional
+    public void deleteBoard(long num) {
+        dealerBoardRepository.deleteById(num);
     }
 }

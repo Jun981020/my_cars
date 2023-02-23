@@ -3,6 +3,7 @@ package com.jproject.my_cars.domain.board.dealer_board;
 import com.jproject.my_cars.domain.board.Board;
 import com.jproject.my_cars.domain.board.reply.dealer_board_reply.DealerBoardReply;
 import com.jproject.my_cars.domain.dealer.Dealer;
+import com.jproject.my_cars.dto.DealerBoardModifyDto;
 import com.jproject.my_cars.dto.DealerWriteBoardDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -34,6 +35,12 @@ public class DealerBoard extends Board{
         dealerBoard.setPrivate_content(dto.getPrivate_content());
         dealerBoard.setPrivate_content_password(dto.getPrivate_content_password());
         return dealerBoard;
+    }
+    public void modifyDealerBoard(DealerBoardModifyDto dto){
+        this.setTitle(dto.getTitle());
+        this.setContent(dto.getContent());
+        this.setPrivate_content(dto.getPrivate_content());
+        this.setPrivate_content_password(dto.getPrivate_content_password());
     }
     public void setDealer(Dealer dealer){
         this.dealer = dealer;

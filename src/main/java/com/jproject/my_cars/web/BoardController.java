@@ -6,9 +6,7 @@ import com.jproject.my_cars.domain.board.member_board.MemberBoard;
 import com.jproject.my_cars.domain.board.member_board.MemberBoardService;
 import com.jproject.my_cars.domain.board.reply.member_board_reply.MemberBoardReplyService;
 import com.jproject.my_cars.domain.member.MemberService;
-import com.jproject.my_cars.dto.BoardWriteDto;
-import com.jproject.my_cars.dto.DealerWriteBoardDto;
-import com.jproject.my_cars.dto.MemberWriteBoardDto;
+import com.jproject.my_cars.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -93,23 +91,43 @@ public class BoardController {
 //            return false;
 //        }
 //    }
-//    @GetMapping("/board/modify/{num}")
-//    public String board_modify(@PathVariable("num")int num,Model model){
-//        Board board = boardService.findBoardByBoardId((long)num).get();
-//        model.addAttribute("board",board);
-//        return "board/board_modify";
-//    }
-//    @PutMapping("/board/modifyAction/{num}")
-//    public String board_modify_action(@PathVariable("num")int num,@ModelAttribute BoardWriteDto dto){
-//        log.info("들어옵니다");
-//        boardService.modifyBoard((long)num,dto);
-//        return "redirect:/board/boardOne/"+num;
-//    }
-//    @DeleteMapping("/board/deleteAction/{num}")
-//    public String board_delete_action(@PathVariable("num")int num){
-//        boardService.deleteBoard((long)num);
-//        return "redirect:/board/list";
-//    }
+    @GetMapping("/board/modify/member/{num}")
+    public String board_member_modify(@PathVariable("num")int num,Model model){
+        MemberBoard board = memberBoardService.findByNum(num);
+        model.addAttribute("board",board);
+        model.addAttribute("loginId",board.getMember().getLoginId());
+        model.addAttribute("cat","member");
+        return "board/board_modify";
+    }
+    @GetMapping("/board/modify/dealer/{num}")
+    public String board_dealer_modify(@PathVariable("num")int num,Model model){
+        DealerBoard board = dealerBoardService.findByNum(num);
+        model.addAttribute("board",board);
+        model.addAttribute("loginId",board.getDealer().getLoginId());
+        model.addAttribute("cat","dealer");
+        return "board/board_modify";
+    }
+    @PutMapping("/board/modifyAction/member/{num}")
+    public String member_board_modify_action(@PathVariable("num")int num,@ModelAttribute MemberBoardModifyDto dto){
+        log.info("들어옵니다");
+        memberBoardService.modifyBoard(num,dto);
+        return "redirect:/board/memberBoard/"+num;
+    }
+    @DeleteMapping("/board/deleteAction/member/{num}")
+    public String member_board_delete_action(@PathVariable("num")int num){
+        memberBoardService.deleteBoard(num);
+        return "redirect:/board/list/member";
+    }
+    @PutMapping("/board/modifyAction/dealer/{num}")
+    public String dealer_board_modify_action(@PathVariable("num")int num,@ModelAttribute DealerBoardModifyDto dto){
+        dealerBoardService.modifyBoard(num,dto);
+        return "redirect:/board/dealerBoard/"+num;
+    }
+    @DeleteMapping("/board/deleteAction/dealer/{num}")
+    public String dealer_board_delete_action(@PathVariable("num")int num){
+        dealerBoardService.deleteBoard(num);
+        return "redirect:/board/list/dealer";
+    }
 //    @GetMapping("/board/search")
 //    public String board_search_bar(@RequestParam("str") String str,Model model){
 //        String s = "%"+str+"%";
