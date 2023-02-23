@@ -3,6 +3,7 @@ package com.jproject.my_cars.domain.board.reply.member_board_reply;
 import com.jproject.my_cars.domain.BaseEntity;
 import com.jproject.my_cars.domain.board.member_board.MemberBoard;
 import com.jproject.my_cars.dto.MemberBoardReplyDto;
+import com.jproject.my_cars.dto.MemberBoardReplyWriteDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -17,7 +18,7 @@ public class MemberBoardReply extends BaseEntity {
     private MemberBoard memberBoard;
     private String content;
 
-    public static MemberBoardReply createMemberBoardReply(MemberBoardReplyDto dto){
+    public static MemberBoardReply createMemberBoardReply(MemberBoardReplyWriteDto dto){
         MemberBoardReply memberBoardReply = new MemberBoardReply();
         memberBoardReply.loginId = dto.getLoginId();
         memberBoardReply.content = dto.getContent();

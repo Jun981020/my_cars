@@ -118,7 +118,8 @@ function getSessionTypeLoginId(){
 }
 function getSessionDataForWriteReply(){
     checkLogin();
-    let num = getSessionTypeLoginId();
-    $("loginId").attr("value",num);
+    let id = getSessionTypeLoginId();
+    $("#loginId").attr("value",id);
+    repFrm.submit();
 }
 console.log('현재 이페이지에 적용중입니다.');

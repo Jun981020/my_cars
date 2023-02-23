@@ -28,14 +28,14 @@
           <td th:text="${board.dealer.name}"></td>
           <td>
             <a th:if="${board.private_content == 1}"
-               th:href="@{/board/boardOne/{num}(num = ${board.id})}"
+               th:href="@{/board/dealerBoard/{num}(num = ${board.id})}"
                th:id="${board.id}"
                th:text="${board.title}"
                class="title"
                data-toggle="modal" data-target="#exampleModalCenter">
             </a>
             <a th:unless="${board.private_content == 1}"
-               th:href="@{/board/boardOne/{num}(num = ${board.id})}"
+               th:href="@{/board/dealerBoard/{num}(num = ${board.id})}"
                th:text="${board.title}"
                class="title"
             >
@@ -80,5 +80,4 @@
   <th:block th:insert="~{fragment/footer :: footer}"></th:block>
 </div>
 </body>
-<th:block th:insert="~{fragment/footer :: js}"></th:block>
 </html>

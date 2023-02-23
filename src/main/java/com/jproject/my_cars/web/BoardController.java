@@ -4,6 +4,7 @@ import com.jproject.my_cars.domain.board.dealer_board.DealerBoard;
 import com.jproject.my_cars.domain.board.dealer_board.DealerBoardService;
 import com.jproject.my_cars.domain.board.member_board.MemberBoard;
 import com.jproject.my_cars.domain.board.member_board.MemberBoardService;
+import com.jproject.my_cars.domain.board.reply.member_board_reply.MemberBoardReplyService;
 import com.jproject.my_cars.domain.member.MemberService;
 import com.jproject.my_cars.dto.BoardWriteDto;
 import com.jproject.my_cars.dto.DealerWriteBoardDto;
@@ -25,6 +26,7 @@ public class BoardController {
     private final DealerBoardService dealerBoardService;
     private final MemberBoardService memberBoardService;
     private final MemberService memberService;
+    private final MemberBoardReplyService memberBoardReplyService;
     @GetMapping("/board/list/member")
     public String board_list(Model model){
         List<MemberBoard> memberBoards = memberBoardService.memberBoardList();
@@ -60,7 +62,6 @@ public class BoardController {
     }
     @PostMapping("/board/writeAction/dealer")
     public String board_write_action(@ModelAttribute DealerWriteBoardDto dto){
-        System.out.println("dto = " + dto);
         dealerBoardService.save(dto);
         return "redirect:/board/list/dealer";
     }
@@ -69,6 +70,7 @@ public class BoardController {
         MemberBoard board = memberBoardService.findByNum((long)num);
         model.addAttribute("board",board);
         model.addAttribute("cat","member");
+        model.addAttribute("writer",board.getMember().getLoginId());
         return "board/board_one";
     }
     @GetMapping("/board/dealerBoard/{num}")
@@ -76,6 +78,7 @@ public class BoardController {
         DealerBoard board = dealerBoardService.findByNum((long)num);
         model.addAttribute("board",board);
         model.addAttribute("cat","dealer");
+        model.addAttribute("writer",board.getDealer().getLoginId());
         return "board/board_one";
     }
 //    @GetMapping("/board/checkPrivateContent")

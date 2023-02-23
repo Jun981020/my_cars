@@ -17,13 +17,13 @@
             <img src="/webapp/img/icon/user_image.png" alt="" class="rounded-circle" style="width: 40px;height: 40px">
           </div>
           <div class="d-flex flex-column ml-3 w-100">
-            <div th:text="${board.member.loginId}">아이디</div>
+            <div th:text="${writer}">아이디</div>
             <div th:text="${#temporals.format(board.createAt,'yyyy-MM-dd')}">날짜</div>
           </div>
         </div>
 
           <div class="d-flex justify-content-start mt-5 pb-5" style="color: rgb(234, 245, 255)">
-              <h1 th:text="${board.title}">제목</h1>
+              <strong><h1 th:text="${board.title}">제목</h1></strong>
           </div>
 
         <div class="pt-5 pb-5">
@@ -35,12 +35,15 @@
 <!--      <button th:if="${session.member.name == board.member.name}" class="btn btn-secondary btn-lg mt-3">-->
 <!--        <a th:href="@{/board/modify/{num}(num = ${board.id})}" id="title">수정!</a>-->
 <!--      </button>-->
+      <button id="edit-btn" class="btn btn-secondary btn-lg mt-3" style="display:hidden">
+        수정!
+      </button>
     </div>
 
     <!--댓글작성하기-->
     <div class="d-flex justify-content-center">
-      <form class="d-flex flex-column w-75" th:action="@{/reply/writeAction/{data}(data=${cat})}" method="post">
-        <input type="hidden" id="loginId" name="loginId">
+      <form class="d-flex flex-column w-75" name="repFrm" th:action="@{/reply/writeAction/{data}(data=${cat})}" method="post">
+        <input type="hidden" id="loginId" name="loginId" value="">
         <input type="hidden" name="boardId" th:value="${board.id}">
         <div class="card mb-2 w-100" style="background-color: #adb5bd;">
           <div class="card-header">
@@ -49,10 +52,8 @@
           <div class="card-body" style="background-color: #adb5bd;">
             <ul class="">
               <li class="list-group-item">
-<!--                <div class="form-inline mb-2" th:text="${session.member.loginId}">-->
-<!--                </div>-->
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="content"></textarea>
-                <div class="w-100 float-right"><button type="submit" onclick="getSessionDataForWriteReply()" class="btn btn-secondary mt-3">댓글 등록</button>
+                <div class="w-100 float-right"><button type="button" onclick="getSessionDataForWriteReply()" class="btn btn-secondary mt-3">댓글 등록</button>
                 </div>
               </li>
             </ul>
@@ -61,32 +62,43 @@
       </form>
     </div>
     <!--댓글리스트 보여주기-->
-<!--    <div class="d-flex w-100 justify-content-center mt-5 pb-5">-->
-<!--      <div class="border mt-2 w-75 rounded d-flex flex-column">-->
-<!--        <div th:each="reply:${board.replies}" class="px-4">-->
-<!--          <div class="d-flex justify-content-start " style="height: 70px;">-->
-<!--            <img src="/webapp/img/icon/user_image.png" alt="" style="width: 36px; height: 36px; border-radius: 3em;" class="ml-2 mt-5 mr-2 mb-2">-->
-<!--            <div class="mt-5" th:text="${reply.member.loginId}">-->
-<!--              작성자-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="d-flex justify-content-center w-100">-->
-<!--                                    <div class="w-75 rounded" th:text="${reply.content}">-->
-<!--                                            내용을 입력해주세요-->
-<!--                                    </div>-->
-<!--          </div>-->
-<!--          <div>-->
-<!--            <div class="d-flex justify-content-end pr-5" th:text="${#temporals.format(reply.createAt,'yyyy-MM-dd')}">-->
-<!--              작성날짜-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <hr>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
+  <div class="d-flex w-100 justify-content-center mt-5 pb-5">
+    <div class="border mt-2 w-75 rounded d-flex flex-column">
+      <ul class="list-group-flush pb-3" th:each="reply:${board.replies}">
+        <li class="list-group-item">
+          <div class="row">
+            <div class="pt-3">
+              <img src="/webapp/img/icon/user_image.png" class="rounded-circle" style="width: 36px;height: 36px;" alt="">
+              &nbsp;&nbsp;
+              <strong th:text="${reply.loginId}">작성자</strong>
+            </div>
+          </div>
+          <div class="row p-3">
+            <div class="col-md-10">
+              <p th:text="${reply.content}">
+                내용
+              </p>
+            </div>
+            <div class="d-flex justify-content-end px-3" th:text="${#temporals.format(reply.createAt,'yyyy-MM-dd')}">
+              작성날짜
+            </div>
+          </div>
+          <hr>
+        </li>
+      </ul>
+    </div>
+  </div>
   </div>
   <th:block th:insert="~{fragment/footer :: footer}"></th:block>
 </div>
 </body>
-<th:block th:insert="~{fragment/footer :: js}"></th:block>
+<script th:inline="javascript">
+$(document).ready(function() {
+  $("#edit-btn").click(function() {
+      let client = getSessionTypeLoginId();
+      let writer = [[${writer}]];
+
+  });
+});
+</script>
 </html>
