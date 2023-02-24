@@ -8,11 +8,13 @@ import com.jproject.my_cars.domain.dealer.Dealer;
 import com.jproject.my_cars.dto.CarPostsDto;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Setter
 @Entity
 public class Car extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

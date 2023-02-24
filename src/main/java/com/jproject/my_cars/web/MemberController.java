@@ -2,6 +2,8 @@ package com.jproject.my_cars.web;
 
 import com.jproject.my_cars.domain.board.member_board.MemberBoard;
 import com.jproject.my_cars.domain.board.member_board.MemberBoardService;
+import com.jproject.my_cars.domain.cars.Car;
+import com.jproject.my_cars.domain.cars.CarService;
 import com.jproject.my_cars.domain.member.Member;
 import com.jproject.my_cars.domain.member.MemberService;
 import com.jproject.my_cars.domain.member.Role;
@@ -25,6 +27,7 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
+    private final CarService carService;
     private final SessionManager sessionManager;
     private final MemberBoardService memberBoardService;
 
@@ -73,6 +76,8 @@ public class MemberController {
     public String my_page(HttpServletRequest request, Model model){
         Member member = (Member) sessionManager.getSession(request);
         List<MemberBoard> memberBoardList = memberBoardService.getMemberBoardList();
+//        carService.getMemberLikesCarList(member);
+//        model.addAttribute("memberLikesCarList",memberLikesCarList);
         model.addAttribute("member",member);
         model.addAttribute("boardList",memberBoardList);
         return "member/mypage";

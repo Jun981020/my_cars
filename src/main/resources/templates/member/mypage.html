@@ -70,6 +70,57 @@
                 </div>
             </div>
         </div>
+        <!--관심표현한 차량-->
+        <div class="d-flex justify-content-center py-5">
+            <div class="accordion w-75" id="accordionExample1">
+                <div class="accordion-item" style="background-color: #adb5bd;" >
+                    <h2 class="accordion-header" id="headingOne1">
+                        <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1" style="background-color: #cad0d6;">
+                            <span class="w-100 text-center"><b>관심표현한 차량</b></span>
+                        </button>
+                    </h2>
+                    <div id="collapseOne1" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body" th:each="cars : ${memberLikesCarList}">
+                            <div class="d-flex">
+                                <a th:href="@{/cars/carOne/{num}(num = ${cars.id})}">
+                                    <img class="border"  th:src="${cars.images[0].path}" alt="" style="width: 400px;height: 300px;">
+                                </a>
+                                <div class="d-flex justify-content-center w-100">
+                                    <table class="table w-75">
+                                        <thead>
+                                        <tr>
+                                            <th colspan="4" style="text-align: center;" th:text="${cars.name}"><b>차량이름</b></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th scope="row">등록한 가격:</th>
+                                            <td colspan="4" style="text-align: start;" th:text="${cars.price}"><b>2000만원</b></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">등록일자:</th>
+                                            <td colspan="4" style="text-align: start;" th:text="${#temporals.format(cars.createAt,'yyyy-MM-dd')}"><b>2020-08-01</b></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">받은좋아요 횟수:</th>
+                                            <td colspan="4" style="text-align: start;" th:text="${cars.point}"><b>1</b></td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-around pt-5 pb-3">
+                                <button class="btn btn-lg btn-secondary" th:carId="${cars.id}" th:onclick="modifyCar(this.getAttribute('carId'))">차량수정</button>
+                                <button class="btn btn-lg btn-danger" th:carId="${cars.id}" th:onclick="removeCar(this.getAttribute('carId'))">차량삭제</button>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
     <th:block th:insert="~{fragment/footer :: footer}"></th:block>
 </div>

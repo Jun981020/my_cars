@@ -1,6 +1,8 @@
 package com.jproject.my_cars.domain.cars;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +22,7 @@ public interface CarRepository extends JpaRepository<Car,Long> {
     Car findByName(String name);
     //차량번호로 가져오기
     Optional<Car> findById(Long id);
-    //해당차량 삭제
+    @Query(value = "select * from car c inner join likes l on c.id = l.likes;",nativeQuery = true)
+    List<Car> findLikesNumOfCar();
 
 }

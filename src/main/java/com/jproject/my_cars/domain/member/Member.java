@@ -26,7 +26,6 @@ public class Member extends BaseEntity {
     @JsonIgnore
     private List<Long> likes = new ArrayList<>();
 
-
     public static Member createMember(String loginId,String password,String name, String email, String phone, Role role){
         Member members = new Member();
         members.loginId = loginId;

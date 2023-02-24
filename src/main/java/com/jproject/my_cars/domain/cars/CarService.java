@@ -78,4 +78,12 @@ public class CarService {
         }
     }
 
+    @Transactional
+    public Car getMemberLikesCarList(Member member) {
+        List<Long> likes = member.getLikes();
+        for (Long like : likes) {
+//            carRepository.findLikesNumOfCar(like);
+        }
+        return null;
+    }
 }

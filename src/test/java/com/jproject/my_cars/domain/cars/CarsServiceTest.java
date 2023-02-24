@@ -3,6 +3,9 @@ package com.jproject.my_cars.domain.cars;
 import com.jproject.my_cars.domain.cars.img.Img;
 import com.jproject.my_cars.domain.cars.option.OptionRepository;
 import com.jproject.my_cars.domain.cars.option.Options;
+import com.jproject.my_cars.domain.member.Member;
+import com.jproject.my_cars.domain.member.MemberRepository;
+import com.jproject.my_cars.domain.member.Role;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,6 +13,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -22,6 +26,8 @@ class CarsServiceTest {
     private CarRepository carsRepository;
     @Autowired
     private OptionRepository optionRepository;
+    @Autowired
+    private MemberRepository memberRepository;
 
 //    @Test
 //    //차량등록
@@ -214,6 +220,17 @@ class CarsServiceTest {
     public void getImgList(){
         Car car = carsRepository.findByName("BMW-320i");
         System.out.println("car.getImages() = " + car.getImages().get(0).getPath());
+    }
+    @Test
+    public void findLikesMember(){
+        Member member = Member.createMember("qwer", "1234", "이준형", "flwnsgud@naver.com", "010-9145-6497", Role.SILVER);
+        Car car = Car.registrationCar("BMW-320i", 2000, "2022", "3000", false, "서울", "DESEL", "BMW");
+        car.setId(1L);
+        member.addLikes(car);
+
+        List<Car> likesNumOfCar = carsRepository.findLikesNumOfCar();
+        assertThat(likesNumOfCar.size()).isEqualTo(1);
+
     }
 
 }
