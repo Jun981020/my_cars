@@ -76,8 +76,9 @@ public class CarController {
     }
     @GetMapping("/cars/upPoint")
     @ResponseBody
-    public String car_up_point(Integer carNum,Integer memberNum){
-        boolean result = carService.isCarUpPoint(carNum, memberNum);
+    public String car_up_point(Integer carNum,HttpServletRequest request){
+        Member member = (Member) sessionManager.getSession(request);
+        boolean result = carService.isCarUpPoint(carNum,member);
         if(result){
             return "";
         }else{

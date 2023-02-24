@@ -30,9 +30,8 @@ public class CarService {
         return carRepository.findById(id).get();
     }
     @Transactional
-    public boolean isCarUpPoint(Integer carNum,Integer memberNum){
+    public boolean isCarUpPoint(Integer carNum,Member member){
         Car car = carRepository.findById((long) carNum).get();
-        Member member = memberRepository.findById((long) memberNum).get();
         if(member.isCheckDuplicateLikes(car)){
             car.upPoint();
             return true;
@@ -80,10 +79,11 @@ public class CarService {
 
     @Transactional
     public Car getMemberLikesCarList(Member member) {
-        List<Long> likes = member.getLikes();
-        for (Long like : likes) {
+//        List<Long> likes = member.getLikes();
+//        for (Long like : likes) {
 //            carRepository.findLikesNumOfCar(like);
-        }
+//        }
+//        return null;
         return null;
     }
 }

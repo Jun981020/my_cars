@@ -226,7 +226,6 @@ class CarsServiceTest {
         Member member = Member.createMember("qwer", "1234", "이준형", "flwnsgud@naver.com", "010-9145-6497", Role.SILVER);
         Car car = Car.registrationCar("BMW-320i", 2000, "2022", "3000", false, "서울", "DESEL", "BMW");
         car.setId(1L);
-        member.addLikes(car);
 
         List<Car> likesNumOfCar = carsRepository.findLikesNumOfCar();
         assertThat(likesNumOfCar.size()).isEqualTo(1);

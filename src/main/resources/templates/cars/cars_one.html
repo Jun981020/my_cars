@@ -160,21 +160,6 @@
             doUpPoint();
         }
     }
-
-    function getMemberId(){
-        let memberId = null;
-        $.ajax({
-                url : '/main/getSessionMemberId',
-                method : "GET",
-                async: false
-                }).done(function(res){
-                    memberId = res;
-                }).fail(function(xhr,status,error){
-                    alert("오류발생 getMemberId()"+error);
-            })
-        return memberId;
-    }
-
     function getMode(){
         var mode = [[${session.mode}]];
         if(mode == null){
@@ -186,23 +171,20 @@
     }
     function doUpPoint(){
         var carNum = [[${car.id}]];
-        var memberNum = getMemberId();
         $.ajax({
                 url : '/cars/upPoint',
                 method : "GET",
-                data : {carNum : carNum,
-                        memberNum : memberNum}
+                data : {"carNum" : carNum}
                 }).done(function(res){
                     var length = res.length;
-                    console.log(length);
-                    if(length != 0){
-
-                    }else{
+                    if(length == 0){
                         location.reload();
                     }
                 }).fail(function(xhr,status,error){
                     alert("오류발생 doUpPoint()"+error);
-            })
+                });
+
+
     }
 </script>
 </body>
