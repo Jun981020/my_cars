@@ -14,10 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter
 @Entity
 public class Car extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "CAR_ID")
     private Long id;
     //차량이름
     private String name;
@@ -33,7 +33,16 @@ public class Car extends BaseEntity {
     private String area;
     //연료
     private String fuel;
-    @OneToMany
+    @ManyToMany
+    @JoinTable(
+                name = "car_options",
+                joinColumns = {
+                        @JoinColumn(name = "CAR_ID")
+                },
+                inverseJoinColumns = {
+                        @JoinColumn(name = "OPTIONS_ID")
+                }
+    )
     private List<Options> options = new ArrayList<>();
     private String manufacture;
     @JsonIgnore

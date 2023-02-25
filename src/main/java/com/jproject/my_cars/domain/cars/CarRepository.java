@@ -1,8 +1,8 @@
 package com.jproject.my_cars.domain.cars;
 
+import com.jproject.my_cars.dto.CarOptions;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,5 +24,8 @@ public interface CarRepository extends JpaRepository<Car,Long> {
     Optional<Car> findById(Long id);
     @Query(value = "select * from car c inner join likes l on c.id = l.likes;",nativeQuery = true)
     List<Car> findLikesNumOfCar();
+
+    @Query(value = "select * from car_options",nativeQuery = true)
+    List<CarOptions> car_options_list(Class<CarOptions> type);
 
 }

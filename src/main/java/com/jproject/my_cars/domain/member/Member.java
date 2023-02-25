@@ -28,8 +28,6 @@ public class Member extends BaseEntity {
 //    @Column(name = "LIKES")
 //    @JsonIgnore
 //    private List<Long> likes = new ArrayList<>();
-    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
-    private List<Likes> likes = new ArrayList<>();
 
     public static Member createMember(String loginId,String password,String name, String email, String phone, Role role){
         Member members = new Member();
@@ -41,29 +39,7 @@ public class Member extends BaseEntity {
         members.role = role;
         return members;
     }
-    public void addLikes(Likes likes,Car car){
-        likes.setAll(this,car);
-        this.getLikes().add(likes);
-    }
-    public boolean isCheckDuplicateLikes(Car car){
-        int bindingResult = 0;
 
-        if(getLikes().isEmpty()){
-//            addLikes(car);
-            return true;
-        }else{
-            long count = getLikes().stream().filter(
-                    c -> Objects.equals(c, car.getId())
-            ).count();
-            bindingResult = (int) count;
-            if(bindingResult == 0){
-//                addLikes(car);
-                return true;
-            }else{
-                return false;
-            }
-        }
-    }
     @Override
     public String toString() {
         return "Member{" +

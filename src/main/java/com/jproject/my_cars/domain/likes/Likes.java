@@ -4,9 +4,11 @@ import com.jproject.my_cars.domain.cars.Car;
 import com.jproject.my_cars.domain.member.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Getter
+@Setter
 public class Likes {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,12 +16,7 @@ public class Likes {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MEMBER_ID")
+    @JoinColumn(name = "CAR_ID")
     private Car car;
 
-    public void setAll(Member member,Car car){
-        member.getLikes().add(this);
-        this.member = member;
-        this.car = car;
-    }
 }

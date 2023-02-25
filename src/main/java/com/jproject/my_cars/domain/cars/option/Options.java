@@ -1,5 +1,6 @@
 package com.jproject.my_cars.domain.cars.option;
 
+import com.jproject.my_cars.domain.cars.Car;
 import com.jproject.my_cars.dto.OptionsDto;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import lombok.Getter;
 public class Options {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "OPTIONS_ID")
     private Long id;
     private String name;
     private String description;

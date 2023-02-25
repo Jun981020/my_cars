@@ -3,6 +3,8 @@ package com.jproject.my_cars.domain.cars;
 import com.jproject.my_cars.domain.cars.option.OptionRepository;
 import com.jproject.my_cars.domain.cars.option.Options;
 import com.jproject.my_cars.domain.dealer.Dealer;
+import com.jproject.my_cars.domain.likes.Likes;
+import com.jproject.my_cars.domain.likes.LikesRepository;
 import com.jproject.my_cars.domain.member.Member;
 import com.jproject.my_cars.domain.member.MemberRepository;
 import com.jproject.my_cars.dto.CarPostsDto;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional(readOnly = true)
@@ -22,6 +25,7 @@ public class CarService {
     private final CarRepository carRepository;
     private final OptionRepository optionRepository;
     private final MemberRepository memberRepository;
+    private final LikesRepository likesRepository;
 
     public List<Car> getAll(){
         return carRepository.findAll();
@@ -32,13 +36,25 @@ public class CarService {
     @Transactional
     public boolean isCarUpPoint(Integer carNum,Member member){
         Car car = carRepository.findById((long) carNum).get();
-        if(member.isCheckDuplicateLikes(car)){
+        List<Likes> likesList = likesRepository.findByCarIdAndMemberId(car.getId(), member.getId());
+        if(likesList.isEmpty()){
+            Likes likes = new Likes();
+            likes.setCar(car);
+            likes.setMember(member);
+            likesRepository.save(likes);
             car.upPoint();
             return true;
         }else{
             return false;
         }
     }
+//    @Transactional
+//    public long likesListDuplicate(List<Likes> list){
+//        Member member1 = memberRepository.findById(member.getId()).get();
+//        return member1.getLikes().stream().filter(
+//                c -> Objects.equals(c.getCar().getId(), num)
+//        ).count();
+//    }
 
     @Transactional
     public Car registration(Dealer dealer, CarPostsDto dto,String[] options) {

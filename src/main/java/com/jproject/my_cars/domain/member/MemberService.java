@@ -46,9 +46,7 @@ public class MemberService {
     public Member getMemberById(Long id){
         return memberRepository.findById(id).get();
     }
-    public boolean addLikesList(Member member, Car car){
-        return member.isCheckDuplicateLikes(car);
-    }
+
 
 
 

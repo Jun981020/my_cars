@@ -78,7 +78,7 @@ public class CarController {
     @ResponseBody
     public String car_up_point(Integer carNum,HttpServletRequest request){
         Member member = (Member) sessionManager.getSession(request);
-        boolean result = carService.isCarUpPoint(carNum,member);
+        boolean result = carService.isCarUpPoint(carNum, member);
         if(result){
             return "";
         }else{
@@ -115,6 +115,7 @@ public class CarController {
         imgService.modifyImg(map,dto.getName(),car);
         return "redirect:/main";
     }
+
 
 
 }

@@ -179,6 +179,8 @@
                     var length = res.length;
                     if(length == 0){
                         location.reload();
+                    }else{
+                        alert(res);
                     }
                 }).fail(function(xhr,status,error){
                     alert("오류발생 doUpPoint()"+error);
