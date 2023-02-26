@@ -113,7 +113,7 @@
                         <option th:each="option : ${options}" th:value="${option.name}" th:text="${option.name}">옵션</option>
                     </select>
                     <ul id="ulList">
-                        <li th:each="option : ${car.options}"  th:text="${option.name}"></li>
+                        <li th:each="car_options : ${car_options}"  th:text="${car_options.options.name}"></li>
                     </ul>
                     <input type="hidden" name="options">
                 </div>

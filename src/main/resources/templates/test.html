@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"><html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<img src="/webapp/img/cars/bmw/320_i/bmw_320i_side1.webp">
+<div th:each="likes : ${likesList}">
+    <div th:text="${likes.car.id}">
+
+    </div>
+</div>
 </body>
 </html>

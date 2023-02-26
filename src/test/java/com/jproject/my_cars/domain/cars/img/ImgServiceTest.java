@@ -38,8 +38,8 @@ class ImgServiceTest {
         Options options2 = Options.putOption("nav", "길안내 서비스");
         Img img = Img.addImg("bmw-320-main", "img/bmw/320_i/bmw_320i_main.webp");
         Car cars = Car.registrationCar("bmw-320i", 3000, "2022", "130000", false,"대구", "ELECTRIC","BMW");
-        cars.addOption(options1);
-        cars.addOption(options2);
+//        cars.addOption(options1);
+//        cars.addOption(options2);
         img.setCar(cars);
         carRepository.save(cars);
         carRepository.flush();

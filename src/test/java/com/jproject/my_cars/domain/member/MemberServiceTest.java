@@ -1,9 +1,13 @@
 package com.jproject.my_cars.domain.member;
 
+import com.jproject.my_cars.domain.likes.Likes;
+import com.jproject.my_cars.domain.likes.LikesRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -13,6 +17,8 @@ class MemberServiceTest {
 
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private LikesRepository likesRepository;
 
     @Test
     public void joinTest(){
@@ -42,6 +48,13 @@ class MemberServiceTest {
     public void login_action(){
         Member qwer = memberRepository.findByLoginIdAndPassword("qwer","1234");
         assertThat(qwer.getPassword()).isEqualTo("1234");
+    }
+    @Test
+    public void member_likes_list(){
+        List<Likes> byMemberId = likesRepository.findByMemberId(1L);
+        for (Likes likes : byMemberId) {
+            System.out.println("likes = " + likes.getCar().getName());
+        }
     }
 
 }

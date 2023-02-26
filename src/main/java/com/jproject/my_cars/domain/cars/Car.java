@@ -2,6 +2,7 @@ package com.jproject.my_cars.domain.cars;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jproject.my_cars.domain.BaseEntity;
+import com.jproject.my_cars.domain.cars.car_options.CarOptions;
 import com.jproject.my_cars.domain.cars.img.Img;
 import com.jproject.my_cars.domain.cars.option.Options;
 import com.jproject.my_cars.domain.dealer.Dealer;
@@ -33,17 +34,18 @@ public class Car extends BaseEntity {
     private String area;
     //연료
     private String fuel;
-    @ManyToMany
-    @JoinTable(
-                name = "car_options",
-                joinColumns = {
-                        @JoinColumn(name = "CAR_ID")
-                },
-                inverseJoinColumns = {
-                        @JoinColumn(name = "OPTIONS_ID")
-                }
-    )
-    private List<Options> options = new ArrayList<>();
+//    @ManyToMany
+//    @JoinTable(
+//                name = "car_options",
+//                joinColumns = {
+//                        @JoinColumn(name = "CAR_ID")
+//                },
+//                inverseJoinColumns = {
+//                        @JoinColumn(name = "OPTIONS_ID")
+//                }
+//    )
+    @OneToMany(mappedBy = "car",orphanRemoval = true,cascade = CascadeType.ALL)
+    private List<CarOptions> options = new ArrayList<>();
     private String manufacture;
     @JsonIgnore
     @OneToMany(mappedBy = "car",cascade = CascadeType.ALL)
@@ -75,9 +77,9 @@ public class Car extends BaseEntity {
         cars.point = 0;
         return cars;
     }
-    public void addOption(Options options){
-        this.options.add(options);
-    }
+//    public void addOption(Options options){
+//        this.options.add(options);
+//    }
     public void upPoint(){
         this.point++;
     }

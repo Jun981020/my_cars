@@ -2,6 +2,9 @@ package com.jproject.my_cars.web;
 
 import com.jproject.my_cars.domain.cars.Car;
 import com.jproject.my_cars.domain.cars.CarService;
+import com.jproject.my_cars.domain.cars.car_options.CarOptions;
+import com.jproject.my_cars.domain.cars.car_options.CarOptionsRepository;
+import com.jproject.my_cars.domain.cars.car_options.CarOptionsService;
 import com.jproject.my_cars.domain.cars.img.ImgService;
 import com.jproject.my_cars.domain.cars.option.OptionService;
 import com.jproject.my_cars.domain.cars.option.Options;
@@ -27,6 +30,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class CarController {
+    private final CarOptionsService carOptionsService;
     private final CarService carService;
     private final ImgService imgService;
     private final SessionManager sessionManager;
@@ -60,7 +64,6 @@ public class CarController {
         Dealer dealer = (Dealer) sessionManager.getSession(request);
         //options 배열 분리하기
         String[] options = str.split(",");
-
         //car entity 생성
         Car car = carService.registration(dealer,dto,options);
         //img 저장
@@ -95,6 +98,7 @@ public class CarController {
         Car car = carService.getOne((long) id);
         model.addAttribute("car",car);
         model.addAttribute("options",optionService.getOptionsList());
+        model.addAttribute("car_options",carOptionsService.getCarOptionsListByCarId(car.getId()));
         return "cars/cars_modify";
     }
     @PutMapping("/cars/modifyAction")

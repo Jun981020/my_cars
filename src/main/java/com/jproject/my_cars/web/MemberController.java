@@ -4,6 +4,8 @@ import com.jproject.my_cars.domain.board.member_board.MemberBoard;
 import com.jproject.my_cars.domain.board.member_board.MemberBoardService;
 import com.jproject.my_cars.domain.cars.Car;
 import com.jproject.my_cars.domain.cars.CarService;
+import com.jproject.my_cars.domain.likes.Likes;
+import com.jproject.my_cars.domain.likes.LikesService;
 import com.jproject.my_cars.domain.member.Member;
 import com.jproject.my_cars.domain.member.MemberService;
 import com.jproject.my_cars.domain.member.Role;
@@ -30,6 +32,7 @@ public class MemberController {
     private final CarService carService;
     private final SessionManager sessionManager;
     private final MemberBoardService memberBoardService;
+    private final LikesService likesService;
 
     @GetMapping("/member/login")
     public String loginForm(){
@@ -78,6 +81,9 @@ public class MemberController {
         List<MemberBoard> memberBoardList = memberBoardService.getMemberBoardList();
 //        carService.getMemberLikesCarList(member);
 //        model.addAttribute("memberLikesCarList",memberLikesCarList);
+        List<Likes> likesList = likesService.getLikesByMemberId(member.getId());
+        System.out.println("likesList.get(0).getCar().getId() = " + likesList.get(0).getCar().getId());
+        model.addAttribute("likesList",likesList);
         model.addAttribute("member",member);
         model.addAttribute("boardList",memberBoardList);
         return "member/mypage";
@@ -88,5 +94,7 @@ public class MemberController {
         request.getSession().invalidate();
         return "redirect:/main";
     }
+
+
 
 }

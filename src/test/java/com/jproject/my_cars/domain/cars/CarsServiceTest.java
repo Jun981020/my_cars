@@ -1,11 +1,13 @@
 package com.jproject.my_cars.domain.cars;
 
+import com.jproject.my_cars.domain.cars.car_options.CarOptions;
+import com.jproject.my_cars.domain.cars.car_options.CarOptionsRepository;
+import com.jproject.my_cars.domain.cars.car_options.CarOptionsService;
 import com.jproject.my_cars.domain.cars.option.OptionRepository;
 import com.jproject.my_cars.domain.cars.option.Options;
 import com.jproject.my_cars.domain.member.Member;
 import com.jproject.my_cars.domain.member.MemberRepository;
 import com.jproject.my_cars.domain.member.Role;
-import com.jproject.my_cars.dto.CarOptions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,6 +27,8 @@ class CarsServiceTest {
     private OptionRepository optionRepository;
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private CarOptionsRepository carOptionsRepository;
 
 //    @Test
 //    //차량등록
@@ -230,14 +234,25 @@ class CarsServiceTest {
     }
     @Test
     public void setOptions(){
-        Car car = Car.registrationCar("BMW-320i", 2000, "2022", "3000", false, "서울", "DESEL", "BMW");
         Options options = Options.putOption("네이게이션", "길안내");
+        Car car = Car.registrationCar("BMW-320i", 2000, "2022", "3000", false, "서울", "DESEL", "BMW");
         optionRepository.saveAndFlush(options);
-        car.addOption(options);
         carsRepository.saveAndFlush(car);
+
+
+
+        CarOptions carOptions = new CarOptions();
+        carOptions.setCarAndOptions(car,options);
+        carOptionsRepository.saveAndFlush(carOptions);
+
+
+        List<CarOptions> options1 = car.getOptions();
+        System.out.println("options1 = " + options1.get(0).getOptions().getName());
+
 
 //        List<CarOptions> carOptions = carsRepository.car_options_list(CarOptions.class);
 //        System.out.println("carOptions = " + carOptions);
+
 
 
     }

@@ -1,5 +1,7 @@
 package com.jproject.my_cars.domain.cars;
 
+import com.jproject.my_cars.domain.cars.car_options.CarOptions;
+import com.jproject.my_cars.domain.cars.car_options.CarOptionsRepository;
 import com.jproject.my_cars.domain.cars.option.OptionRepository;
 import com.jproject.my_cars.domain.cars.option.Options;
 import com.jproject.my_cars.domain.dealer.Dealer;
@@ -26,6 +28,7 @@ public class CarService {
     private final OptionRepository optionRepository;
     private final MemberRepository memberRepository;
     private final LikesRepository likesRepository;
+    private final CarOptionsRepository carOptionsRepository;
 
     public List<Car> getAll(){
         return carRepository.findAll();
@@ -68,12 +71,14 @@ public class CarService {
                 dto.getFuel(),
                 dto.getManufacture());
         car.setDealer(dealer);
+        carRepository.saveAndFlush(car);
         for (String name : options) {
             Options findOption = optionRepository.findByName(name);
             log.info("findOption : " + findOption);
-            car.addOption(findOption);
+            CarOptions carOptions = new CarOptions();
+            carOptions.setCarAndOptions(car,findOption);
+            carOptionsRepository.saveAndFlush(carOptions);
         }
-        carRepository.save(car);
         return car;
     }
     @Transactional
@@ -85,11 +90,13 @@ public class CarService {
     public void modifyCar(Long carNum,CarPostsDto dto,String[] options){
         Car entity = carRepository.findById(carNum).get();
         Car car = entity.carModify(dto);
+        carOptionsRepository.deleteByCarId(car.getId());
 
-        car.getOptions().clear();
         for (String name : options) {
             Options findOption = optionRepository.findByName(name);
-            car.addOption(findOption);
+            CarOptions carOptions = new CarOptions();
+            carOptions.setCarAndOptions(car,findOption);
+            carOptionsRepository.saveAndFlush(carOptions);
         }
     }
 

@@ -122,4 +122,5 @@ function getSessionDataForWriteReply(){
     $("#loginId").attr("value",id);
     repFrm.submit();
 }
+
 console.log('현재 이페이지에 적용중입니다.');
