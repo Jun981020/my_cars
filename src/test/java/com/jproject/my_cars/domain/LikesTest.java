@@ -2,16 +2,23 @@ package com.jproject.my_cars.domain;
 
 import com.jproject.my_cars.domain.cars.Car;
 import com.jproject.my_cars.domain.likes.Likes;
+import com.jproject.my_cars.domain.likes.LikesRepository;
 import com.jproject.my_cars.domain.member.Member;
 import com.jproject.my_cars.domain.member.Role;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
 public class LikesTest {
+
+    @Autowired
+    private LikesRepository likesRepository;
 
     @Test
     public void likesSetTest(){
@@ -20,6 +27,12 @@ public class LikesTest {
         Car car2 = Car.registrationCar("BMW-320i", 2000, "2022", "3000", false, "서울", "DESEL", "BMW");
         Likes likes1 = new Likes();
         Likes likes2 = new Likes();
-        Assertions.assertThat(likes1).isSameAs(likes2);
+        assertThat(likes1).isSameAs(likes2);
+    }
+    @Test
+    public void findLikesTest(){
+        Likes byMemberIdAndCarId = likesRepository.findLikes(1L, 6L);
+        assertThat(byMemberIdAndCarId).isNotNull();
+        System.out.println("byMemberIdAndCarId = " + byMemberIdAndCarId.getCar().getName());
     }
 }

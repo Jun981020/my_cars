@@ -94,6 +94,12 @@ public class MemberController {
         request.getSession().invalidate();
         return "redirect:/main";
     }
+    @GetMapping("/member/removeLikes/{num}")
+    public String member_remove_likes(@PathVariable(name = "num")int num,HttpServletRequest request){
+        Member member = (Member) sessionManager.getSession(request);
+        likesService.removeLikes(member.getId(),(long)num);
+        return "redirect:/member/mypage";
+    }
 
 
 

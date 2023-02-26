@@ -19,12 +19,16 @@
     <!-- carList -->
     <div class="container d-flex justify-content-around flex-wrap rounded">
       <div class="card m-5" style="width: 22rem;" th:each="list : ${car}">
-        <img th:src="${list.images[0].path}" class="card-img-top" alt="...">
+        <a th:href="@{/cars/carOne/{num}(num = ${list.id})}">
+          <img th:src="${list.images[0].path}" class="card-img-top" alt="...">
+        </a>
         <div class="card-body" style="background-color: #d1dbe8;">
           <h5 class="card-title" th:text="${list.name}">BWM-320</h5>
           <p class="card-text">가격: [[${list.price}]] (만원)</p>
           <p class="card-text">주행거리: [[${list.distance_driven}]] (KM)</p>
-          <a th:href="@{/cars/carOne/{num}(num = ${list.id})}" class="btn" style="background-color: #adb5bd;">차량보기</a>
+          <div class="w-100 d-flex justify-content-end">
+            <a th:href="@{/cars/carOne/{num}(num = ${list.id})}" class="btn" style="background-color: #adb5bd;">차량보기</a>
+          </div>
         </div>
       </div>
     </div>
