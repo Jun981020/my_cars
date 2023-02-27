@@ -14,7 +14,6 @@ import java.util.List;
 @Entity
 @Getter
 public class MemberBoard extends Board {
-    @Column(name = "MEMBER_BOARD_ID")
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -26,15 +25,15 @@ public class MemberBoard extends Board {
         MemberBoard memberBoard = new MemberBoard();
         memberBoard.setTitle(dto.getTitle());
         memberBoard.setContent(dto.getContent());
-        memberBoard.setPrivate_content(dto.getPrivate_content());
-        memberBoard.setPrivate_content_password(dto.getPrivate_content_password());
+        memberBoard.setSecret_content(dto.getSecret_content());
+        memberBoard.setSecret_password(dto.getSecret_password());
         return memberBoard;
     }
     public void modifyMemberBoard(MemberBoardModifyDto dto){
         this.setTitle(dto.getTitle());
         this.setContent(dto.getContent());
-        this.setPrivate_content(dto.getPrivate_content());
-        this.setPrivate_content_password(dto.getPrivate_content_password());
+        this.setSecret_content(dto.getSecret_content());
+        this.setSecret_password(dto.getSecret_password());
     }
     public void setMember(Member member){
         this.member = member;

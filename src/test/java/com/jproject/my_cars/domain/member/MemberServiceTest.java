@@ -1,5 +1,7 @@
 package com.jproject.my_cars.domain.member;
 
+import com.jproject.my_cars.domain.board.member_board.MemberBoard;
+import com.jproject.my_cars.domain.board.member_board.MemberBoardRepository;
 import com.jproject.my_cars.domain.likes.Likes;
 import com.jproject.my_cars.domain.likes.LikesRepository;
 import org.junit.jupiter.api.Test;
@@ -19,7 +21,8 @@ class MemberServiceTest {
     private MemberRepository memberRepository;
     @Autowired
     private LikesRepository likesRepository;
-
+    @Autowired
+    private MemberBoardRepository memberBoardRepository;
     @Test
     public void joinTest(){
         Member member = Member.createMember("qwer", "1234", "jun", "flwnsgud@naver.com", "010-9145-6497", Role.SILVER);
@@ -55,6 +58,11 @@ class MemberServiceTest {
         for (Likes likes : byMemberId) {
             System.out.println("likes = " + likes.getCar().getName());
         }
+    }
+    @Test
+    public void countMemberBoardPrivateContentPassword(){
+        Long result = memberBoardRepository.countByMemberBoardIdAndMemberBoardPrivateContentPassword(1L,"1111");
+        System.out.println("memberBoard = " + result);
     }
 
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -29,12 +30,14 @@ public class BoardController {
     public String board_list(Model model){
         List<MemberBoard> memberBoards = memberBoardService.memberBoardList();
         model.addAttribute("list",memberBoards);
+        model.addAttribute("cat","member");
         return "board/board_member";
     }
     @GetMapping("/board/list/dealer")
     public String board_list_dealer(Model model){
         List<DealerBoard> dealerBoards = dealerBoardService.dealerBoardList();
         model.addAttribute("list",dealerBoards);
+        model.addAttribute("cat","dealer");
         return "board/board_dealer";
     }
     @GetMapping("/board/write/{data}/{num}")
@@ -79,18 +82,17 @@ public class BoardController {
         model.addAttribute("writer",board.getDealer().getLoginId());
         return "board/board_one";
     }
-//    @GetMapping("/board/checkPrivateContent")
-//    @ResponseBody
-//    public boolean checkPassword(@RequestParam Map<String,Object> params, Model model){
-//        String password = params.get("password").toString();
-//        Long board_id = Long.valueOf(params.get("board").toString());
-//        int result = boardService.checkPassword(params.get("password").toString(), board_id);
-//        if(result == 0){
-//            return true;
-//        }else{
-//            return false;
-//        }
-//    }
+    @GetMapping("/board/checkPrivateContent/member")
+    @ResponseBody
+    public boolean checkPassword(@RequestParam Map<String,Object> params, Model model){
+        String password = params.get("password").toString();
+        Long board_id = Long.valueOf(params.get("board").toString());
+        Long result = memberBoardService.checkPrivateContentPassword(board_id, password);
+        if(result == 1){
+            return true;
+        }
+        return false;
+    }
     @GetMapping("/board/modify/member/{num}")
     public String board_member_modify(@PathVariable("num")int num,Model model){
         MemberBoard board = memberBoardService.findByNum(num);

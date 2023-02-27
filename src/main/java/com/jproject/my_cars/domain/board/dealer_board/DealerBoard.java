@@ -32,15 +32,15 @@ public class DealerBoard extends Board{
         DealerBoard dealerBoard = new DealerBoard();
         dealerBoard.setTitle(dto.getTitle());
         dealerBoard.setContent(dto.getContent());
-        dealerBoard.setPrivate_content(dto.getPrivate_content());
-        dealerBoard.setPrivate_content_password(dto.getPrivate_content_password());
+        dealerBoard.setSecret_content(dto.getSecret_content());
+        dealerBoard.setSecret_password(dto.getSecret_password());
         return dealerBoard;
     }
     public void modifyDealerBoard(DealerBoardModifyDto dto){
         this.setTitle(dto.getTitle());
         this.setContent(dto.getContent());
-        this.setPrivate_content(dto.getPrivate_content());
-        this.setPrivate_content_password(dto.getPrivate_content_password());
+        this.setSecret_content(dto.getSecret_content());
+        this.setSecret_password(dto.getSecret_password());
     }
     public void setDealer(Dealer dealer){
         this.dealer = dealer;

@@ -3,7 +3,6 @@ package com.jproject.my_cars.domain.cars.car_options;
 import com.jproject.my_cars.domain.cars.Car;
 import com.jproject.my_cars.domain.cars.option.Options;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 
 @Getter

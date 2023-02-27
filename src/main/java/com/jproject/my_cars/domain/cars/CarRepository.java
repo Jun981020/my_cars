@@ -24,6 +24,9 @@ public interface CarRepository extends JpaRepository<Car,Long>  {
     @Query(value = "select * from car c inner join likes l on c.id = l.likes;",nativeQuery = true)
     List<Car> findLikesNumOfCar();
 
+    @Query(value = "select * from car order by point DESC",nativeQuery = true)
+    List<Car> findBest2Car();
+
 //    @Query(value = "select * from car_options",nativeQuery = true)
 //    List<CarOptions> car_options_list(Class<CarOptions> type);
 

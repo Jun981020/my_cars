@@ -48,4 +48,8 @@ public class MemberBoardService {
     public List<MemberBoard> getMemberBoardList() {
         return memberBoardRepository.findAll();
     }
+
+    public Long checkPrivateContentPassword(Long id,String password) {
+        return memberBoardRepository.countByMemberBoardIdAndMemberBoardPrivateContentPassword(id,password);
+    }
 }

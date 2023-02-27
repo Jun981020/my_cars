@@ -80,6 +80,7 @@
                         </button>
                     </h2>
                     <div id="collapseOne1" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <th:block th:if="${likesList} != null">
                         <div class="accordion-body" th:each="likes : ${likesList}">
                             <div class="d-flex">
                                 <a th:href="@{/cars/carOne/{num}(num = ${likes.car.id} )}">
@@ -119,6 +120,7 @@
                             </div>
                             <hr>
                         </div>
+                        </th:block>
                     </div>
                 </div>
             </div>

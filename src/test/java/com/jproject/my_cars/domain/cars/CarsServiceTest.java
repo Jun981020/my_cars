@@ -252,9 +252,12 @@ class CarsServiceTest {
 
 //        List<CarOptions> carOptions = carsRepository.car_options_list(CarOptions.class);
 //        System.out.println("carOptions = " + carOptions);
-
-
-
+    }
+    @Test
+    public void getOptionsList(){
+        Car car = carsRepository.findById(5L).get();
+        String name = car.getOptions().get(0).getOptions().getName();
+        System.out.println("name = " + name);
     }
 
 }

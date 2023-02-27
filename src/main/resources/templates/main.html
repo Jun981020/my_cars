@@ -11,6 +11,56 @@
     <th:block th:insert="~{fragment/nav :: nav}"></th:block>
     <!--Main Page Body-->
     <div class="container d-flex justify-content-center mt-5 mb-5 rounded" style="background-color: #adb5bd;">
+
+        <!-- search bar -->
+        <div class="container p-5 w-75">
+            <form class="form-group d-flex justify-content-around">
+                <input type="text" class="form-control mr-2" id="exampleFormControlInput1" placeholder="원하시는 차량을 입력해주세요!" style="border-radius: 30px;height: 50px;">
+                <button class="btn ml-2" type="submit" style="background-color: rgba(31, 163, 150, 0)"><img src="/webapp/img/icon/free-icon-search-6968650.png" alt="" style="width: 30px; height: 30px;"></button>
+            </form>
+            <th:block th:if="${best1} != null">
+            <!--BEST1 CARD-->
+            <div class="card m-5" style="width: 22rem;">
+                <a th:href="@{/cars/carOne/{num}(num = ${best1.id})}">
+                    <img th:src="${best1.images[0].path}" class="card-img-top" alt="...">
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        BEST1!!
+                        <span class="visually-hidden">unread messages</span>
+                    </span>
+                </a>
+                <div class="card-body" style="background-color: #d1dbe8;">
+                    <h5 class="card-title" th:text="${best1.name}">BWM-320</h5>
+                    <p class="card-text">가격: [[${best1.price}]] (만원)</p>
+                    <p class="card-text">주행거리: [[${best1.distance_driven}]] (KM)</p>
+                    <div class="w-100 d-flex justify-content-end">
+                        <a th:href="@{/cars/carOne/{num}(num = ${best1.id})}" class="btn" style="background-color: #adb5bd;">차량보기</a>
+                    </div>
+                </div>
+            </div>
+            </th:block>
+            <th:block th:if="${best2} != null">
+            <!--BEST 2 CARD-->
+            <div class="card m-5" style="width: 22rem;">
+                <a th:href="@{/cars/carOne/{num}(num = ${best2.id})}">
+                    <img th:src="${best2.images[0].path}" class="card-img-top" alt="...">
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        BEST2!!
+                        <span class="visually-hidden">unread messages</span>
+                    </span>
+                </a>
+                <div class="card-body" style="background-color: #d1dbe8;">
+                    <h5 class="card-title" th:text="${best2.name}">BWM-320</h5>
+                    <p class="card-text">가격: [[${best2.price}]] (만원)</p>
+                    <p class="card-text">주행거리: [[${best2.distance_driven}]] (KM)</p>
+                    <div class="w-100 d-flex justify-content-end">
+                        <a th:href="@{/cars/carOne/{num}(num = ${best2.id})}" class="btn" style="background-color: #adb5bd;">차량보기</a>
+                    </div>
+                </div>
+            </div>
+            </th:block>
+
+        </div>
+        <!--carousel-->
         <div id="carouselExampleIndicators" class="carousel slide carousel-fade w-75 mt-5" data-bs-ride="carousel" >
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -19,13 +69,13 @@
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="/webapp/img/carousel/carousel1.jpg" class="d-block w-100" alt="..." style="height: 700px;">
+                    <img src="/webapp/img/carousel/carousel1.jpg" class="d-block w-100 img-fluid" alt="..." style="height: 700px;">
                 </div>
                 <div class="carousel-item">
-                    <img src="/webapp/img/carousel/carousel2.png" class="d-block w-100" alt="..." style="height: 700px;">
+                    <img src="/webapp/img/carousel/carousel2.png" class="d-block w-100 img-fluid" alt="..." style="height: 700px;">
                 </div>
                 <div class="carousel-item">
-                    <img src="/webapp/img/carousel/carousel3.png" class="d-block w-100" alt="..." style="height: 700px;">
+                    <img src="/webapp/img/carousel/carousel3.png" class="d-block w-100 img-fluid" alt="..." style="height: 700px;">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">

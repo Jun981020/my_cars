@@ -23,11 +23,11 @@
                     </div>
                     <div class="d-flex flex-row w-100 justify-content-lg-between">
                         <div class="pt-3">
-                            <select name="private_content" id="private_content" onchange="checking()" class="custom-select rounded" style="width: 100px;">
+                            <select name="secret_content" id="secret_content" onchange="checking()" class="custom-select rounded" style="width: 100px;">
                                 <option value="0">공개</option>
                                 <option value="1">비공개</option>
                             </select>
-                            <input type="hidden" placeholder="비밀번호를 입력하세요" id="private_content_password" maxlength="4" name="private_content_password" style="width: 200px; margin-left: 20px;" class="rounded">
+                            <input type="hidden" placeholder="비밀번호를 입력하세요" id="secret_password" maxlength="4" name="secret_password" style="width: 200px; margin-left: 20px;" class="rounded">
                             <input type="hidden" th:value="${loginId}" name="loginId">
                             <input type="hidden" name="_method" value="PUT" id="mapping">
                         </div>

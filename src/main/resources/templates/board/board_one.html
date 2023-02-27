@@ -96,15 +96,17 @@
 <script th:inline="javascript">
 $(document).ready(function() {
       let client = getSessionTypeLoginId();
-      let writer = [[${writer}]];
-      if(client == writer){
-        $('#edit-btn').css('display', 'block');
+      if(client != null){
+        let writer = [[${writer}]];
+        if(client == writer){
+          $('#edit-btn').css('display', 'block');
+        }
+        $("#edit-btn").click(function(){
+          const boardId = [[${board.id}]];
+          const cat = [[${cat}]];
+          location.href = "/board/modify/"+cat+"/"+boardId;
+        })
       }
-      $("#edit-btn").click(function(){
-        const boardId = [[${board.id}]];
-        const cat = [[${cat}]];
-        location.href = "/board/modify/"+cat+"/"+boardId;
-      })
 });
 </script>
 </html>

@@ -2,8 +2,6 @@ package com.jproject.my_cars.web;
 
 import com.jproject.my_cars.domain.cars.Car;
 import com.jproject.my_cars.domain.cars.CarService;
-import com.jproject.my_cars.domain.cars.car_options.CarOptions;
-import com.jproject.my_cars.domain.cars.car_options.CarOptionsRepository;
 import com.jproject.my_cars.domain.cars.car_options.CarOptionsService;
 import com.jproject.my_cars.domain.cars.img.ImgService;
 import com.jproject.my_cars.domain.cars.option.OptionService;
@@ -47,6 +45,7 @@ public class CarController {
     public String car_one(@PathVariable("num")int num,Model model){
         Car car = carService.getOne((long) num);
         model.addAttribute("car",car);
+        car.getOptions().get(0).getOptions().getName();
         return "cars/cars_one";
     }
     @GetMapping("/cars/posts")

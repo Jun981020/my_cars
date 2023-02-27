@@ -6,7 +6,7 @@ import lombok.Data;
 public class MemberBoardModifyDto {
     private String title;
     private String content;
-    private int private_content;
-    private String private_content_password;
+    private int secret_content;
+    private String secret_password;
 
 }

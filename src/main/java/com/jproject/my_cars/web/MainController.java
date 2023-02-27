@@ -2,21 +2,21 @@ package com.jproject.my_cars.web;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jproject.my_cars.domain.cars.Car;
+import com.jproject.my_cars.domain.cars.CarService;
 import com.jproject.my_cars.domain.dealer.Dealer;
 import com.jproject.my_cars.domain.member.Member;
 import com.jproject.my_cars.web.session.SessionManager;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,6 +24,7 @@ import java.util.HashMap;
 public class MainController {
 
     private final SessionManager sessionManager;
+    private final CarService carService;
 
     @GetMapping("/hello")
     public String test(){
@@ -31,8 +32,15 @@ public class MainController {
     }
 
     @GetMapping("/main")
-    public String main(HttpServletRequest request){
+    public String main(HttpServletRequest request,Model model){
         System.out.println("request.getSession().getServletContext().getRealPath(\"/\") = " + request.getSession().getServletContext().getRealPath("/"));
+        List<Car> topTwoCar = carService.getTopTwoCar();
+        if(!topTwoCar.isEmpty()){
+            Car best1 = topTwoCar.get(0);
+            Car best2 = topTwoCar.get(1);
+            model.addAttribute("best1",best1);
+            model.addAttribute("best2",best2);
+        }
         return "main";
     }
     @GetMapping("/main/getSessionTypeName")
@@ -84,6 +92,15 @@ public class MainController {
     @ResponseBody
     public String get_session_type_login_id(HttpServletRequest request) throws JsonProcessingException {
         HashMap<String, String> map = new HashMap<>();
+        Object session = sessionManager.getSession(request);
+        //로그인 하지 않았을때
+        if(session == null){
+            map.put("data",null);
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonString = mapper.writeValueAsString(map);
+            return jsonString;
+
+        }
         String typeName = sessionManager.getSession(request).getClass().getSimpleName();
         if(typeName.equals("Member")){
             Member member = (Member) sessionManager.getSession(request);

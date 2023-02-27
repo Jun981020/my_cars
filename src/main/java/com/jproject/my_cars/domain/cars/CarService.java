@@ -109,4 +109,7 @@ public class CarService {
 //        return null;
         return null;
     }
+    public List<Car> getTopTwoCar(){
+        return carRepository.findBest2Car();
+    }
 }
