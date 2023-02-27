@@ -48,4 +48,8 @@ public class DealerBoardService {
     public List<DealerBoard> getDealerBoardList(){
         return dealerBoardRepository.findAll();
     }
+
+    public Long checkPrivateContentPassword(Long boardId, String password) {
+        return dealerBoardRepository.countByDealerBoardIdAndDealerBoardSecretPassword(boardId,password);
+    }
 }

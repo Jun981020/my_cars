@@ -1,6 +1,5 @@
 package com.jproject.my_cars.domain.member;
 
-import com.jproject.my_cars.domain.board.member_board.MemberBoard;
 import com.jproject.my_cars.domain.board.member_board.MemberBoardRepository;
 import com.jproject.my_cars.domain.likes.Likes;
 import com.jproject.my_cars.domain.likes.LikesRepository;
@@ -61,7 +60,7 @@ class MemberServiceTest {
     }
     @Test
     public void countMemberBoardPrivateContentPassword(){
-        Long result = memberBoardRepository.countByMemberBoardIdAndMemberBoardPrivateContentPassword(1L,"1111");
+        Long result = memberBoardRepository.countByMemberBoardIdAndMemberBoardSecretPassword(1L,"1111");
         System.out.println("memberBoard = " + result);
     }
 

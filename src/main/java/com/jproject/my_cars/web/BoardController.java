@@ -84,10 +84,21 @@ public class BoardController {
     }
     @GetMapping("/board/checkPrivateContent/member")
     @ResponseBody
-    public boolean checkPassword(@RequestParam Map<String,Object> params, Model model){
+    public boolean check_password_member(@RequestParam Map<String,Object> params, Model model){
         String password = params.get("password").toString();
         Long board_id = Long.valueOf(params.get("board").toString());
         Long result = memberBoardService.checkPrivateContentPassword(board_id, password);
+        if(result == 1){
+            return true;
+        }
+        return false;
+    }
+    @GetMapping("/board/checkPrivateContent/dealer")
+    @ResponseBody
+    public boolean check_password_dealer(@RequestParam Map<String,Object> params, Model model){
+        String password = params.get("password").toString();
+        Long board_id = Long.valueOf(params.get("board").toString());
+        Long result = dealerBoardService.checkPrivateContentPassword(board_id, password);
         if(result == 1){
             return true;
         }

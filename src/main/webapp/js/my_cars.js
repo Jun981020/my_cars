@@ -167,8 +167,13 @@ function sendData(data){
 }
 function checkPrivateContentPassword(data){
     let cat = data;
+    console.log(cat);
     let board = $("#resData").val();
+    console.log(board);
     let password = $("#password").val();
+    console.log(password);
+
+
     $.ajax({
         type: 'GET',
         url: '/board/checkPrivateContent/'+cat,
@@ -184,7 +189,7 @@ function checkPrivateContentPassword(data){
         }
         },
         error: function(xhr, status, error) {
-        alert('오류가 발생했습니다.');
+            alert('오류가 발생했습니다.');
         }
     });
 }

@@ -29,7 +29,7 @@
           <td>
             <a th:if="${board.secret_content == 1}"
                th:href="@{/board/dealerBoard/{num}(num = ${board.id})}"
-               th:id="${board.id}"
+               th:boardId="${board.id}"
                th:text="${board.title}"
                class="title"
                data-bs-toggle="modal" data-bs-target="#exampleModal"
@@ -68,13 +68,13 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <input type="text" name="password" id="password" value="" placeholder="비밀번호를 입력해주세요" class="w-100 form-control">
+          <input type="text" name="password" id="password" value="" placeholder="비밀번호를 입력해주세요" class="w-100 form-control" maxlength="4">
           <input type="hidden" name="id" id="resData" value="">
           <div id="passwordResult" class="text-center" style="display:none;color:red">비밀번호가 틀렸습니다.</div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-          <button type="button" class="btn btn-primary" onclick="checkPrivateContentPassword()">비밀번호 확인</button>
+          <button type="button" class="btn btn-primary" th:boardCat="${cat}" th:onclick="checkPrivateContentPassword(this.getAttribute('boardCat'))">비밀번호 확인</button>
         </div>
       </div>
     </div>

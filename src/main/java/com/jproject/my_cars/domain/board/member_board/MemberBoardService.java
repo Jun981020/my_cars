@@ -2,7 +2,6 @@ package com.jproject.my_cars.domain.board.member_board;
 
 import com.jproject.my_cars.domain.member.Member;
 import com.jproject.my_cars.domain.member.MemberRepository;
-import com.jproject.my_cars.dto.BoardWriteDto;
 import com.jproject.my_cars.dto.MemberBoardModifyDto;
 import com.jproject.my_cars.dto.MemberWriteBoardDto;
 import lombok.RequiredArgsConstructor;
@@ -50,6 +49,6 @@ public class MemberBoardService {
     }
 
     public Long checkPrivateContentPassword(Long id,String password) {
-        return memberBoardRepository.countByMemberBoardIdAndMemberBoardPrivateContentPassword(id,password);
+        return memberBoardRepository.countByMemberBoardIdAndMemberBoardSecretPassword(id,password);
     }
 }

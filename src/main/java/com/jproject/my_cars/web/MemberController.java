@@ -79,10 +79,7 @@ public class MemberController {
     public String my_page(HttpServletRequest request, Model model){
         Member member = (Member) sessionManager.getSession(request);
         List<MemberBoard> memberBoardList = memberBoardService.getMemberBoardList();
-//        carService.getMemberLikesCarList(member);
-//        model.addAttribute("memberLikesCarList",memberLikesCarList);
         List<Likes> likesList = likesService.getLikesByMemberId(member.getId());
-        System.out.println("likesList.get(0).getCar().getId() = " + likesList.get(0).getCar().getId());
         model.addAttribute("likesList",likesList);
         model.addAttribute("member",member);
         model.addAttribute("boardList",memberBoardList);
