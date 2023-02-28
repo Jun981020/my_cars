@@ -259,5 +259,17 @@ class CarsServiceTest {
         String name = car.getOptions().get(0).getOptions().getName();
         System.out.println("name = " + name);
     }
+    @Test
+    public void getManufactureList(){
+        List<Car> hyundai = carsRepository.findByManufacture("HYUNDAI");
+        System.out.println("hyundai.size() = " + hyundai.size());
+    }
+    @Test
+    public void getPriceList(){
+        Long low = 1000L;
+        Long high = 4000L;
+        List<Car> byPriceLowAndHigh = carsRepository.findByPriceLowAndHigh(low, high);
+        System.out.println("byPriceLowAndHigh.size() = " + byPriceLowAndHigh.size());
+    }
 
 }

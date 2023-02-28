@@ -2,6 +2,7 @@ package com.jproject.my_cars.domain.cars;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +28,10 @@ public interface CarRepository extends JpaRepository<Car,Long>  {
     @Query(value = "select * from car order by point DESC",nativeQuery = true)
     List<Car> findBest2Car();
 
-//    @Query(value = "select * from car_options",nativeQuery = true)
-//    List<CarOptions> car_options_list(Class<CarOptions> type);
-
+    @Query("SELECT c FROM Car c WHERE c.name LIKE :name")
+    List<Car> findByLikeName(@Param("name")String name);
+    List<Car> findByManufacture(String manufacture);
+    List<Car> findByFuel(String fuel);
+    @Query("SELECT c FROM Car c WHERE c.price >= :low and c.price <= :high")
+    List<Car> findByPriceLowAndHigh(@Param("low")Long low,@Param("high")Long high);
 }

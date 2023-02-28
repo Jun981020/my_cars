@@ -112,4 +112,16 @@ public class CarService {
     public List<Car> getTopTwoCar(){
         return carRepository.findBest2Car();
     }
+    public List<Car> getLikeNameCarList(String name){
+        return carRepository.findByLikeName(name);
+    }
+    public List<Car> getManufactureCarList(String manufacture){
+        return carRepository.findByManufacture(manufacture);
+    }
+    public List<Car> getFuelCarList(String fuel){
+        return carRepository.findByFuel(fuel);
+    }
+    public List<Car> getPriceList(Long low,Long high){
+        return carRepository.findByPriceLowAndHigh(low,high);
+    }
 }

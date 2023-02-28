@@ -118,6 +118,40 @@ public class CarController {
         imgService.modifyImg(map,dto.getName(),car);
         return "redirect:/main";
     }
+    @GetMapping("/cars/search")
+    public String cars_search(@RequestParam("name")String name,Model model){
+        String carName = "%"+name+"%";
+        List<Car> likeNameCarList = carService.getLikeNameCarList(carName);
+        model.addAttribute("car",likeNameCarList);
+        return "cars/cars";
+    }
+    @GetMapping("/cars/category/manufacture")
+    public String car_category(@RequestParam("value")String value,Model model){
+        List<Car> manufactureCarList = carService.getManufactureCarList(value);
+        model.addAttribute("car",manufactureCarList);
+        return "cars/cars";
+    }
+    @GetMapping("/cars/category/fuel")
+    public String car_fuel(@RequestParam("value")String value,Model model){
+        String fuel = switch (value) {
+            case "Gasoline" -> "가솔린";
+            case "Diesel" -> "디젤";
+            case "Electricity" -> "전기";
+            default -> "";
+        };
+        List<Car> fuelCarList = carService.getFuelCarList(fuel);
+        model.addAttribute("car",fuelCarList);
+        return "cars/cars";
+    }
+    @GetMapping("/cars/category/price")
+    public String car_price(@RequestParam("low")int lowInt,@RequestParam("high")int highInt,Model model){
+        Long low = (long) lowInt;
+        Long high = (long) highInt;
+        List<Car> priceList = carService.getPriceList(low, high);
+        System.out.println("priceList = " + priceList);
+        model.addAttribute("car",priceList);
+        return "cars/cars";
+    }
 
 
 

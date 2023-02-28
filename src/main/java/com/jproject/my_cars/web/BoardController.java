@@ -5,6 +5,7 @@ import com.jproject.my_cars.domain.board.dealer_board.DealerBoardService;
 import com.jproject.my_cars.domain.board.member_board.MemberBoard;
 import com.jproject.my_cars.domain.board.member_board.MemberBoardService;
 import com.jproject.my_cars.domain.board.reply.member_board_reply.MemberBoardReplyService;
+import com.jproject.my_cars.domain.dealer.Dealer;
 import com.jproject.my_cars.domain.member.MemberService;
 import com.jproject.my_cars.dto.*;
 import lombok.RequiredArgsConstructor;
@@ -141,12 +142,21 @@ public class BoardController {
         dealerBoardService.deleteBoard(num);
         return "redirect:/board/list/dealer";
     }
-//    @GetMapping("/board/search")
-//    public String board_search_bar(@RequestParam("str") String str,Model model){
-//        String s = "%"+str+"%";
-//        List<Board> boards = boardService.searchStringWith(s);
-//        model.addAttribute("list",boards);
-//        return "board/board";
-//    }
+    @GetMapping("/board/search/member")
+    public String member_board_search_bar(@RequestParam("str") String str,Model model){
+        String title = "%"+str+"%";
+        List<MemberBoard> likesTitleList = memberBoardService.getLikesTitleList(title);
+        model.addAttribute("cat","member");
+        model.addAttribute("list",likesTitleList);
+        return "board/board_member";
+    }
+    @GetMapping("/board/search/dealer")
+    public String dealer_board_search_bar(@RequestParam("str") String str,Model model){
+        String title = "%"+str+"%";
+        List<DealerBoard> likesTitleList = dealerBoardService.getLikesTitleList(title);
+        model.addAttribute("cat","dealer");
+        model.addAttribute("list",likesTitleList);
+        return "board/board_dealer";
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.jproject.my_cars.domain.board.dealer_board;
 
+import com.jproject.my_cars.domain.board.member_board.MemberBoard;
 import com.jproject.my_cars.domain.dealer.Dealer;
 import com.jproject.my_cars.domain.dealer.DealerRepository;
 import com.jproject.my_cars.domain.dealer.DealerService;
@@ -51,5 +52,9 @@ public class DealerBoardService {
 
     public Long checkPrivateContentPassword(Long boardId, String password) {
         return dealerBoardRepository.countByDealerBoardIdAndDealerBoardSecretPassword(boardId,password);
+    }
+
+    public List<DealerBoard> getLikesTitleList(String title) {
+        return dealerBoardRepository.findByLikeTitle(title);
     }
 }

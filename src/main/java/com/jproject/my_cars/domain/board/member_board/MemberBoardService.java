@@ -51,4 +51,7 @@ public class MemberBoardService {
     public Long checkPrivateContentPassword(Long id,String password) {
         return memberBoardRepository.countByMemberBoardIdAndMemberBoardSecretPassword(id,password);
     }
+    public List<MemberBoard> getLikesTitleList(String title){
+        return memberBoardRepository.findByLikeTitle(title);
+    }
 }
