@@ -6,6 +6,7 @@ import com.jproject.my_cars.domain.member.Member;
 import com.jproject.my_cars.dto.MemberBoardModifyDto;
 import com.jproject.my_cars.dto.MemberWriteBoardDto;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -37,5 +38,8 @@ public class MemberBoard extends Board {
     }
     public void setMember(Member member){
         this.member = member;
+    }
+    public MemberBoard(){
+
     }
 }

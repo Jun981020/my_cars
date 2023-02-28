@@ -12,6 +12,8 @@ import com.jproject.my_cars.domain.member.MemberRepository;
 import com.jproject.my_cars.dto.CarPostsDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -123,5 +125,9 @@ public class CarService {
     }
     public List<Car> getPriceList(Long low,Long high){
         return carRepository.findByPriceLowAndHigh(low,high);
+    }
+    public Page<Car> getPageList(){
+        PageRequest of = PageRequest.of(0, 10);
+        return carRepository.findAll(of);
     }
 }

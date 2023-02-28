@@ -1,5 +1,8 @@
 package com.jproject.my_cars.web;
 
+import com.jproject.my_cars.domain.Test;
+import com.jproject.my_cars.domain.board.member_board.MemberBoard;
+import com.jproject.my_cars.domain.board.member_board.MemberBoardService;
 import com.jproject.my_cars.domain.cars.Car;
 import com.jproject.my_cars.domain.cars.CarService;
 import com.jproject.my_cars.domain.cars.car_options.CarOptionsService;
@@ -12,9 +15,11 @@ import com.jproject.my_cars.domain.member.MemberService;
 import com.jproject.my_cars.dto.CarPostsDto;
 import com.jproject.my_cars.dto.ImagesFiles;
 import com.jproject.my_cars.web.session.SessionManager;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,11 +39,13 @@ public class CarController {
     private final SessionManager sessionManager;
     private final OptionService optionService;
     private final MemberService memberService;
+    private final MemberBoardService memberBoardService;
 
     @GetMapping(value = "/cars")
-    public String cars(Model model){
-        List<Car> car = carService.getAll();
-        model.addAttribute("car",car);
+    public String cars(@RequestParam(value = "page",required = false)Integer pageNum,Model model){
+        Page<Car> page = carService.getPageList();
+        page.get();
+        model.addAttribute("page",page);
         return "cars/cars";
     }
     @GetMapping("/cars/carOne/{num}")
@@ -152,6 +159,8 @@ public class CarController {
         model.addAttribute("car",priceList);
         return "cars/cars";
     }
+
+
 
 
 

@@ -8,6 +8,7 @@ import com.jproject.my_cars.domain.cars.option.Options;
 import com.jproject.my_cars.domain.dealer.Dealer;
 import com.jproject.my_cars.dto.CarPostsDto;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -93,5 +94,20 @@ public class Car extends BaseEntity {
         this.fuel = dto.getFuel();
         this.manufacture = dto.getManufacture();
         return this;
+    }
+    @Builder
+    public Car(String name,Integer price,String year,String distance_driven,boolean accident_history,String area,String fuel,String manufacture,int point){
+        this.name = name;
+        this.price = price;
+        this.year = year;
+        this.distance_driven = distance_driven;
+        this.accident_history = accident_history;
+        this.area = area;
+        this.fuel = fuel;
+        this.manufacture = manufacture;
+        this.point = point;
+    }
+    public Car(){
+
     }
 }
