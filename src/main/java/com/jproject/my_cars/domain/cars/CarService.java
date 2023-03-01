@@ -117,8 +117,8 @@ public class CarService {
     public List<Car> getLikeNameCarList(String name){
         return carRepository.findByLikeName(name);
     }
-    public List<Car> getManufactureCarList(String manufacture){
-        return carRepository.findByManufacture(manufacture);
+    public Page<Car> getManufactureCarList(String manufacture,PageRequest pageRequest){
+        return carRepository.findByManufacture(manufacture,pageRequest);
     }
     public List<Car> getFuelCarList(String fuel){
         return carRepository.findByFuel(fuel);
@@ -126,8 +126,8 @@ public class CarService {
     public List<Car> getPriceList(Long low,Long high){
         return carRepository.findByPriceLowAndHigh(low,high);
     }
-    public Page<Car> getPageList(){
-        PageRequest of = PageRequest.of(0, 10);
+
+    public Page<Car> getPageList(PageRequest of) {
         return carRepository.findAll(of);
     }
 }

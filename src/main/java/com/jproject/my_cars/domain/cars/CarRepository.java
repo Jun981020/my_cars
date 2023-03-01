@@ -1,5 +1,8 @@
 package com.jproject.my_cars.domain.cars;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -30,7 +33,7 @@ public interface CarRepository extends JpaRepository<Car,Long>  {
 
     @Query("SELECT c FROM Car c WHERE c.name LIKE :name")
     List<Car> findByLikeName(@Param("name")String name);
-    List<Car> findByManufacture(String manufacture);
+    Page<Car> findByManufacture(String manufacture,PageRequest pageRequest);
     List<Car> findByFuel(String fuel);
     @Query("SELECT c FROM Car c WHERE c.price >= :low and c.price <= :high")
     List<Car> findByPriceLowAndHigh(@Param("low")Long low,@Param("high")Long high);

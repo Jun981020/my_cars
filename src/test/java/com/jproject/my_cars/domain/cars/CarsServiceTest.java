@@ -263,7 +263,7 @@ class CarsServiceTest {
     }
     @Test
     public void getManufactureList(){
-        List<Car> hyundai = carsRepository.findByManufacture("HYUNDAI");
+        List<Car> hyundai = carsRepository.findByManufacture("HYUNDAI",PageRequest.of(0, 6));
         System.out.println("hyundai.size() = " + hyundai.size());
     }
     @Test
@@ -306,6 +306,13 @@ class CarsServiceTest {
         Page<Car> all = carsRepository.findAll(of);
         int totalPages = all.getTotalPages();
         System.out.println("totalPages = " + totalPages);
+    }
+    @Test
+    public void findByFuelPage(){
+        PageRequest of = PageRequest.of(0, 10);
+        Page<Car> page = carsRepository.findByFuel("경유",of);
+        List<Car> content = page.getContent();
+        System.out.println("content.size() = " + content.size());
     }
 
 }

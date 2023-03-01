@@ -30,9 +30,9 @@
                   국산차
                 </button>
                 <ul class="dropdown-menu dropdown-menu">
-                  <li><a class="dropdown-item" href="/cars/category/manufacture?value=KIA">기아</a></li>
-                  <li><a class="dropdown-item" href="/cars/category/manufacture?value=HYUNDAI">현대</a></li>
-                  <li><a class="dropdown-item" href="/cars/category/manufacture?value=SAMSUNG">르노삼성</a></li>
+                  <li><a class="dropdown-item" href="/cars/manufacture?value=KIA">기아</a></li>
+                  <li><a class="dropdown-item" href="/cars/manufacture?value=HYUNDAI">현대</a></li>
+                  <li><a class="dropdown-item" href="/cars/manufacture?value=SAMSUNG">르노삼성</a></li>
                 </ul>
               </li>
 
@@ -41,9 +41,9 @@
                   수입차
                 </button>
                 <ul class="dropdown-menu dropdown-menu">
-                  <li><a class="dropdown-item" href="/cars/category/manufacture?value=BMW">BMW</a></li>
-                  <li><a class="dropdown-item" href="/cars/category/manufacture?value=MERCEDES-BENZ">Mercedes-Benz</a></li>
-                  <li><a class="dropdown-item" href="/cars/category/manufacture?value=AUDI">Audi</a></li>
+                  <li><a class="dropdown-item" href="/cars/manufacture?value=BMW">BMW</a></li>
+                  <li><a class="dropdown-item" href="/cars/manufacture?value=MERCEDES-BENZ">Mercedes-Benz</a></li>
+                  <li><a class="dropdown-item" href="/cars/manufacture?value=AUDI">Audi</a></li>
                 </ul>
               </li>
 
@@ -52,9 +52,9 @@
                   연료
                 </button>
                 <ul class="dropdown-menu dropdown-menu">
-                  <li><a class="dropdown-item" href="/cars/category/fuel?value=Gasoline">가솔린</a></li>
-                  <li><a class="dropdown-item" href="/cars/category/fuel?value=Diesel">디젤</a></li>
-                  <li><a class="dropdown-item" href="/cars/category/fuel?value=Electricity">전기차</a></li>
+                  <li><a class="dropdown-item" href="/cars/fuel?value=Gasoline">가솔린</a></li>
+                  <li><a class="dropdown-item" href="/cars/fuel?value=Diesel">디젤</a></li>
+                  <li><a class="dropdown-item" href="/cars/fuel?value=Electricity">전기차</a></li>
                 </ul>
               </li>
 
@@ -63,12 +63,12 @@
                   가격대
                 </button>
                 <ul class="dropdown-menu dropdown-menu">
-                  <li><a class="dropdown-item" href="/cars/category/price?low=0&high=1000">1000만원 이하</a></li>
-                  <li><a class="dropdown-item" href="/cars/category/price?low=1000&high=2000">1000만원 ~ 2000만원</a></li>
-                  <li><a class="dropdown-item" href="/cars/category/price?low=2000&high=3000">2000만원 ~ 3000만원</a></li>
-                  <li><a class="dropdown-item" href="/cars/category/price?low=3000&high=4000">3000만원 ~ 4000만원</a></li>
-                  <li><a class="dropdown-item" href="/cars/category/price?low=4000&high=5000">4000만원 ~ 5000만원</a></li>
-                  <li><a class="dropdown-item" href="/cars/category/price?low=5000&high=50000">5000만원 이상</a></li>
+                  <li><a class="dropdown-item" href="/cars/price?low=0&high=1000">1000만원 이하</a></li>
+                  <li><a class="dropdown-item" href="/cars/price?low=1000&high=2000">1000만원 ~ 2000만원</a></li>
+                  <li><a class="dropdown-item" href="/cars/price?low=2000&high=3000">2000만원 ~ 3000만원</a></li>
+                  <li><a class="dropdown-item" href="/cars/price?low=3000&high=4000">3000만원 ~ 4000만원</a></li>
+                  <li><a class="dropdown-item" href="/cars/price?low=4000&high=5000">4000만원 ~ 5000만원</a></li>
+                  <li><a class="dropdown-item" href="/cars/price?low=5000&high=50000">5000만원 이상</a></li>
                 </ul>
               </li>
             </ul>
@@ -94,32 +94,52 @@
       </div>
     </div>
 
-    <div class="d-flex flex-row justify-content-around">
-      <div class="my-3">
-        <a href="#"><span><-- Previous</span></a>
-      </div>
+<!--    <div class="d-flex flex-row justify-content-around">-->
+<!--      <div class="my-3">-->
+<!--        <a href="#"><span><&#45;&#45; Previous</span></a>-->
+<!--      </div>-->
 
-      <div class="d-flex justify-content-center">
-        <div th:each="i : ${#numbers.sequence(1, page.totalPages)}" th:if="${i} <= 5" class="mx-1 px-3 my-3">
-          <a href="#">[[${i}]]</a>
-        </div>
-        <div th:each="i : ${#numbers.sequence(1, page.totalPages)}" class="mx-1 px-3 my-3">
-          <a href="#">[[${i}]]</a>
-        </div>
-        <div th:each="i : ${#numbers.sequence(1, page.totalPages)}" class="mx-1 px-3 my-3">
-          <a href="#">[[${i}]]</a>
-        </div>
-        <div th:each="i : ${#numbers.sequence(1, page.totalPages)}" class="mx-1 px-3 my-3">
-          <a href="#">[[${i}]]</a>
-        </div>
-        <div class="mx-1 px-3 my-3">
-          <a href="#">...[[${page.totalPages}]]</a>
-        </div>
-      </div>
+<!--      <div class="d-flex justify-content-center">-->
+<!--        <div th:each="i : ${#numbers.sequence(1, page.totalPages)}" th:if="${i} <= 5" class="mx-1 px-3 my-3">-->
+<!--          <a href="#">[[${i}]]</a>-->
+<!--        </div>-->
+<!--        <div th:each="i : ${#numbers.sequence(1, page.totalPages)}" class="mx-1 px-3 my-3">-->
+<!--          <a href="#">[[${i}]]</a>-->
+<!--        </div>-->
+<!--        <div th:each="i : ${#numbers.sequence(1, page.totalPages)}" class="mx-1 px-3 my-3">-->
+<!--          <a href="#">[[${i}]]</a>-->
+<!--        </div>-->
+<!--        <div th:each="i : ${#numbers.sequence(1, page.totalPages)}" class="mx-1 px-3 my-3">-->
+<!--          <a href="#">[[${i}]]</a>-->
+<!--        </div>-->
+<!--        <div class="mx-1 px-3 my-3">-->
+<!--          <a href="#">...[[${page.totalPages}]]</a>-->
+<!--        </div>-->
+<!--      </div>-->
 
-      <div class="my-3">
-        <a href="#"><span>Next --></span></a>
-      </div>
+<!--      <div class="my-3">-->
+<!--        <a href="#"><span>Next &ndash;&gt;</span></a>-->
+<!--      </div>-->
+<!--    </div>-->
+    <div th:if="${page.totalPages > 1}" class="d-flex flex-row justify-content-around">
+      <ul class="pagination">
+
+        <li th:classappend="${page.number == 0} ? disabled : ''" class="my-3">
+          <a th:category="${category}" th:href="@{/cars/${category}/(page=0)}">&laquo;</a>
+        </li>
+
+        <li th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}" th:classappend="${page.number == i} ? active : ''" class="mx-1 px-3 my-3">
+          <a th:href="@{/cars/{category}(category=${category},page=${i})}" th:text="${i + 1}"></a>
+        </li>
+
+        <li th:classappend="${page.number == page.totalPages - 1} ? disabled : ''" class="my-3">
+          <a th:href="@{/cars(page=${page.totalPages - 1})}">&raquo;</a>
+        </li>
+
+        <li th:if="${page.totalPages} >= 6" class="mx-1 px-3 my-3">
+          <a th:href="@{/cars(page=${page.totalPages})}" th:text="...${page.totalPages}"></a>
+        </li>
+      </ul>
     </div>
 
   </div>

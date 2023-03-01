@@ -20,6 +20,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,11 +42,11 @@ public class CarController {
     private final MemberService memberService;
     private final MemberBoardService memberBoardService;
 
-    @GetMapping(value = "/cars")
-    public String cars(@RequestParam(value = "page",required = false)Integer pageNum,Model model){
-        Page<Car> page = carService.getPageList();
-        page.get();
+    @GetMapping(value = "/cars/all")
+    public String cars(@RequestParam(value = "page",defaultValue = "0")int pageNum, Model model){
+        Page<Car> page = carService.getPageList(PageRequest.of(pageNum, 1));
         model.addAttribute("page",page);
+        model.addAttribute("category","all");
         return "cars/cars";
     }
     @GetMapping("/cars/carOne/{num}")
@@ -132,13 +133,16 @@ public class CarController {
         model.addAttribute("car",likeNameCarList);
         return "cars/cars";
     }
-    @GetMapping("/cars/category/manufacture")
-    public String car_category(@RequestParam("value")String value,Model model){
-        List<Car> manufactureCarList = carService.getManufactureCarList(value);
-        model.addAttribute("car",manufactureCarList);
+    @GetMapping("/cars/manufacture")
+    public String car_category(@RequestParam(value = "page",defaultValue = "0")int pageNum,
+                               @RequestParam("value")String value,
+                               Model model){
+        Page<Car> page = carService.getManufactureCarList(value,PageRequest.of(pageNum, 1));
+        model.addAttribute("page",page);
+        model.addAttribute("category","manufacture");
         return "cars/cars";
     }
-    @GetMapping("/cars/category/fuel")
+    @GetMapping("/cars/fuel")
     public String car_fuel(@RequestParam("value")String value,Model model){
         String fuel = switch (value) {
             case "Gasoline" -> "가솔린";
@@ -150,7 +154,7 @@ public class CarController {
         model.addAttribute("car",fuelCarList);
         return "cars/cars";
     }
-    @GetMapping("/cars/category/price")
+    @GetMapping("/cars/price")
     public String car_price(@RequestParam("low")int lowInt,@RequestParam("high")int highInt,Model model){
         Long low = (long) lowInt;
         Long high = (long) highInt;
