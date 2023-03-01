@@ -43,7 +43,9 @@ public class CarController {
     private final MemberBoardService memberBoardService;
 
     @GetMapping(value = "/cars/all")
-    public String cars(@RequestParam(value = "page",defaultValue = "0")int pageNum, Model model){
+    public String cars(@RequestParam(value = "page",defaultValue = "0")int pageNum,
+                       @RequestParam(value = "value",required = false)String value,
+                       Model model){
         Page<Car> page = carService.getPageList(PageRequest.of(pageNum, 1));
         model.addAttribute("page",page);
         model.addAttribute("category","all");
@@ -127,10 +129,14 @@ public class CarController {
         return "redirect:/main";
     }
     @GetMapping("/cars/search")
-    public String cars_search(@RequestParam("name")String name,Model model){
+    public String cars_search(@RequestParam(value = "page",defaultValue = "0")int pageNum,
+                              @RequestParam("value")String name,
+                              Model model){
         String carName = "%"+name+"%";
-        List<Car> likeNameCarList = carService.getLikeNameCarList(carName);
-        model.addAttribute("car",likeNameCarList);
+        Page<Car> page = carService.getLikeNameCarList(carName,PageRequest.of(pageNum,1));
+        model.addAttribute("page",page);
+        model.addAttribute("category","search");
+        model.addAttribute("query",name);
         return "cars/cars";
     }
     @GetMapping("/cars/manufacture")
@@ -140,27 +146,36 @@ public class CarController {
         Page<Car> page = carService.getManufactureCarList(value,PageRequest.of(pageNum, 1));
         model.addAttribute("page",page);
         model.addAttribute("category","manufacture");
+        model.addAttribute("query",value);
         return "cars/cars";
     }
     @GetMapping("/cars/fuel")
-    public String car_fuel(@RequestParam("value")String value,Model model){
+    public String car_fuel(@RequestParam(value = "page",defaultValue = "0")int pageNum,
+                           @RequestParam("value")String value,
+                           Model model){
         String fuel = switch (value) {
             case "Gasoline" -> "가솔린";
             case "Diesel" -> "디젤";
             case "Electricity" -> "전기";
             default -> "";
         };
-        List<Car> fuelCarList = carService.getFuelCarList(fuel);
-        model.addAttribute("car",fuelCarList);
+        Page<Car> page = carService.getFuelCarList(fuel,PageRequest.of(pageNum,1));
+        model.addAttribute("page",page);
+        model.addAttribute("category","fuel");
+        model.addAttribute("query",value);
         return "cars/cars";
     }
     @GetMapping("/cars/price")
-    public String car_price(@RequestParam("low")int lowInt,@RequestParam("high")int highInt,Model model){
-        Long low = (long) lowInt;
-        Long high = (long) highInt;
-        List<Car> priceList = carService.getPriceList(low, high);
-        System.out.println("priceList = " + priceList);
-        model.addAttribute("car",priceList);
+    public String car_price(@RequestParam(value = "page",defaultValue = "0")int pageNum,
+                            @RequestParam("value")String value,
+                            Model model){
+        String[] split = value.split("-");
+        Long low = Long.valueOf(split[0]);
+        Long high = Long.valueOf(split[1]);
+        Page<Car> page = carService.getPriceList(low, high,PageRequest.of(pageNum,1));
+        model.addAttribute("page",page);
+        model.addAttribute("category","price");
+        model.addAttribute("query",value);
         return "cars/cars";
     }
 

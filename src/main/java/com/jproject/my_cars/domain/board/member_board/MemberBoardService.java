@@ -5,6 +5,8 @@ import com.jproject.my_cars.domain.member.MemberRepository;
 import com.jproject.my_cars.dto.MemberBoardModifyDto;
 import com.jproject.my_cars.dto.MemberWriteBoardDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,8 +19,8 @@ public class MemberBoardService {
     private final MemberBoardRepository memberBoardRepository;
     private final MemberRepository memberRepository;
 
-    public List<MemberBoard> memberBoardList(){
-        return memberBoardRepository.findAll();
+    public Page<MemberBoard> memberBoardList(PageRequest pageRequest){
+        return memberBoardRepository.findAll(pageRequest);
     }
 
     @Transactional

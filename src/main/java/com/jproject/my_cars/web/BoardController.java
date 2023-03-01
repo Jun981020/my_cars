@@ -10,6 +10,8 @@ import com.jproject.my_cars.domain.member.MemberService;
 import com.jproject.my_cars.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,16 +30,16 @@ public class BoardController {
     private final MemberService memberService;
     private final MemberBoardReplyService memberBoardReplyService;
     @GetMapping("/board/list/member")
-    public String board_list(Model model){
-        List<MemberBoard> memberBoards = memberBoardService.memberBoardList();
-        model.addAttribute("list",memberBoards);
+    public String board_list(@RequestParam(value = "page",defaultValue = "0")int pageNum, Model model){
+        Page<MemberBoard> page = memberBoardService.memberBoardList(PageRequest.of(pageNum,1));
+        model.addAttribute("page",page);
         model.addAttribute("cat","member");
         return "board/board_member";
     }
     @GetMapping("/board/list/dealer")
-    public String board_list_dealer(Model model){
-        List<DealerBoard> dealerBoards = dealerBoardService.dealerBoardList();
-        model.addAttribute("list",dealerBoards);
+    public String board_list_dealer(@RequestParam(value = "page",defaultValue = "0")int pageNum, Model model){
+        Page<DealerBoard> page = dealerBoardService.dealerBoardList(PageRequest.of(pageNum,1));
+        model.addAttribute("page",page);
         model.addAttribute("cat","dealer");
         return "board/board_dealer";
     }

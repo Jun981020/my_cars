@@ -263,15 +263,15 @@ class CarsServiceTest {
     }
     @Test
     public void getManufactureList(){
-        List<Car> hyundai = carsRepository.findByManufacture("HYUNDAI",PageRequest.of(0, 6));
-        System.out.println("hyundai.size() = " + hyundai.size());
+        Page<Car> hyundai = carsRepository.findByManufacture("HYUNDAI",PageRequest.of(0, 6));
+        System.out.println("hyundai.size() = " + hyundai.getTotalElements());
     }
     @Test
     public void getPriceList(){
         Long low = 1000L;
         Long high = 4000L;
-        List<Car> byPriceLowAndHigh = carsRepository.findByPriceLowAndHigh(low, high);
-        System.out.println("byPriceLowAndHigh.size() = " + byPriceLowAndHigh.size());
+        Page<Car> byPriceLowAndHigh = carsRepository.findByPriceLowAndHigh(low, high,PageRequest.of(0,1));
+        System.out.println("byPriceLowAndHigh.size() = " + byPriceLowAndHigh.getContent());
     }
     @Test
     public void pagingTest(){
@@ -311,8 +311,7 @@ class CarsServiceTest {
     public void findByFuelPage(){
         PageRequest of = PageRequest.of(0, 10);
         Page<Car> page = carsRepository.findByFuel("경유",of);
-        List<Car> content = page.getContent();
-        System.out.println("content.size() = " + content.size());
+        System.out.println("content.size() = " + page.getContent());
     }
 
 }

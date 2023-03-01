@@ -8,6 +8,8 @@ import com.jproject.my_cars.dto.BoardWriteDto;
 import com.jproject.my_cars.dto.DealerBoardModifyDto;
 import com.jproject.my_cars.dto.DealerWriteBoardDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,8 +22,8 @@ public class DealerBoardService {
     private final DealerBoardRepository dealerBoardRepository;
     private final DealerRepository dealerRepository;
 
-    public List<DealerBoard> dealerBoardList(){
-        return dealerBoardRepository.findAll();
+    public Page<DealerBoard> dealerBoardList(PageRequest pageRequest){
+        return dealerBoardRepository.findAll(pageRequest);
     }
 
     @Transactional

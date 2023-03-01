@@ -114,17 +114,17 @@ public class CarService {
     public List<Car> getTopTwoCar(){
         return carRepository.findBest2Car();
     }
-    public List<Car> getLikeNameCarList(String name){
-        return carRepository.findByLikeName(name);
+    public Page<Car> getLikeNameCarList(String name,PageRequest pageRequest){
+        return carRepository.findByLikeName(name,pageRequest);
     }
     public Page<Car> getManufactureCarList(String manufacture,PageRequest pageRequest){
         return carRepository.findByManufacture(manufacture,pageRequest);
     }
-    public List<Car> getFuelCarList(String fuel){
-        return carRepository.findByFuel(fuel);
+    public Page<Car> getFuelCarList(String fuel,PageRequest pageRequest){
+        return carRepository.findByFuel(fuel,pageRequest);
     }
-    public List<Car> getPriceList(Long low,Long high){
-        return carRepository.findByPriceLowAndHigh(low,high);
+    public Page<Car> getPriceList(Long low,Long high,PageRequest pageRequest){
+        return carRepository.findByPriceLowAndHigh(low,high,pageRequest);
     }
 
     public Page<Car> getPageList(PageRequest of) {

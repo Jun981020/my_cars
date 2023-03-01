@@ -28,13 +28,13 @@ public interface CarRepository extends JpaRepository<Car,Long>  {
     @Query(value = "select * from car c inner join likes l on c.id = l.likes;",nativeQuery = true)
     List<Car> findLikesNumOfCar();
 
-    @Query(value = "select * from car order by point DESC",nativeQuery = true)
+    @Query(value = "select * from car order by point DESC limit 2",nativeQuery = true)
     List<Car> findBest2Car();
 
     @Query("SELECT c FROM Car c WHERE c.name LIKE :name")
-    List<Car> findByLikeName(@Param("name")String name);
+    Page<Car> findByLikeName(@Param("name")String name,PageRequest pageRequest);
     Page<Car> findByManufacture(String manufacture,PageRequest pageRequest);
-    List<Car> findByFuel(String fuel);
+    Page<Car> findByFuel(String fuel,PageRequest pageRequest);
     @Query("SELECT c FROM Car c WHERE c.price >= :low and c.price <= :high")
-    List<Car> findByPriceLowAndHigh(@Param("low")Long low,@Param("high")Long high);
+    Page<Car> findByPriceLowAndHigh(@Param("low")Long low,@Param("high")Long high,PageRequest pageRequest);
 }

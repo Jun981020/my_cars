@@ -23,7 +23,7 @@
                     <td>등록날짜</td>
                     <td>공개&비밀</td>
                 </tr>
-                <tr th:each="board : ${list}">
+                <tr th:each="board : ${page.content}">
                     <td th:text="${board.id}"></td>
                     <td th:text="${board.member.name}"></td>
                     <td>
@@ -58,6 +58,24 @@
                     <button class="btn ml-2" type="submit" style="background-color: rgba(31, 163, 150, 0)"><img src="/webapp/img/icon/free-icon-search-6968650.png" alt="" style="width: 30px; height: 30px;"></button>
                 </form>
             </div>
+
+            <!--전체차량 리스트 페이징처리-->
+                <div th:if="${page.totalPages > 1}" class="d-flex flex-row justify-content-around">
+                    <ul class="pagination">
+                        <li th:classappend="${page.number == 0} ? disabled : ''" class="my-3">
+                            <a th:category="${category}" th:href="@{/board/list/member(page=0)}">&laquo;</a>
+                        </li>
+                        <li th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}" th:classappend="${page.number == i} ? active : ''" class="mx-1 px-3 my-3">
+                            <a th:href="@{/board/list/member(page=${i})}" th:text="${i + 1}"></a>
+                        </li>
+                        <li th:classappend="${page.number == page.totalPages - 1} ? disabled : ''" class="my-3">
+                            <a th:href="@{/board/list/member(page=${page.totalPages - 1})}">&raquo;</a>
+                        </li>
+                        <li th:if="${page.totalPages} >= 6" class="mx-1 px-3 my-3">
+                            <a th:href="@{/board/list/member(page=${page.totalPages})}" th:text="...${page.totalPages}"></a>
+                        </li>
+                    </ul>
+                </div>
         </div>
     </div>
 

@@ -35,15 +35,8 @@ public class MainController {
     public String main(HttpServletRequest request,Model model){
         System.out.println("request.getSession().getServletContext().getRealPath(\"/\") = " + request.getSession().getServletContext().getRealPath("/"));
         List<Car> topTwoCar = carService.getTopTwoCar();
-        if(topTwoCar.size() == 1){
-            Car best1 = topTwoCar.get(0);
-            model.addAttribute("best1",best1);
-        }else if(topTwoCar.size() == 2){
-            Car best1 = topTwoCar.get(0);
-            Car best2 = topTwoCar.get(1);
-            model.addAttribute("best1",best1);
-            model.addAttribute("best2",best2);
-        }
+        model.addAttribute("best1",topTwoCar.get(0));
+        model.addAttribute("best2",topTwoCar.get(1));
         return "main";
     }
     @GetMapping("/main/getSessionTypeName")
