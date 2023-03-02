@@ -78,12 +78,20 @@ public class MemberController {
     @GetMapping("/member/mypage")
     public String my_page(HttpServletRequest request, Model model){
         Member member = (Member) sessionManager.getSession(request);
+        if(member == null){
+            return "redirect:/session/empty";
+        }
         List<MemberBoard> memberBoardList = memberBoardService.getMemberBoardList();
         List<Likes> likesList = likesService.getLikesByMemberId(member.getId());
         model.addAttribute("likesList",likesList);
         model.addAttribute("member",member);
         model.addAttribute("boardList",memberBoardList);
         return "member/mypage";
+    }
+    @GetMapping("/session/empty")
+    @ResponseBody
+    public String session_empty(){
+        return "<script>alert('세션만료됨 로그인페이지로 이동합니다');location.href = '/member/login' </script>";
     }
     @GetMapping("/member/logout")
     public String member_logout(HttpServletRequest request){

@@ -73,9 +73,13 @@ public class DealerController {
     @GetMapping("/dealer/dealerPage")
     public String dealer_page(HttpServletRequest request, Model model){
         Dealer data = (Dealer) sessionManager.getSession(request);
+        if(data == null){
+            return "redirect:/session/empty";
+        }
+        Dealer dealer = dealerService.findOneById(data.getId());
         List<DealerBoard>  dealerBoardList= dealerBoardService.getDealerBoardList();
         List<Car> carList = dealerService.findOneOfDealerPage(data.getId());
-        model.addAttribute("dealer",data);
+        model.addAttribute("dealer",dealer);
         model.addAttribute("boardList",dealerBoardList);
         model.addAttribute("list",carList);
         return "dealer/dealer_page";
