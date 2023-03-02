@@ -18,42 +18,22 @@
                 <input type="text" class="form-control mr-2" name="value" id="exampleFormControlInput1" placeholder="원하시는 차량을 입력해주세요!" style="border-radius: 30px;height: 50px;">
                 <button class="btn ml-2" type="submit" style="background-color: rgba(31, 163, 150, 0)"><img src="/webapp/img/icon/free-icon-search-6968650.png" alt="" style="width: 30px; height: 30px;"></button>
             </form>
-            <th:block th:if="${best1} != null">
+            <th:block th:if="${top2car} != null">
             <!--BEST1 CARD-->
-            <div class="card m-5" style="width: 22rem;">
-                <a th:href="@{/cars/carOne/{num}(num = ${best1.id})}">
-                    <img th:src="${best1.images[0].path}" class="card-img-top" alt="...">
+            <div class="card m-5" style="width: 22rem;" th:each="list , current: ${top2car}">
+                <a th:href="@{/cars/carOne/{num}(num = ${list.id})}">
+                    <img th:src="${list.images[0].path}" class="card-img-top" alt="...">
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        BEST1!!
+                        BEST[[${current.index+1}]]!!!
                         <span class="visually-hidden">unread messages</span>
                     </span>
                 </a>
                 <div class="card-body" style="background-color: #d1dbe8;">
-                    <h5 class="card-title" th:text="${best1.name}">BWM-320</h5>
-                    <p class="card-text">가격: [[${best1.price}]] (만원)</p>
-                    <p class="card-text">주행거리: [[${best1.distance_driven}]] (KM)</p>
+                    <h5 class="card-title" th:text="${list.name}">BWM-320</h5>
+                    <p class="card-text">가격: [[${list.price}]] (만원)</p>
+                    <p class="card-text">주행거리: [[${list.distance_driven}]] (KM)</p>
                     <div class="w-100 d-flex justify-content-end">
-                        <a th:href="@{/cars/carOne/{num}(num = ${best1.id})}" class="btn" style="background-color: #adb5bd;">차량보기</a>
-                    </div>
-                </div>
-            </div>
-            </th:block>
-            <th:block th:if="${best2} != null">
-            <!--BEST 2 CARD-->
-            <div class="card m-5" style="width: 22rem;">
-                <a th:href="@{/cars/carOne/{num}(num = ${best2.id})}">
-                    <img th:src="${best2.images[0].path}" class="card-img-top" alt="...">
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        BEST2!!
-                        <span class="visually-hidden">unread messages</span>
-                    </span>
-                </a>
-                <div class="card-body" style="background-color: #d1dbe8;">
-                    <h5 class="card-title" th:text="${best2.name}">BWM-320</h5>
-                    <p class="card-text">가격: [[${best2.price}]] (만원)</p>
-                    <p class="card-text">주행거리: [[${best2.distance_driven}]] (KM)</p>
-                    <div class="w-100 d-flex justify-content-end">
-                        <a th:href="@{/cars/carOne/{num}(num = ${best2.id})}" class="btn" style="background-color: #adb5bd;">차량보기</a>
+                        <a th:href="@{/cars/carOne/{num}(num = ${list.id})}" class="btn" style="background-color: #adb5bd;">차량보기</a>
                     </div>
                 </div>
             </div>

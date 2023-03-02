@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
@@ -34,5 +36,14 @@ public class LikesTest {
         Likes byMemberIdAndCarId = likesRepository.findLikes(1L, 6L);
         assertThat(byMemberIdAndCarId).isNotNull();
         System.out.println("byMemberIdAndCarId = " + byMemberIdAndCarId.getCar().getName());
+    }
+    @Test
+    public void deleteByCarIdTest(){
+        List<Likes> all1 = likesRepository.findAll();
+        System.out.println("all1.size() = " + all1.size());
+        likesRepository.deleteByCarId(1L);
+        List<Likes> all2 = likesRepository.findAll();
+        System.out.println("all1.size() = " + all2.size());
+
     }
 }

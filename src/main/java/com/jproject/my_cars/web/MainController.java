@@ -35,8 +35,7 @@ public class MainController {
     public String main(HttpServletRequest request,Model model){
         System.out.println("request.getSession().getServletContext().getRealPath(\"/\") = " + request.getSession().getServletContext().getRealPath("/"));
         List<Car> topTwoCar = carService.getTopTwoCar();
-        model.addAttribute("best1",topTwoCar.get(0));
-        model.addAttribute("best2",topTwoCar.get(1));
+        model.addAttribute("top2car",topTwoCar);
         return "main";
     }
     @GetMapping("/main/getSessionTypeName")

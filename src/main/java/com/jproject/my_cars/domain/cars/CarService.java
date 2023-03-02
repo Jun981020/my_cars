@@ -130,4 +130,12 @@ public class CarService {
     public Page<Car> getPageList(PageRequest of) {
         return carRepository.findAll(of);
     }
+    @Transactional
+    public void saleCar(Long id){
+        Car one = getOne(id);
+        Dealer dealer = one.getDealer();
+        dealer.saleCar(one);
+        likesRepository.deleteByCarId(one.getId());
+        carRepository.delete(one);
+    }
 }

@@ -14,37 +14,37 @@
             <table class="table w-75">
                 <thead>
                 <tr>
-                    <th colspan="4" style="text-align: center;">[[${dealer.name}]] 딜러님의 정보</th>
+                    <th colspan="4" style="text-align: center; " th:text="${dealer.name}"></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <th scope="row">이름:</th>
-                    <td colspan="4" style="text-align: start;">[[${dealer.name}]]</td>
+                    <td colspan="4" style="text-align: start;" th:text="${dealer.name}"></td>
                 </tr>
                 <tr>
                     <th scope="row">아이디:</th>
-                    <td colspan="4" style="text-align: start;">[[${dealer.loginId}]]</td>
+                    <td colspan="4" style="text-align: start;" th:text="${dealer.loginId}"></td>
                 </tr>
                 <tr>
                     <th scope="row">휴대폰 번호:</th>
-                    <td colspan="4" style="text-align: start;">[[${dealer.phone}]]</td>
+                    <td colspan="4" style="text-align: start;" th:text="${dealer.phone}"></td>
                 </tr>
                 <tr>
                     <th scope="row">회사명:</th>
-                    <td colspan="4" style="text-align: start;">[[${dealer.card.company}]]</td>
+                    <td colspan="4" style="text-align: start;" th:text="${dealer.card.company}"></td>
                 </tr>
                 <tr>
                     <th scope="row">사원증 번호:</th>
-                    <td colspan="4" style="text-align: start;">[[${dealer.card.employee_number}]]</td>
+                    <td colspan="4" style="text-align: start;" th:text="${dealer.card.employee_number}"></td>
                 </tr>
                 <tr>
                     <th scope="row">사원증 발급일자:</th>
-                    <td colspan="4" style="text-align: start;"><b>[[${dealer.card.acquisition_date}]]</b></td>
+                    <td colspan="4" style="text-align: start;" th:text="${dealer.card.acquisition_date}"><b></b></td>
                 </tr>
                 <tr>
                     <th scope="row">차량판매횟수:</th>
-                    <td colspan="4" style="text-align: start;"><b>[[${dealer.sale_count}]]</b></td>
+                    <td colspan="4" style="text-align: start;" th:text="${dealer.sale_count}"><b></b></td>
                 </tr>
                 </tbody>
             </table>
@@ -100,6 +100,7 @@
                             </div>
                             <div class="d-flex justify-content-around pt-5 pb-3">
                                 <button class="btn btn-lg btn-secondary" th:carId="${cars.id}" th:onclick="modifyCar(this.getAttribute('carId'))">차량수정</button>
+                                <button class="btn btn-lg btn-secondary" th:carId="${cars.id}" th:onclick="saleCar(this.getAttribute('carId'))">차량판매완료</button>
                                 <button class="btn btn-lg btn-danger" th:carId="${cars.id}" th:onclick="removeCar(this.getAttribute('carId'))">차량삭제</button>
                             </div>
                             <hr>
@@ -151,6 +152,11 @@
     function modifyCar(id){
         if(confirm("차량정보를 수정할까요?")){
             location.href = '/cars/modify/'+id;
+        }
+    }
+    function saleCar(id){
+        if(confirm("해당 차량을 판매완료 처리하시겠습니까?")){
+            location.href = '/cars/sale/'+id;
         }
     }
 </script>

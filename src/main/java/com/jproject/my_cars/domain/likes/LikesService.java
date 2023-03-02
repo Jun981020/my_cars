@@ -26,4 +26,5 @@ public class LikesService {
         return likesRepository.findLikes(member_id,car_id);
     }
 
+
 }

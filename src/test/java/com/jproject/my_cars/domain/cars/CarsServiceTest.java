@@ -309,9 +309,11 @@ class CarsServiceTest {
     }
     @Test
     public void findByFuelPage(){
-        PageRequest of = PageRequest.of(0, 10);
+        PageRequest of = PageRequest.of(1, 10);
         Page<Car> page = carsRepository.findByFuel("경유",of);
+        int number = page.getNumber();
         System.out.println("content.size() = " + page.getContent());
+        System.out.println("number = " + number);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.jproject.my_cars.domain.likes;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -11,4 +12,7 @@ public interface LikesRepository extends JpaRepository<Likes,Long> {
     List<Likes> findByMemberId(Long member_id);
     @Query("select l from Likes l where l.member.id = :mid and l.car.id = :cid")
     Likes findLikes(@Param("mid")Long memberId,@Param("cid")Long carId);
+    @Modifying
+    @Query("DELETE FROM Likes l WHERE l.car.id = :carId")
+    void deleteByCarId(@Param("carId") Long carId);
 }

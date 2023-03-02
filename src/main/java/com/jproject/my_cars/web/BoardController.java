@@ -31,14 +31,14 @@ public class BoardController {
     private final MemberBoardReplyService memberBoardReplyService;
     @GetMapping("/board/list/member")
     public String board_list(@RequestParam(value = "page",defaultValue = "0")int pageNum, Model model){
-        Page<MemberBoard> page = memberBoardService.memberBoardList(PageRequest.of(pageNum,1));
+        Page<MemberBoard> page = memberBoardService.memberBoardList(PageRequest.of(pageNum,10));
         model.addAttribute("page",page);
         model.addAttribute("cat","member");
         return "board/board_member";
     }
     @GetMapping("/board/list/dealer")
     public String board_list_dealer(@RequestParam(value = "page",defaultValue = "0")int pageNum, Model model){
-        Page<DealerBoard> page = dealerBoardService.dealerBoardList(PageRequest.of(pageNum,1));
+        Page<DealerBoard> page = dealerBoardService.dealerBoardList(PageRequest.of(pageNum,10));
         model.addAttribute("page",page);
         model.addAttribute("cat","dealer");
         return "board/board_dealer";
@@ -145,19 +145,19 @@ public class BoardController {
         return "redirect:/board/list/dealer";
     }
     @GetMapping("/board/search/member")
-    public String member_board_search_bar(@RequestParam("str") String str,Model model){
+    public String member_board_search_bar(@RequestParam(value = "page",defaultValue = "0")int pageNum,@RequestParam("str") String str,Model model){
         String title = "%"+str+"%";
-        List<MemberBoard> likesTitleList = memberBoardService.getLikesTitleList(title);
+        Page<MemberBoard> page = memberBoardService.getLikesTitleList(title,PageRequest.of(pageNum,10));
         model.addAttribute("cat","member");
-        model.addAttribute("list",likesTitleList);
+        model.addAttribute("page",page);
         return "board/board_member";
     }
     @GetMapping("/board/search/dealer")
-    public String dealer_board_search_bar(@RequestParam("str") String str,Model model){
+    public String dealer_board_search_bar(@RequestParam(value = "page",defaultValue = "0")int pageNum,@RequestParam("str") String str,Model model){
         String title = "%"+str+"%";
-        List<DealerBoard> likesTitleList = dealerBoardService.getLikesTitleList(title);
+        Page<DealerBoard> page = dealerBoardService.getLikesTitleList(title,PageRequest.of(pageNum,10));
         model.addAttribute("cat","dealer");
-        model.addAttribute("list",likesTitleList);
+        model.addAttribute("page",page);
         return "board/board_dealer";
     }
 

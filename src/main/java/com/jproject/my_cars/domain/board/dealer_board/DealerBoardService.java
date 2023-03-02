@@ -56,7 +56,7 @@ public class DealerBoardService {
         return dealerBoardRepository.countByDealerBoardIdAndDealerBoardSecretPassword(boardId,password);
     }
 
-    public List<DealerBoard> getLikesTitleList(String title) {
-        return dealerBoardRepository.findByLikeTitle(title);
+    public Page<DealerBoard> getLikesTitleList(String title,PageRequest pageRequest) {
+        return dealerBoardRepository.findByLikeTitle(title,pageRequest);
     }
 }

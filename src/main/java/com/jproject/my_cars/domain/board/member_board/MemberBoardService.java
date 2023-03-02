@@ -53,8 +53,8 @@ public class MemberBoardService {
     public Long checkPrivateContentPassword(Long id,String password) {
         return memberBoardRepository.countByMemberBoardIdAndMemberBoardSecretPassword(id,password);
     }
-    public List<MemberBoard> getLikesTitleList(String title){
-        return memberBoardRepository.findByLikeTitle(title);
+    public Page<MemberBoard> getLikesTitleList(String title,PageRequest pageRequest){
+        return memberBoardRepository.findByLikeTitle(title,pageRequest);
     }
 //    @Transactional
 //    public void saveTest(int num){

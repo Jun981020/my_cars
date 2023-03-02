@@ -25,6 +25,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -46,7 +48,7 @@ public class CarController {
     public String cars(@RequestParam(value = "page",defaultValue = "0")int pageNum,
                        @RequestParam(value = "value",required = false)String value,
                        Model model){
-        Page<Car> page = carService.getPageList(PageRequest.of(pageNum, 1));
+        Page<Car> page = carService.getPageList(PageRequest.of(pageNum, 6));
         model.addAttribute("page",page);
         model.addAttribute("category","all");
         return "cars/cars";
@@ -110,6 +112,12 @@ public class CarController {
         model.addAttribute("car_options",carOptionsService.getCarOptionsListByCarId(car.getId()));
         return "cars/cars_modify";
     }
+    @GetMapping("/cars/sale/{id}")
+    public String cars_sale(@PathVariable("id")int id){
+        carService.saleCar((long)id);
+        return "redirect:/main";
+    }
+
     @PutMapping("/cars/modifyAction")
     public String cars_modify_action(@RequestParam(value = "id")int id,
                                      @ModelAttribute CarPostsDto dto,
@@ -133,7 +141,7 @@ public class CarController {
                               @RequestParam("value")String name,
                               Model model){
         String carName = "%"+name+"%";
-        Page<Car> page = carService.getLikeNameCarList(carName,PageRequest.of(pageNum,1));
+        Page<Car> page = carService.getLikeNameCarList(carName,PageRequest.of(pageNum,6));
         model.addAttribute("page",page);
         model.addAttribute("category","search");
         model.addAttribute("query",name);
@@ -143,7 +151,7 @@ public class CarController {
     public String car_category(@RequestParam(value = "page",defaultValue = "0")int pageNum,
                                @RequestParam("value")String value,
                                Model model){
-        Page<Car> page = carService.getManufactureCarList(value,PageRequest.of(pageNum, 1));
+        Page<Car> page = carService.getManufactureCarList(value,PageRequest.of(pageNum, 6));
         model.addAttribute("page",page);
         model.addAttribute("category","manufacture");
         model.addAttribute("query",value);
@@ -159,7 +167,7 @@ public class CarController {
             case "Electricity" -> "전기";
             default -> "";
         };
-        Page<Car> page = carService.getFuelCarList(fuel,PageRequest.of(pageNum,1));
+        Page<Car> page = carService.getFuelCarList(fuel,PageRequest.of(pageNum,6));
         model.addAttribute("page",page);
         model.addAttribute("category","fuel");
         model.addAttribute("query",value);
@@ -172,7 +180,7 @@ public class CarController {
         String[] split = value.split("-");
         Long low = Long.valueOf(split[0]);
         Long high = Long.valueOf(split[1]);
-        Page<Car> page = carService.getPriceList(low, high,PageRequest.of(pageNum,1));
+        Page<Car> page = carService.getPriceList(low, high,PageRequest.of(pageNum,6));
         model.addAttribute("page",page);
         model.addAttribute("category","price");
         model.addAttribute("query",value);

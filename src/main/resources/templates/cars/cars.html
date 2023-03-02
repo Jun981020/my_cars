@@ -87,6 +87,7 @@
           <h5 class="card-title" th:text="${list.name}">BWM-320</h5>
           <p class="card-text">가격: [[${list.price}]] (만원)</p>
           <p class="card-text">주행거리: [[${list.distance_driven}]] (KM)</p>
+          <p class="card-text">년식: [[${list.year}]] (년식)</p>
           <div class="w-100 d-flex justify-content-end">
             <a th:href="@{/cars/carOne/{num}(num = ${list.id})}" class="btn" style="background-color: #adb5bd;">차량보기</a>
           </div>
@@ -100,14 +101,14 @@
           <li th:classappend="${page.number == 0} ? disabled : ''" class="my-3">
             <a  th:href="@{/cars/{category}(category=${category},page=0)}">&laquo;</a>
           </li>
-          <li th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}" th:classappend="${page.number == i} ? active : ''" class="mx-1 px-3 my-3">
+          <li th:each="i : ${#numbers.sequence((page.number > 3 ? page.number - 3 : 0),(page.number + 2 > page.totalPages - 1 ? page.totalPages - 1 : page.number + 2))}"  th:classappend="${page.number == i} ? active : ''" class="mx-1 px-3 my-3">
             <a th:href="@{/cars/{category}(category=${category},page=${i})}" th:text="${i + 1}"></a>
           </li>
-          <li th:classappend="${page.number == page.totalPages - 1} ? disabled : ''" class="my-3">
-            <a th:href="@{/cars(page=${page.totalPages - 1})}">&raquo;</a>
-          </li>
           <li th:if="${page.totalPages} >= 6" class="mx-1 px-3 my-3">
-            <a th:href="@{/cars(page=${page.totalPages})}" th:text="${page.totalPages}"></a>
+            <a th:href="@{/cars/{category}(category=${category},page=${page.totalPages -1})}" th:text="...+${page.totalPages}"></a>
+          </li>
+          <li th:classappend="${page.number == page.totalPages - 1} ? disabled : ''" class="my-3">
+            <a th:href="@{/cars/{category}(category=${category},page=${page.totalPages -1})}">&raquo;</a>
           </li>
         </ul>
       </div>
@@ -117,16 +118,16 @@
       <div th:if="${page.totalPages > 1}" class="d-flex flex-row justify-content-around">
         <ul class="pagination">
           <li th:classappend="${page.number == 0} ? disabled : ''" class="my-3">
-            <a th:href="@{/cars/{category}(category=${category},page=0)}">&laquo;</a>
+            <a th:href="@{/cars/{category}(category=${category},value=${query},page=0)}">&laquo;</a>
           </li>
-          <li th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}" th:classappend="${page.number == i} ? active : ''" class="mx-1 px-3 my-3">
-            <a th:href="@{/cars/{category}(category=${category},page=${i},value=${query})}" th:text="${i + 1}"></a>
-          </li>
-          <li th:classappend="${page.number == page.totalPages - 1} ? disabled : ''" class="my-3">
-            <a th:href="@{/cars(page=${page.totalPages - 1})}">&raquo;</a>
+          <li th:each="i : ${#numbers.sequence((page.number > 3 ? page.number - 3 : 0),(page.number + 2 > page.totalPages - 1 ? page.totalPages - 1 : page.number + 2))}"  th:classappend="${page.number == i} ? active : ''" class="mx-1 px-3 my-3">
+            <a th:href="@{/cars/{category}(category=${category},page=${i},value=${query})}" th:text="${i + 1}" th:id="${i + 1}"></a>
           </li>
           <li th:if="${page.totalPages} >= 6" class="mx-1 px-3 my-3">
-            <a th:href="@{/cars(page=${page.totalPages})}" th:text="...${page.totalPages}"></a>
+            <a th:href="@{/cars/{category}(category=${category},value=${query},page=${page.totalPages -1})}" th:text="...+${page.totalPages}"></a>
+          </li>
+          <li th:classappend="${page.number == page.totalPages - 1} ? disabled : ''" class="my-3">
+            <a th:href="@{/cars/{category}(category=${category},value=${query},page=${page.totalPages -1})}">&raquo;</a>
           </li>
         </ul>
       </div>
@@ -136,4 +137,9 @@
   <th:block th:insert="~{fragment/footer :: footer}"></th:block>
 </div>
 </body>
+<script th:inline="javascript">
+  $(document).ready(function(){
+    $(".active").css("border-bottom","5px solid rgb(120, 120, 120)");
+  })
+</script>
 </html>

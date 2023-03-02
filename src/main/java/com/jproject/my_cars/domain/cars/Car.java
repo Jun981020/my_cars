@@ -49,7 +49,7 @@ public class Car extends BaseEntity {
     private List<CarOptions> options = new ArrayList<>();
     private String manufacture;
     @JsonIgnore
-    @OneToMany(mappedBy = "car",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "car",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Img> images = new ArrayList<>();
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)

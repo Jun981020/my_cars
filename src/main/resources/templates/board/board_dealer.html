@@ -57,20 +57,20 @@
           <button class="btn ml-2" type="submit" style="background-color: rgba(31, 163, 150, 0)"><img src="/webapp/img/icon/free-icon-search-6968650.png" alt="" style="width: 30px; height: 30px;"></button>
         </form>
 
-        <!--전체차량 리스트 페이징처리-->
+        <!--딜러 게시판 페이징처리-->
         <div th:if="${page.totalPages > 1}" class="d-flex flex-row justify-content-around">
           <ul class="pagination">
             <li th:classappend="${page.number == 0} ? disabled : ''" class="my-3">
-              <a th:category="${category}" th:href="@{/board/list/dealer(page=0)}">&laquo;</a>
+              <a th:href="@{/board/list/dealer(page=0)}">&laquo;</a>
             </li>
-            <li th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}" th:classappend="${page.number == i} ? active : ''" class="mx-1 px-3 my-3">
+            <li th:each="i : ${#numbers.sequence((page.number > 3 ? page.number - 3 : 0),(page.number + 2 > page.totalPages - 1 ? page.totalPages - 1 : page.number + 2))}"  th:classappend="${page.number == i} ? active : ''" class="mx-1 px-3 my-3">
               <a th:href="@{/board/list/dealer(page=${i})}" th:text="${i + 1}"></a>
+            </li>
+            <li th:if="${page.totalPages} >= 6" class="mx-1 px-3 my-3">
+              <a th:href="@{/board/list/dealer(page=${page.totalPages-1})}" th:text="...${page.totalPages}"></a>
             </li>
             <li th:classappend="${page.number == page.totalPages - 1} ? disabled : ''" class="my-3">
               <a th:href="@{/board/list/dealer(page=${page.totalPages - 1})}">&raquo;</a>
-            </li>
-            <li th:if="${page.totalPages} >= 6" class="mx-1 px-3 my-3">
-              <a th:href="@{/board/list/dealer(page=${page.totalPages})}" th:text="...${page.totalPages}"></a>
             </li>
           </ul>
         </div>
@@ -101,4 +101,9 @@
   <th:block th:insert="~{fragment/footer :: footer}"></th:block>
 </div>
 </body>
+<script>
+    $(document).ready(function(){
+      $(".active").css("border-bottom","5px solid rgb(120, 120, 120)");
+    })
+</script>
 </html>
