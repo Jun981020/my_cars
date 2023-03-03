@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jproject.my_cars.domain.BaseEntity;
 import com.jproject.my_cars.domain.cars.Car;
 import com.jproject.my_cars.domain.likes.Likes;
+import com.jproject.my_cars.en_um.UserRole;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -20,7 +21,10 @@ public class Member extends BaseEntity {
     private String email;
     private String phone;
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Grade grade;
+    @Transient
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
     //Likes 를 값타입으로 가지고있기에는 사용할 요소가 많아서 entity로 바꿈
 //    @ElementCollection
@@ -29,14 +33,15 @@ public class Member extends BaseEntity {
 //    @JsonIgnore
 //    private List<Long> likes = new ArrayList<>();
 
-    public static Member createMember(String loginId,String password,String name, String email, String phone, Role role){
+    public static Member createMember(String loginId,String password,String name, String email, String phone, Grade role){
         Member members = new Member();
         members.loginId = loginId;
         members.password = password;
         members.name = name;
         members.email = email;
         members.phone = phone;
-        members.role = role;
+        members.grade = role;
+        members.role = UserRole.MEMBER;
         return members;
     }
 
@@ -49,7 +54,7 @@ public class Member extends BaseEntity {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
-                ", role=" + role +
+                ", grade=" + grade +
                 '}';
     }
 }

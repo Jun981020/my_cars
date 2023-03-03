@@ -56,9 +56,4 @@ public class MemberBoardService {
     public Page<MemberBoard> getLikesTitleList(String title,PageRequest pageRequest){
         return memberBoardRepository.findByLikeTitle(title,pageRequest);
     }
-//    @Transactional
-//    public void saveTest(int num){
-//        MemberBoard.builder()
-//                .member()
-//    }
 }

@@ -1,5 +1,5 @@
 package com.jproject.my_cars.domain.member;
 
-public enum Role {
+public enum Grade {
     SILVER , GOLD , VIP
 }

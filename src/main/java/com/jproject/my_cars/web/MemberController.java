@@ -2,13 +2,12 @@ package com.jproject.my_cars.web;
 
 import com.jproject.my_cars.domain.board.member_board.MemberBoard;
 import com.jproject.my_cars.domain.board.member_board.MemberBoardService;
-import com.jproject.my_cars.domain.cars.Car;
 import com.jproject.my_cars.domain.cars.CarService;
 import com.jproject.my_cars.domain.likes.Likes;
 import com.jproject.my_cars.domain.likes.LikesService;
+import com.jproject.my_cars.domain.member.Grade;
 import com.jproject.my_cars.domain.member.Member;
 import com.jproject.my_cars.domain.member.MemberService;
-import com.jproject.my_cars.domain.member.Role;
 import com.jproject.my_cars.dto.MemberJoinDto;
 import com.jproject.my_cars.dto.MemberLoginDto;
 import com.jproject.my_cars.web.session.SessionManager;
@@ -49,7 +48,7 @@ public class MemberController {
     }
     @PostMapping("/member/joinAction")
     public String join_action(@ModelAttribute MemberJoinDto memberJoinDto){
-        Member member = Member.createMember(memberJoinDto.getLogin_id(), memberJoinDto.getPassword(), memberJoinDto.getName(), memberJoinDto.getEmail(), memberJoinDto.getPhone(), Role.SILVER);
+        Member member = Member.createMember(memberJoinDto.getLogin_id(), memberJoinDto.getPassword(), memberJoinDto.getName(), memberJoinDto.getEmail(), memberJoinDto.getPhone(), Grade.SILVER);
         memberService.joinMember(member);
         return "redirect:/member/login";
     }

@@ -2,12 +2,11 @@ package com.jproject.my_cars.domain.cars;
 
 import com.jproject.my_cars.domain.cars.car_options.CarOptions;
 import com.jproject.my_cars.domain.cars.car_options.CarOptionsRepository;
-import com.jproject.my_cars.domain.cars.car_options.CarOptionsService;
 import com.jproject.my_cars.domain.cars.option.OptionRepository;
 import com.jproject.my_cars.domain.cars.option.Options;
+import com.jproject.my_cars.domain.member.Grade;
 import com.jproject.my_cars.domain.member.Member;
 import com.jproject.my_cars.domain.member.MemberRepository;
-import com.jproject.my_cars.domain.member.Role;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -226,7 +225,7 @@ class CarsServiceTest {
     }
     @Test
     public void findLikesMember(){
-        Member member = Member.createMember("qwer", "1234", "이준형", "flwnsgud@naver.com", "010-9145-6497", Role.SILVER);
+        Member member = Member.createMember("qwer", "1234", "이준형", "flwnsgud@naver.com", "010-9145-6497", Grade.SILVER);
         Car car = Car.registrationCar("BMW-320i", 2000, "2022", "3000", false, "서울", "DESEL", "BMW");
 //        car.setId(1L);
 

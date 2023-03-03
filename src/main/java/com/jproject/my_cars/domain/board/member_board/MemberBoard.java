@@ -6,7 +6,6 @@ import com.jproject.my_cars.domain.member.Member;
 import com.jproject.my_cars.dto.MemberBoardModifyDto;
 import com.jproject.my_cars.dto.MemberWriteBoardDto;
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 
 import java.util.ArrayList;

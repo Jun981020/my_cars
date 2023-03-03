@@ -24,14 +24,14 @@ class MemberServiceTest {
     private MemberBoardRepository memberBoardRepository;
     @Test
     public void joinTest(){
-        Member member = Member.createMember("qwer", "1234", "jun", "flwnsgud@naver.com", "010-9145-6497", Role.SILVER);
+        Member member = Member.createMember("qwer", "1234", "jun", "flwnsgud@naver.com", "010-9145-6497", Grade.SILVER);
         Member save = memberRepository.save(member);
         assertThat(member.getName()).isEqualTo(save.getName());
     }
     //회원 로그인 아이디 중복체크
     @Test
     public void check_duplicate(){
-        Member member = Member.createMember("qwer", "1234", "jun", "flwnsgud@naver.com", "010-9145-6497", Role.SILVER);
+        Member member = Member.createMember("qwer", "1234", "jun", "flwnsgud@naver.com", "010-9145-6497", Grade.GOLD.SILVER);
         memberRepository.save(member);
         memberRepository.flush();
 
