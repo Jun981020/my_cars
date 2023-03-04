@@ -1,14 +1,8 @@
 package com.jproject.my_cars.domain.member;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jproject.my_cars.domain.BaseEntity;
-import com.jproject.my_cars.domain.cars.Car;
-import com.jproject.my_cars.domain.likes.Likes;
-import com.jproject.my_cars.en_um.UserRole;
 import jakarta.persistence.*;
 import lombok.Getter;
-
-import java.util.*;
 
 @Getter
 @Entity
@@ -22,9 +16,6 @@ public class Member extends BaseEntity {
     private String phone;
     @Enumerated(EnumType.STRING)
     private Grade grade;
-    @Transient
-    @Enumerated(EnumType.STRING)
-    private UserRole role;
 
     //Likes 를 값타입으로 가지고있기에는 사용할 요소가 많아서 entity로 바꿈
 //    @ElementCollection
@@ -33,15 +24,14 @@ public class Member extends BaseEntity {
 //    @JsonIgnore
 //    private List<Long> likes = new ArrayList<>();
 
-    public static Member createMember(String loginId,String password,String name, String email, String phone, Grade role){
+    public static Member createMember(String loginId,String password,String name, String email, String phone, Grade grade){
         Member members = new Member();
         members.loginId = loginId;
         members.password = password;
         members.name = name;
         members.email = email;
         members.phone = phone;
-        members.grade = role;
-        members.role = UserRole.MEMBER;
+        members.grade = grade;
         return members;
     }
 

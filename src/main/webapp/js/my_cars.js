@@ -48,6 +48,9 @@ function checkLogin(){
     if(!result){
       alert("로그인먼저 해주세요");
       location.href='/member/login';
+      return false;
+    }else{
+      return true;
     }
 }
 function checkSessionEmpty(){
@@ -104,6 +107,7 @@ function checkModeAndSendBoardWrite(){
 }
 function getSessionTypeLoginId(){
     let id = null;
+    let session = null;
     $.ajax({
         url: "/main/getSessionTypeLoginId",
         type: "GET",
@@ -112,15 +116,20 @@ function getSessionTypeLoginId(){
             // JSON 데이터를 객체로 변환
             var data = JSON.parse(response);
             id = data.data;
+            session = data.session;
         }
     });
-    return id;
+    let data = {id,session};
+    return data;
 }
 function getSessionDataForWriteReply(){
-    checkLogin();
-    let id = getSessionTypeLoginId();
-    $("#loginId").attr("value",id);
-    repFrm.submit();
+    var result = checkLogin();
+    if(result){
+        let id = getSessionTypeLoginId().id;
+        $("#loginId").attr("value",id);
+        repFrm.submit();
+    }
+
 }
 //년도 가져오기
 function getYear(){
@@ -193,4 +202,18 @@ function checkPrivateContentPassword(data){
         }
     });
 }
+function modifyReplyButton(id){
+    var commentText = $('.reply-text').text();
+    var commentID = id;
+    console.log(commentText);
+    console.log(commentID);
+    $('.edit-comment-form textarea').val(commentText);
+    $('.edit-comment-form > input[name="id"]').val(commentID);
+    $('.reply-text').hide();
+    $('.edit-comment-form').show();
+}
+function cancelReplyModify(){
+    $(".edit-comment-form").hide();
+    $('.reply-text').show();
+}''
 console.log('현재 이페이지에 적용중입니다.');

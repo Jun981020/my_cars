@@ -21,4 +21,17 @@ public class DealerBoardReplyService {
         dealerBoardReply.setDealerBoard(dealerBoard);
         dealerBoardReplyRepository.save(dealerBoardReply);
     }
+
+    @Transactional
+    public void removeReply(Long id) {
+        DealerBoardReply dealerBoardReply = dealerBoardReplyRepository.findById(id).get();
+        dealerBoardReply.removeBoardReply();
+        dealerBoardReplyRepository.delete(dealerBoardReply);
+    }
+
+    @Transactional
+    public void modifyReply(int id, String content) {
+        DealerBoardReply dealerBoardReply = dealerBoardReplyRepository.findById((long) id).get();
+        dealerBoardReply.modifyReply(content);
+    }
 }

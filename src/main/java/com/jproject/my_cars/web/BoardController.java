@@ -8,6 +8,8 @@ import com.jproject.my_cars.domain.board.reply.member_board_reply.MemberBoardRep
 import com.jproject.my_cars.domain.dealer.Dealer;
 import com.jproject.my_cars.domain.member.MemberService;
 import com.jproject.my_cars.dto.*;
+import com.jproject.my_cars.web.session.SessionManager;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -27,6 +29,7 @@ public class BoardController {
 
     private final DealerBoardService dealerBoardService;
     private final MemberBoardService memberBoardService;
+    private final SessionManager sessionManager;
     private final MemberService memberService;
     private final MemberBoardReplyService memberBoardReplyService;
     @GetMapping("/board/list/member")
@@ -70,19 +73,35 @@ public class BoardController {
         return "redirect:/board/list/dealer";
     }
     @GetMapping("/board/memberBoard/{num}")
-    public String member_board_one(@PathVariable("num") int num,Model model){
+    public String member_board_one(@PathVariable("num") int num, Model model, HttpServletRequest request){
         MemberBoard board = memberBoardService.findByNum((long)num);
+        Object session = sessionManager.getSession(request);
+        String id = board.getMember().getLoginId();
+        if (session != null){
+            String sessionClazzName = session.getClass().getSimpleName().toUpperCase();
+            String idAndSession = id+sessionClazzName;
+            model.addAttribute("idAndSession",idAndSession);
+        }
         model.addAttribute("board",board);
         model.addAttribute("cat","member");
-        model.addAttribute("writer",board.getMember().getLoginId());
+        model.addAttribute("writer",id);
+        model.addAttribute("boardNum",num);
         return "board/board_one";
     }
     @GetMapping("/board/dealerBoard/{num}")
-    public String dealer_board_one(@PathVariable("num") int num,Model model){
+    public String dealer_board_one(@PathVariable("num") int num,Model model,HttpServletRequest request){
         DealerBoard board = dealerBoardService.findByNum((long)num);
+        Object session = sessionManager.getSession(request);
+        String id = board.getDealer().getLoginId();
+        if(session != null){
+            String sessionClazzName = session.getClass().getSimpleName().toUpperCase();
+            String idAndSession = id+sessionClazzName;
+            model.addAttribute("idAndSession",idAndSession);
+        }
         model.addAttribute("board",board);
         model.addAttribute("cat","dealer");
-        model.addAttribute("writer",board.getDealer().getLoginId());
+        model.addAttribute("writer",id);
+        model.addAttribute("boardNum",num);
         return "board/board_one";
     }
     @GetMapping("/board/checkPrivateContent/member")

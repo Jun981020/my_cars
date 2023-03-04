@@ -99,9 +99,11 @@ public class MainController {
         String typeName = sessionManager.getSession(request).getClass().getSimpleName();
         if(typeName.equals("Member")){
             Member member = (Member) sessionManager.getSession(request);
+            map.put("session","member");
             map.put("data",member.getLoginId());
         }else{
             Dealer dealer = (Dealer) sessionManager.getSession(request);
+            map.put("session","dealer");
             map.put("data",dealer.getLoginId());
         }
         //Hashmap 을 JSON으로 변환

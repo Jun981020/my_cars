@@ -68,17 +68,42 @@
       <ul class="list-group-flush pb-3" th:each="reply:${board.replies}">
         <li class="list-group-item">
           <div class="row">
-            <div class="pt-3">
-              <img src="/webapp/img/icon/user_image.png" class="rounded-circle" style="width: 36px;height: 36px;" alt="">
-              &nbsp;&nbsp;
-              <strong th:text="${reply.loginId}">작성자</strong>
+            <div class="pt-3 d-flex justify-content-between">
+              <div>
+                <img src="/webapp/img/icon/user_image.png" class="rounded-circle" style="width: 36px;height: 36px;" alt="">
+                &nbsp;&nbsp;
+                <strong id="role" th:text="${reply.loginId}+[+${reply.replyRole}+]">작성자</strong>
+              </div>
+              <th:block th:if="${idAndSession} == (${reply.loginId}+${reply.replyRole})">
+              <div class="dropdown px-3" id="more">
+                <img src="/webapp/img/icon/more_icon.png" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="width:20px;height:20px;cursor:pointer;">
+                <ul class="dropdown-menu">
+                  <li>
+                    <button class="dropdown-item" th:replyId="${reply.id}" onclick="modifyReplyButton(this.getAttribute('replyId'))"><img src="/webapp/img/icon/edit-icon.png" style="width:15px;height:15px;">수정하기</button>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" th:href="@{/reply/remove/{role}(role=${#strings.toLowerCase(reply.replyRole)},id=${reply.id},num=${boardNum})}"><img src="/webapp/img/icon/recycle-icon.png" style="width:15px;height:15px;">삭제하기</a>
+                  </li>
+                </ul>
+              </div>
+              </th:block>
             </div>
           </div>
           <div class="row p-3">
-            <div class="col-md-10">
-              <p th:text="${reply.content}">
+            <div class="col w-100">
+              <p th:text="${reply.content}" class="reply-text">
                 내용
               </p>
+              <form class="edit-comment-form w-100" action="/reply/modify/{cat}(cat=${cat})"method="post"  style="display:none;">
+                <textarea name="content" class="w-100"></textarea>
+                <input type="hidden" name="id">
+                <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" name="num" th:value="${boardNum}">
+                <div class="d-flex justify-content-end">
+                  <button class="btn btn-secondary btn-sm" type="submit">댓글 수정</button>
+                  <button class="btn btn-secondary btn-sm" type="button" onclick="cancelReplyModify()">취소</button>
+                </div>
+              </form>
             </div>
             <div class="d-flex justify-content-end px-3" th:text="${#temporals.format(reply.createAt,'yyyy-MM-dd')}">
               작성날짜
@@ -93,12 +118,18 @@
   <th:block th:insert="~{fragment/footer :: footer}"></th:block>
 </div>
 </body>
+</html>
 <script th:inline="javascript">
 $(document).ready(function() {
-      let client = getSessionTypeLoginId();
-      if(client != null){
-        let writer = [[${writer}]];
-        if(client == writer){
+      let data = getSessionTypeLoginId();
+      let id = '';
+      let session = '';
+      if(data != null){
+        id = data.id;
+        session = data.session;
+        let writerId = [[${writer}]];
+        let writerSession = [[${cat}]];
+        if(id == writerId && session == writerSession){
           $('#edit-btn').css('display', 'block');
         }
         $("#edit-btn").click(function(){
@@ -109,4 +140,3 @@ $(document).ready(function() {
       }
 });
 </script>
-</html>

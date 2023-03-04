@@ -22,4 +22,16 @@ public class MemberBoardReplyService {
         memberBoardReply.setMemberBoard(memberBoard);
         memberBoardReplyRepository.save(memberBoardReply);
     }
+    @Transactional
+    public void removeReply(Long id){
+        MemberBoardReply memberBoardReply = memberBoardReplyRepository.findById(id).get();
+        memberBoardReply.removeMemberBoardReply();
+        memberBoardReplyRepository.delete(memberBoardReply);
+    }
+
+    @Transactional
+    public void modifyReply(int id, String content) {
+        MemberBoardReply memberBoardReply = memberBoardReplyRepository.findById((long) id).get();
+        memberBoardReply.modifyReply(content);
+    }
 }
