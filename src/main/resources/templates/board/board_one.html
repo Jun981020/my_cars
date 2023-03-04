@@ -94,7 +94,7 @@
               <p th:text="${reply.content}" class="reply-text">
                 내용
               </p>
-              <form class="edit-comment-form w-100" action="/reply/modify/{cat}(cat=${cat})"method="post"  style="display:none;">
+              <form class="edit-comment-form w-100" th:action="@{/reply/modify/{cat}(cat=${cat})}"method="post"  style="display:none;">
                 <textarea name="content" class="w-100"></textarea>
                 <input type="hidden" name="id">
                 <input type="hidden" name="_method" value="PUT">

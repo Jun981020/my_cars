@@ -83,7 +83,7 @@ public class ReplyController {
         }else{
             dealerBoardReplyService.modifyReply(id,content);
         }
-        return "redirect:/board/dealerBoard/"+num;
+        return "redirect:/board/"+cat+"Board/"+num;
     }
 
 }
