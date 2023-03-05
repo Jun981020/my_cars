@@ -4,7 +4,6 @@ import com.jproject.my_cars.domain.BaseEntity;
 import com.jproject.my_cars.domain.board.dealer_board.DealerBoard;
 import com.jproject.my_cars.domain.board.reply.ReplyRole;
 import com.jproject.my_cars.dto.DealerBoardReplWriteDto;
-import com.jproject.my_cars.dto.DealerBoardReplyDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 

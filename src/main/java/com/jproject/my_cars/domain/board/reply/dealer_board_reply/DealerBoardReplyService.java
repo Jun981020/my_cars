@@ -2,8 +2,6 @@ package com.jproject.my_cars.domain.board.reply.dealer_board_reply;
 
 import com.jproject.my_cars.domain.board.dealer_board.DealerBoard;
 import com.jproject.my_cars.domain.board.dealer_board.DealerBoardRepository;
-import com.jproject.my_cars.domain.board.member_board.MemberBoard;
-import com.jproject.my_cars.domain.board.reply.member_board_reply.MemberBoardReply;
 import com.jproject.my_cars.dto.DealerBoardReplWriteDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

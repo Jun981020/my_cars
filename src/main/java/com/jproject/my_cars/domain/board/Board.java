@@ -1,8 +1,6 @@
 package com.jproject.my_cars.domain.board;
 
 import com.jproject.my_cars.domain.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;

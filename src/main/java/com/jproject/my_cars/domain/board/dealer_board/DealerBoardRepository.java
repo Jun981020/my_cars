@@ -1,6 +1,5 @@
 package com.jproject.my_cars.domain.board.dealer_board;
 
-import com.jproject.my_cars.domain.board.member_board.MemberBoard;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
