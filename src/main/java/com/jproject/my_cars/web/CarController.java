@@ -3,6 +3,7 @@ package com.jproject.my_cars.web;
 import com.jproject.my_cars.domain.board.member_board.MemberBoardService;
 import com.jproject.my_cars.domain.cars.Car;
 import com.jproject.my_cars.domain.cars.CarService;
+import com.jproject.my_cars.domain.cars.car_options.CarOptions;
 import com.jproject.my_cars.domain.cars.car_options.CarOptionsService;
 import com.jproject.my_cars.domain.cars.img.ImgService;
 import com.jproject.my_cars.domain.cars.option.OptionService;
@@ -50,8 +51,9 @@ public class CarController {
     public String car_one(@PathVariable("num")int num,Model model){
         log.info("/cars/carOne/{num}");
         Car car = carService.getOne((long) num);
+        List<CarOptions> options = car.getOptions();
+        model.addAttribute("options",options);
         model.addAttribute("car",car);
-        car.getOptions().get(0).getOptions().getName();
         return "cars/cars_one";
     }
     @GetMapping("/cars/posts")
@@ -68,12 +70,15 @@ public class CarController {
         log.info("/cars/postsAction");
         //session dealer 정보 가져오기
         Dealer dealer = (Dealer) sessionManager.getSession(request);
-        //options 배열 분리하기
-        String[] options = str.split(",");
+        String[] options = {};
+        if(!str.isEmpty()){
+            //options 배열 분리하기
+            options = str.split(",");
+        }
         //car entity 생성
         Car car = carService.registration(dealer,dto,options);
         //img 저장
-        imgService.uploadImg(images,dto.getName(),car);
+        imgService.uploadImg(images,dto.getName(),car,request);
         return "redirect:/main";
     }
     @GetMapping("/cars/getOptionList")
@@ -95,9 +100,9 @@ public class CarController {
         }
     }
     @GetMapping("/cars/remove/{id}")
-    public String cars_remove(@PathVariable("id")int id) throws IOException {
+    public String cars_remove(@PathVariable("id")int id,HttpServletRequest request) throws IOException {
         log.info("/cars/remove/{id}");
-        carService.removeCar((long)id);
+        carService.removeCar((long)id,request);
         return "redirect:/dealer/dealerPage";
     }
     @GetMapping("/cars/modify/{id}")
@@ -106,13 +111,13 @@ public class CarController {
         Car car = carService.getOne((long) id);
         model.addAttribute("car",car);
         model.addAttribute("options",optionService.getOptionsList());
-        model.addAttribute("car_options",carOptionsService.getCarOptionsListByCarId(car.getId()));
+        model.addAttribute("car_options",car.getOptions());
         return "cars/cars_modify";
     }
     @GetMapping("/cars/sale/{id}")
-    public String cars_sale(@PathVariable("id")int id) throws IOException {
+    public String cars_sale(@PathVariable("id")int id,HttpServletRequest request) throws IOException {
         log.info("/cars/sale/{id}");
-        carService.saleCar((long)id);
+        carService.saleCar((long)id,request);
         return "redirect:/main";
     }
 
@@ -124,14 +129,18 @@ public class CarController {
                                      HttpServletRequest request) throws IOException {
         log.info("/cars/modifyAction");
         Long carNum = (long)id;
-        String[] options = str.split(",");
+        String[] options = {};
+        if(!str.isEmpty()){
+            //options 배열 분리하기
+            options = str.split(",");
+        }
         //car entity 가져오기
         Car car = carService.getOne(carNum);
         //options & car 정보 수정
         carService.modifyCar(carNum,dto,options);
         //imgList 넘겨주기
         HashMap<String, MultipartFile> map = files.setImageList();
-        imgService.modifyImg(map,dto.getName(),car);
+        imgService.modifyImg(map,dto.getName(),car,request);
         return "redirect:/main";
     }
     @GetMapping("/cars/search")

@@ -8,7 +8,6 @@ import com.jproject.my_cars.domain.dealer.Dealer;
 import com.jproject.my_cars.dto.CarPostsDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
 import lombok.Getter;
 
 import java.util.ArrayList;

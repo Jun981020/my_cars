@@ -118,5 +118,13 @@ class ImgServiceTest {
         String substring = path.substring(0,path.lastIndexOf("/"));
         System.out.println("substring = " + substring);
     }
+    @Test
+    public void pathTest(){
+        String path = "/Users/ijunhyeong/IdeaProjects/my_cars/src/main/webapp/";
+        String main = path.substring(0,path.lastIndexOf("/webapp"));
+        String oneInt ="/webapp/img/cars/kia/이준형-ee486968-e905-42df-8e71-838d219320e4/이준형-main.webp";
+        String substring = oneInt.substring(0, oneInt.lastIndexOf("/"));
+        System.out.println("substring = " + main+substring);
+    }
 
 }

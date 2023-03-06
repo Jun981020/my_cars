@@ -11,6 +11,7 @@ import com.jproject.my_cars.domain.likes.LikesRepository;
 import com.jproject.my_cars.domain.member.Member;
 import com.jproject.my_cars.domain.member.MemberRepository;
 import com.jproject.my_cars.dto.CarPostsDto;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -70,20 +71,21 @@ public class CarService {
                 dto.getManufacture());
         car.setDealer(dealer);
         carRepository.saveAndFlush(car);
-        for (String name : options) {
-            Options findOption = optionRepository.findByName(name);
-            log.info("findOption : " + findOption);
-            CarOptions carOptions = new CarOptions();
-            carOptions.setCarAndOptions(car,findOption);
-            carOptionsRepository.saveAndFlush(carOptions);
+        if(options.length != 0){
+            for (String name : options) {
+                Options findOption = optionRepository.findByName(name);
+                CarOptions carOptions = new CarOptions();
+                carOptions.setCarAndOptions(car,findOption);
+                carOptionsRepository.saveAndFlush(carOptions);
+            }
         }
         return car;
     }
     @Transactional
     //차량 삭제
-    public void removeCar(Long id) throws IOException {
+    public void removeCar(Long id, HttpServletRequest request) throws IOException {
         Car car = carRepository.findById(id).get();
-        imgService.removeImgDir(car);
+        imgService.removeImgDir(car,request);
         carRepository.delete(car);
     }
     @Transactional
@@ -92,12 +94,13 @@ public class CarService {
         Car entity = carRepository.findById(carNum).get();
         Car car = entity.carModify(dto);
         carOptionsRepository.deleteByCarId(car.getId());
-
-        for (String name : options) {
-            Options findOption = optionRepository.findByName(name);
-            CarOptions carOptions = new CarOptions();
-            carOptions.setCarAndOptions(car,findOption);
-            carOptionsRepository.saveAndFlush(carOptions);
+        if(options.length != 0){
+            for (String name : options) {
+                Options findOption = optionRepository.findByName(name);
+                CarOptions carOptions = new CarOptions();
+                carOptions.setCarAndOptions(car,findOption);
+                carOptionsRepository.saveAndFlush(carOptions);
+            }
         }
     }
 
@@ -127,11 +130,11 @@ public class CarService {
     }
     @Transactional
     //차량 판매처리
-    public void saleCar(Long id) throws IOException {
+    public void saleCar(Long id,HttpServletRequest request) throws IOException {
         Car one = getOne(id);
         Dealer dealer = one.getDealer();
         dealer.saleCar(one);
-        imgService.removeImgDir(one);
+        imgService.removeImgDir(one,request);
         likesRepository.deleteByCarId(one.getId());
         carRepository.delete(one);
     }

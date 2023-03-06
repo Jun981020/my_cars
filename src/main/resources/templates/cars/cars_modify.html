@@ -113,7 +113,12 @@
                         <option th:each="option : ${options}" th:value="${option.name}" th:text="${option.name}">옵션</option>
                     </select>
                     <ul id="ulList">
-                        <li th:each="car_options : ${car_options}"  th:text="${car_options.options.name}"></li>
+                        <th:block th:if="${car_options} != null">
+                            <li th:each="car_options : ${car_options}"  th:text="${car_options.options.name}"></li>
+                        </th:block>
+                        <th:block th:if="${car_options} == null">
+                            <li ></li>
+                        </th:block>
                     </ul>
                     <input type="hidden" name="options">
                 </div>

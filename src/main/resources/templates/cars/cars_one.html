@@ -113,12 +113,14 @@
                         <th>옵션기능</th>
                     </tr>
                     </thead>
+                    <th:block th:if="${options} != null">
                     <tbody>
-                        <tr th:each="options : ${car.options}">
+                        <tr th:each="options : ${options}">
                             <td th:text="${options.options.name}">이름</td>
                             <td th:text="${options.options.description}">기능</td>
                         </tr>
                     </tbody>
+                    </th:block>
                 </table>
             </div>
         </div>

@@ -1,6 +1,7 @@
 package com.jproject.my_cars.domain.cars.img;
 
 import com.jproject.my_cars.domain.cars.Car;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,13 +23,10 @@ import java.util.UUID;
 @Slf4j
 public class ImgService {
     private final ImgRepository imgRepository;
-    @Value("${file.dir}")
-    private String path;
-    @Value("${file.change.dir}")
-    private String changePath;
 
     //차량등록 폼에서 넘어온 이미지 리스트를 메인 사진과 사이드 사진으로 저장
-    public void uploadImg(List<MultipartFile> images, String carName, Car car) throws IOException {
+    public void uploadImg(List<MultipartFile> images, String carName, Car car, HttpServletRequest request) throws IOException {
+        String path = request.getSession().getServletContext().getRealPath("/")+"img/cars";
         int findMainIndex = 0;
         String uuid = UUID.randomUUID().toString();
         for (MultipartFile image : images) {
@@ -82,22 +80,24 @@ public class ImgService {
             }
         }
     }
-    public void modifyImg(HashMap<String,MultipartFile> map, String carName, Car car) throws IOException {
+    public void modifyImg(HashMap<String,MultipartFile> map, String carName, Car car,HttpServletRequest request) throws IOException {
         //해당 차량의 전체 이미지 파일 경로는 가져옴
         List<String> pathList = imgRepository.findPathByCarId(car.getId());
         //해당 차량의 디렉토리 찾기
         String str = pathList.get(0);
         map.forEach( (key, value) -> {
             try{
-                changeImg(key,car.getId(),value);
+                changeImg(key,car.getId(),value,request);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
     }
     //치량 수정에서 이미지 바꾸기
-    public void changeImg(String filter,Long id,MultipartFile image) throws IOException {
+    public void changeImg(String filter,Long id,MultipartFile image,HttpServletRequest request) throws IOException {
         List<String> pathList = imgRepository.findPathByCarId(id);
+        String path = request.getSession().getServletContext().getRealPath("/");
+        String changePath = path.substring(0,path.lastIndexOf("/webapp"));
         String mainImgPath = changePath + pathList.stream().filter(s -> s.contains(filter)).findFirst().get();
         System.out.println("mainImgPath = " + mainImgPath);
         Files.delete(Path.of(mainImgPath));
@@ -105,9 +105,11 @@ public class ImgService {
     }
     @Transactional
     //이미지 삭제
-    public void removeImgDir(Car car) throws IOException {
-        String path = car.getImages().get(0).getPath();
-        String realDirPath = changePath + path.substring(0,path.lastIndexOf("/"));
+    public void removeImgDir(Car car,HttpServletRequest request) throws IOException {
+        String path = request.getSession().getServletContext().getRealPath("/");
+        String changePath = path.substring(0,path.lastIndexOf("/webapp"));
+        String oneImg = car.getImages().get(0).getPath();
+        String realDirPath = changePath+oneImg.substring(0, oneImg.lastIndexOf("/"));
         car.getImages().stream().forEach(
                 c -> {
                     String imgPath = changePath + c.getPath();
