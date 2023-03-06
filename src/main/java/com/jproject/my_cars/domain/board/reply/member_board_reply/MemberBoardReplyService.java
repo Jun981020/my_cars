@@ -16,6 +16,7 @@ public class MemberBoardReplyService {
     private final MemberBoardRepository memberBoardRepository;
 
     @Transactional
+    //댓글 저장
     public void saveReply(MemberBoardReplyWriteDto dto){
         MemberBoardReply memberBoardReply = MemberBoardReply.createMemberBoardReply(dto);
         MemberBoard memberBoard = memberBoardRepository.findById(Long.valueOf(dto.getBoardId())).get();
@@ -23,6 +24,7 @@ public class MemberBoardReplyService {
         memberBoardReplyRepository.save(memberBoardReply);
     }
     @Transactional
+    //댓글 삭제
     public void removeReply(Long id){
         MemberBoardReply memberBoardReply = memberBoardReplyRepository.findById(id).get();
         memberBoardReply.removeMemberBoardReply();
@@ -30,6 +32,7 @@ public class MemberBoardReplyService {
     }
 
     @Transactional
+    //댓글 수정
     public void modifyReply(int id, String content) {
         MemberBoardReply memberBoardReply = memberBoardReplyRepository.findById((long) id).get();
         memberBoardReply.modifyReply(content);

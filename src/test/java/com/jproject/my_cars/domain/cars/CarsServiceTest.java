@@ -272,33 +272,33 @@ class CarsServiceTest {
         Page<Car> byPriceLowAndHigh = carsRepository.findByPriceLowAndHigh(low, high,PageRequest.of(0,1));
         System.out.println("byPriceLowAndHigh.size() = " + byPriceLowAndHigh.getContent());
     }
-    @Test
-    public void pagingTest(){
-        for(int i = 0 ; i < 100 ; i++){
-            Car build = Car.builder()
-                    .name("car"+i)
-                    .price(2000)
-                    .year("2022")
-                    .distance_driven("1200")
-                    .accident_history(false)
-                    .area("서울")
-                    .fuel("가솔린")
-                    .manufacture("BMW")
-                    .point(0)
-                    .build();
-            carsRepository.saveAndFlush(build);
-        }
-
-        PageRequest of = PageRequest.of(0, 10);
-        Page<Car> all = carsRepository.findAll(of);
-        List<Car> content = all.getContent();
-        int totalPages = all.getTotalPages();
-        System.out.println("totalPages = " + totalPages);
-        int size = all.getSize();
-        System.out.println("size = " + size);
-        System.out.println("all = " + all);
-        System.out.println("content = " + content);
-    }
+//    @Test
+//    public void pagingTest(){
+//        for(int i = 0 ; i < 100 ; i++){
+//            Car build = Car.builder()
+//                    .name("car"+i)
+//                    .price(2000)
+//                    .year("2022")
+//                    .distance_driven("1200")
+//                    .accident_history(false)
+//                    .area("서울")
+//                    .fuel("가솔린")
+//                    .manufacture("BMW")
+//                    .point(0)
+//                    .build();
+//            carsRepository.saveAndFlush(build);
+//        }
+//
+//        PageRequest of = PageRequest.of(0, 10);
+//        Page<Car> all = carsRepository.findAll(of);
+//        List<Car> content = all.getContent();
+//        int totalPages = all.getTotalPages();
+//        System.out.println("totalPages = " + totalPages);
+//        int size = all.getSize();
+//        System.out.println("size = " + size);
+//        System.out.println("all = " + all);
+//        System.out.println("content = " + content);
+//    }
     @Test
     public void seqPageTest(){
         PageRequest of = PageRequest.of(0, 10);

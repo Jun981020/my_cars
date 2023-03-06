@@ -30,15 +30,17 @@ public class DealerController {
 
     @GetMapping("/dealer/login")
     public String dealer_login(){
+        log.info("/dealer/login");
         return "dealer/dealer_login";
     }
     @GetMapping("/dealer/join")
     public String dealer_join(){
+        log.info("/dealer/join");
         return "dealer/dealer_join";
     }
     @PostMapping("/dealer/loginAction")
     public String dealer_login_action(@ModelAttribute DealerLoginDto dto, HttpServletResponse response, HttpServletRequest request){
-        log.info("여기까지 들어옴 dto value:"+dto);
+        log.info("/dealer/loginAction");
         Dealer dealer = dealerService.findOneByLoginId(dto.getId());
         if(sessionManager.getSession(request) != null){
             sessionManager.expire(request);
@@ -53,10 +55,12 @@ public class DealerController {
     @GetMapping("/dealer/checkLoginIdDuplicate")
     @ResponseBody
     public boolean check_login_id_duplicate(String login_id){
+        log.info("/dealer/checkLoginIdDuplicate");
         return dealerService.check_join_id(login_id);
     }
     @PostMapping("/dealer/joinAction")
     public String dealer_join(DealerJoinDto dto){
+        log.info("/dealer/joinAction");
         Card card = new Card(dto.getEmployee_number(),dto.getCompany(),dto.getAcquisition_date());
         Dealer dealer = Dealer.joinDealer(dto, card);
         dealerService.saveDealer(dealer);
@@ -67,11 +71,12 @@ public class DealerController {
     public boolean dealer_check_id_pw_nu(@RequestParam("id")String id,
                                          @RequestParam("password")String password,
                                          @RequestParam("number")String number){
-        log.info("check_idpwnu");
+        log.info("/dealer/check_IDPWNU");
         return dealerService.check_login_id_pw_num(id,password,number);
     }
     @GetMapping("/dealer/dealerPage")
     public String dealer_page(HttpServletRequest request, Model model){
+        log.info("/dealer/dealerPage");
         Dealer data = (Dealer) sessionManager.getSession(request);
         if(data == null){
             return "redirect:/session/empty";
@@ -86,6 +91,7 @@ public class DealerController {
     }
     @GetMapping("/dealer/logout")
     public String dealer_logout(HttpServletRequest request){
+        log.info("/dealer/logout");
         sessionManager.expire(request);
         request.getSession().invalidate();
         return "redirect:/main";

@@ -1,7 +1,6 @@
 package com.jproject.my_cars.domain.cars.img;
 
 import com.jproject.my_cars.domain.cars.Car;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +12,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -96,17 +94,31 @@ public class ImgService {
                 throw new RuntimeException(e);
             }
         });
-
-
-//        if(image.get("side6") != null){
-//            changeImg("side6",car.getId(),image);
-//        }
     }
+    //치량 수정에서 이미지 바꾸기
     public void changeImg(String filter,Long id,MultipartFile image) throws IOException {
         List<String> pathList = imgRepository.findPathByCarId(id);
         String mainImgPath = changePath + pathList.stream().filter(s -> s.contains(filter)).findFirst().get();
         System.out.println("mainImgPath = " + mainImgPath);
         Files.delete(Path.of(mainImgPath));
         image.transferTo(new File(mainImgPath));
+    }
+    @Transactional
+    //이미지 삭제
+    public void removeImgDir(Car car) throws IOException {
+        String path = car.getImages().get(0).getPath();
+        String realDirPath = changePath + path.substring(0,path.lastIndexOf("/"));
+        car.getImages().stream().forEach(
+                c -> {
+                    String imgPath = changePath + c.getPath();
+                    try {
+                        Files.delete(Path.of(imgPath));
+                    } catch (IOException e) {
+                        e.getMessage();
+                        throw new RuntimeException(e);
+                    }
+                }
+        );
+        Files.delete(Path.of(realDirPath));
     }
 }

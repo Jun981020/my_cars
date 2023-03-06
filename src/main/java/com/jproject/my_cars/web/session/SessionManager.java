@@ -17,7 +17,6 @@ public class SessionManager {
 
     private static final String SESSION_COOKIE_NAME = "mySessionId";
     private Map<String,Object> sessionStore = new ConcurrentHashMap<>();
-
     //세선생성
     public void createSession(Object value, HttpServletResponse response){
         String sessionId = UUID.randomUUID().toString();
@@ -30,12 +29,12 @@ public class SessionManager {
     }
     //세션 가져오기
     public Object getSession(HttpServletRequest request){
-        Cookie find = findCookie(request,SESSION_COOKIE_NAME);
-        if (find == null){
+        Cookie cookie = findCookie(request,SESSION_COOKIE_NAME);
+        if (cookie == null){
             return null;
         }
-        log.info("find.getvalue : " + find.getValue());
-        return sessionStore.get(find.getValue());
+        log.info("cookie.value : " + cookie.getValue());
+        return sessionStore.get(cookie.getValue());
     }
     public void expire(HttpServletRequest request){
         Cookie find = findCookie(request, SESSION_COOKIE_NAME);

@@ -91,17 +91,17 @@
           </div>
           <div class="row p-3">
             <div class="col w-100">
-              <p th:text="${reply.content}" class="reply-text">
+              <p th:text="${reply.content}" th:id="reply-text+${reply.id}">
                 내용
               </p>
-              <form class="edit-comment-form w-100" th:action="@{/reply/modify/{cat}(cat=${cat})}"method="post"  style="display:none;">
+              <form class="w-100" th:id="edit-comment-form+${reply.id}" th:action="@{/reply/modify/{cat}(cat=${cat})}"method="post"  style="display:none;">
                 <textarea name="content" class="w-100"></textarea>
                 <input type="hidden" name="id">
                 <input type="hidden" name="_method" value="PUT">
                 <input type="hidden" name="num" th:value="${boardNum}">
                 <div class="d-flex justify-content-end">
                   <button class="btn btn-secondary btn-sm" type="submit">댓글 수정</button>
-                  <button class="btn btn-secondary btn-sm" type="button" onclick="cancelReplyModify()">취소</button>
+                  <button class="btn btn-secondary btn-sm" type="button" th:replyId="${reply.id}" onclick="cancelReplyModify(this.getAttribute('replyId'))">취소</button>
                 </div>
               </form>
             </div>

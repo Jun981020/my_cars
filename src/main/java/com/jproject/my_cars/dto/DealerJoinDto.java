@@ -1,6 +1,5 @@
 package com.jproject.my_cars.dto;
 
-import com.jproject.my_cars.domain.dealer.employee.Card;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

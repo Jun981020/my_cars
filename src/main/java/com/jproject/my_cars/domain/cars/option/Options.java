@@ -1,8 +1,7 @@
 package com.jproject.my_cars.domain.cars.option;
 
-import com.jproject.my_cars.domain.cars.Car;
-import com.jproject.my_cars.dto.OptionsDto;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
@@ -12,9 +11,15 @@ public class Options {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "OPTIONS_ID")
     private Long id;
+    @NotNull
+    //옵션 이름
     private String name;
+    @NotNull
+    @Column(name = "description",length = 50)
+    //옵션 설명
     private String description;
 
+    //옵션 추가
     public static Options putOption(String name, String description){
         Options options = new Options();
         options.name = name;
@@ -30,11 +35,4 @@ public class Options {
                 ", description='" + description + '\'' +
                 '}';
     }
-    //    SUNROOF,
-//    HEADLAMP,
-//    PARKING_SENSOR,
-//    REAR_CAMERA,
-//    NAVIGATION,
-//    SMART_KEY,
-//    HEATED_SEAT
 }

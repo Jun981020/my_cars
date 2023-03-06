@@ -1,4 +1,3 @@
-
 //board_write page 공개&비공개 바뀔때마다 input 태그 보여주기 숨기기
 function checking(){
     if(secret_content.value == 1){
@@ -21,6 +20,7 @@ function getSessionMemberId(){
                         });
     return memberId;
 }
+//session manger 에서 세션값에 딜러 아이디 가져오기
 function getSessionDealerId(){
     let dealerId = null;
     $.ajax({
@@ -42,7 +42,7 @@ function nepCheck(){
             return false;
       }
 }
-
+//checkSessionEmpty() 로 받은 boolean 으로 pass or 로그인 페이지로 이동시킨다.
 function checkLogin(){
     let result = checkSessionEmpty();
     if(!result){
@@ -53,6 +53,7 @@ function checkLogin(){
       return true;
     }
 }
+//세션에서 로그인한 데이터가 있으면 true 를 null 이면 false 를 리턴한다.
 function checkSessionEmpty(){
     var result = null;
     $.ajax({
@@ -66,6 +67,7 @@ function checkSessionEmpty(){
                     });
     return result;
 }
+//회원 게시판 클릭시 회원 게시판으로 이동
 function refresh1(){
         $("#dealer").removeClass("btn-light");
         $("#dealer").addClass("btn-outline-light");
@@ -76,6 +78,7 @@ function refresh1(){
         let code = "member";
         location.href = '/board/list/' + code;
 }
+//딜러 게시판 클릭시 딜러 게시판으로 이동
 function refresh2(){
         $("#member").removeClass("btn-light");
         $("#member").addClass("btn-outline-light");
@@ -86,10 +89,12 @@ function refresh2(){
         let code = "dealer";
         location.href = '/board/list/' + code;
 }
+//로그인한 회원또는 딜러인지 확인하고 true를 리턴하면 checkModeAndSendBoardWrite() 함수 실행
 function boardWriteButton(){
     checkLogin();
     checkModeAndSendBoardWrite();
 }
+//session manger 에서 로그인한게 회원이면 회원게시판에 글을쓰고 딜러라면 딜러게시판에 글을쓴다.
 function checkModeAndSendBoardWrite(){
     $.ajax({
         url : "/main/getSessionTypeName",
@@ -105,6 +110,7 @@ function checkModeAndSendBoardWrite(){
         }
     })
 }
+//session manger 에서 (회원,회원번호) 또는 (딜러,딜러번호) 의 데이터를 맵으로 내려줌
 function getSessionTypeLoginId(){
     let id = null;
     let session = null;
@@ -122,6 +128,7 @@ function getSessionTypeLoginId(){
     let data = {id,session};
     return data;
 }
+//로그인 한 회원인지 확인후, session data 에 id를 가져와 input[id=loginId] 의 value 에 id 를 넣어줌
 function getSessionDataForWriteReply(){
     var result = checkLogin();
     if(result){
@@ -129,13 +136,11 @@ function getSessionDataForWriteReply(){
         $("#loginId").attr("value",id);
         repFrm.submit();
     }
-
 }
 //년도 가져오기
 function getYear(){
         var date = new Date();
         var selYear = date.getFullYear();
-
         for(var i = selYear;i >=2000; i--){
             $("select[name=year]").append("<option value = " + i + ">" +i +"</option>");
         }
@@ -147,7 +152,6 @@ $("select[id=options]").change(function(){
       var value = $(this).val();
       $("#ulList").append("<li value ="+value+ ">" +text+"</li>");
       optionList.push(text);
-      console.log(optionList);
 })
 $("button[name=submit]").on('click',function(){
       const result =  confirm("차량등록을 하시겠습니까?");
@@ -169,20 +173,17 @@ function readURL(input,num) {
         document.getElementById('preview'+num).src = "";
       }
 }
+//modal 에 board_id 를 넘겨준다.
 function sendData(data){
     $("#passwordResult").css("display","none");
     $("#password").val("");
     $("#resData").attr("value",data);
 }
+//modal 에 비밀번호 입력창에 비밀번호를 입력하면 서버에서 비밀번호 확인후 true 일경우 해당 게시물로 이동 아닐경우 오류메세지 표시
 function checkPrivateContentPassword(data){
     let cat = data;
-    console.log(cat);
     let board = $("#resData").val();
-    console.log(board);
     let password = $("#password").val();
-    console.log(password);
-
-
     $.ajax({
         type: 'GET',
         url: '/board/checkPrivateContent/'+cat,
@@ -202,18 +203,24 @@ function checkPrivateContentPassword(data){
         }
     });
 }
+//댓글 수정버튼 클릭시 새로운 댓글 작성창 표시, 기존 댓글 숨기기
 function modifyReplyButton(id){
-    var commentText = $('.reply-text').text();
+    var reply_text = '#reply-text'+id;
+    var commentText = $(reply_text).text();
     var commentID = id;
-    console.log(commentText);
-    console.log(commentID);
-    $('.edit-comment-form textarea').val(commentText);
-    $('.edit-comment-form > input[name="id"]').val(commentID);
-    $('.reply-text').hide();
-    $('.edit-comment-form').show();
+    var edit_comment_form = '#edit-comment-form'+id;
+    var edit_comment_form_textarea = edit_comment_form +' textarea';
+    var edit_comment_form_input = edit_comment_form +' > input[name="id"]'
+    $(edit_comment_form_textarea).val(commentText);
+    $(edit_comment_form_input).val(commentID);
+    $(reply_text).hide();
+    $(edit_comment_form).show();
 }
-function cancelReplyModify(){
-    $(".edit-comment-form").hide();
-    $('.reply-text').show();
-}''
+//댓글수정 취소클릭시 작성폼 숨기기, 기존댓글 표시
+function cancelReplyModify(id){
+    var edit_comment_form = '#edit-comment-form'+id;
+    var reply_text = '#reply-text'+id;
+    $(edit_comment_form).hide();
+    $(reply_text).show();
+}
 console.log('현재 이페이지에 적용중입니다.');

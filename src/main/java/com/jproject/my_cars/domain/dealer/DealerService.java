@@ -1,7 +1,6 @@
 package com.jproject.my_cars.domain.dealer;
 
 import com.jproject.my_cars.domain.cars.Car;
-import com.jproject.my_cars.dto.DealerPageResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,13 +31,15 @@ public class DealerService {
     public boolean check_login_id_pw_num(String id,String pw,String nu){
         return dealerRepository.findByIDPWNU(id, pw, nu) != null;
     }
+    //로그인 아이디로 조회
     public Dealer findOneByLoginId(String id){
         return dealerRepository.findByLoginId(id);
     }
+    //고유번호로 조회
     public Dealer findOneById(Long id){
         return dealerRepository.findById(id).get();
     }
-
+    //페이지로 리턴
     public List<Car> findOneOfDealerPage(Long id) {
         return findOneById(id).getCars();
     }

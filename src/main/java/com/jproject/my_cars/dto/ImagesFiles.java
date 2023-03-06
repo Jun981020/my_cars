@@ -3,13 +3,7 @@ package com.jproject.my_cars.dto;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
 @Data
 public class ImagesFiles {
     private MultipartFile main;

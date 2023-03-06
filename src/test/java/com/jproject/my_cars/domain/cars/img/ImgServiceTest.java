@@ -61,13 +61,6 @@ class ImgServiceTest {
     @DisplayName("메인 이미지만 가져오기")
     public void mainImageGet(){
         List<Car> all = carRepository.findAll();
-        for (Car car : all) {
-            List<Img> mainImg = imgRepository.findMainImg(car.getId());
-            for (Img img : mainImg) {
-                System.out.println("img = " + img);
-            }
-        }
-
     }
     @Test
     public void makeDir() throws IOException {
@@ -117,6 +110,13 @@ class ImgServiceTest {
         map.put("three",3);
         map.put("four",4);
 
+    }
+    @Test
+    public void removeImg(){
+        Car car = carRepository.findById(511L).get();
+        String path = car.getImages().get(0).getPath();
+        String substring = path.substring(0,path.lastIndexOf("/"));
+        System.out.println("substring = " + substring);
     }
 
 }

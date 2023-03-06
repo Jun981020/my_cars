@@ -1,6 +1,5 @@
 package com.jproject.my_cars.domain.cars.option;
 
-import com.jproject.my_cars.domain.cars.car_options.CarOptionsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,13 +11,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OptionService {
     private final OptionRepository optionRepository;
-    private final CarOptionsRepository carOptionsRepository;
-
+    //옵션 리스트 가져오기
     public List<Options> getOptionsList(){
         return optionRepository.findAll();
-    }
-    public Options getOptionOne(String name){
-        return optionRepository.findByName(name);
     }
 
 }

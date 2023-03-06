@@ -4,13 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jproject.my_cars.domain.BaseEntity;
 import com.jproject.my_cars.domain.cars.car_options.CarOptions;
 import com.jproject.my_cars.domain.cars.img.Img;
-import com.jproject.my_cars.domain.cars.option.Options;
 import com.jproject.my_cars.domain.dealer.Dealer;
 import com.jproject.my_cars.dto.CarPostsDto;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,42 +20,53 @@ public class Car extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CAR_ID")
     private Long id;
+    @NotNull
+    @Column(name = "name",length = 30)
     //차량이름
     private String name;
+    @NotNull
+    @Column(name = "price")
     //차량가격
     private Integer price;
+    @NotNull
+    @Column(name = "year",length = 4)
     //출시년도
     private String year;
+    @NotNull
+    @Column(name = "distance_driven",length = 7)
     //주행거리
     private String distance_driven;
+    @NotNull
     //사고이력
     private boolean accident_history;
+    @NotNull
+    @Column(name = "area",length = 5)
     //판매지역
     private String area;
+    @NotNull
+    @Column(name = "fuel",length = 10)
     //연료
     private String fuel;
-//    @ManyToMany
-//    @JoinTable(
-//                name = "car_options",
-//                joinColumns = {
-//                        @JoinColumn(name = "CAR_ID")
-//                },
-//                inverseJoinColumns = {
-//                        @JoinColumn(name = "OPTIONS_ID")
-//                }
-//    )
     @OneToMany(mappedBy = "car",orphanRemoval = true,cascade = CascadeType.ALL)
+    //차량이 가지고있는 옵션 리스트
     private List<CarOptions> options = new ArrayList<>();
+    @NotNull
+    @Column(name = "manufacture",length = 10)
+    //제조회사
     private String manufacture;
     @JsonIgnore
     @OneToMany(mappedBy = "car",cascade = CascadeType.ALL,orphanRemoval = true)
+    //차량이 가지고있는 이미지 리스트
     private List<Img> images = new ArrayList<>();
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DEALER_ID")
+    @NotNull
+    //차량을 등록한 딜러
     private Dealer dealer;
+    //차량의 관심을 보인 회원 숫자
     private Integer point;
-
+    //딜러주입 연관관계 메서드
     public void setDealer(Dealer dealer){
         if(this.dealer != null){
             this.dealer.getCars().remove(this);
@@ -64,7 +74,7 @@ public class Car extends BaseEntity {
         this.dealer = dealer;
         dealer.getCars().add(this);
     }
-
+    //차량 등록
     public static Car registrationCar(String name, Integer price, String year, String distance_driven, boolean accident_history, String area , String fuel, String manufacture){
         Car cars = new Car();
         cars.name = name;
@@ -78,12 +88,11 @@ public class Car extends BaseEntity {
         cars.point = 0;
         return cars;
     }
-//    public void addOption(Options options){
-//        this.options.add(options);
-//    }
+    //관심표현 증가
     public void upPoint(){
         this.point++;
     }
+    //차량 수정 메서드
     public Car carModify(CarPostsDto dto){
         this.name = dto.getName();
         this.price = dto.getPrice();
@@ -94,18 +103,6 @@ public class Car extends BaseEntity {
         this.fuel = dto.getFuel();
         this.manufacture = dto.getManufacture();
         return this;
-    }
-    @Builder
-    public Car(String name,Integer price,String year,String distance_driven,boolean accident_history,String area,String fuel,String manufacture,int point){
-        this.name = name;
-        this.price = price;
-        this.year = year;
-        this.distance_driven = distance_driven;
-        this.accident_history = accident_history;
-        this.area = area;
-        this.fuel = fuel;
-        this.manufacture = manufacture;
-        this.point = point;
     }
     public Car(){
 
