@@ -4,7 +4,6 @@ import com.jproject.my_cars.domain.cars.Car;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,6 +26,7 @@ public class ImgService {
     //차량등록 폼에서 넘어온 이미지 리스트를 메인 사진과 사이드 사진으로 저장
     public void uploadImg(List<MultipartFile> images, String carName, Car car, HttpServletRequest request) throws IOException {
         String path = request.getSession().getServletContext().getRealPath("/")+"img/cars";
+        log.info("path"+path);
         int findMainIndex = 0;
         String uuid = UUID.randomUUID().toString();
         for (MultipartFile image : images) {
@@ -97,7 +97,9 @@ public class ImgService {
     public void changeImg(String filter,Long id,MultipartFile image,HttpServletRequest request) throws IOException {
         List<String> pathList = imgRepository.findPathByCarId(id);
         String path = request.getSession().getServletContext().getRealPath("/");
+        log.info("path"+path);
         String changePath = path.substring(0,path.lastIndexOf("/webapp"));
+        log.info("changePath"+changePath);
         String mainImgPath = changePath + pathList.stream().filter(s -> s.contains(filter)).findFirst().get();
         System.out.println("mainImgPath = " + mainImgPath);
         Files.delete(Path.of(mainImgPath));
