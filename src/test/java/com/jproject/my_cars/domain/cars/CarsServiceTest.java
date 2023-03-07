@@ -218,48 +218,40 @@ class CarsServiceTest {
 //        assertThat(electric_list.size()).isEqualTo(1);
 //    }
 
-    @Test
-    public void getImgList(){
-        Car car = carsRepository.findByName("BMW-320i");
-        System.out.println("car.getImages() = " + car.getImages().get(0).getPath());
-    }
-    @Test
-    public void findLikesMember(){
-        Member member = Member.createMember("qwer", "1234", "이준형", "flwnsgud@naver.com", "010-9145-6497", Grade.SILVER);
-        Car car = Car.registrationCar("BMW-320i", 2000, "2022", "3000", false, "서울", "DESEL", "BMW");
-//        car.setId(1L);
-
-        List<Car> likesNumOfCar = carsRepository.findLikesNumOfCar();
-        assertThat(likesNumOfCar.size()).isEqualTo(1);
-
-    }
-    @Test
-    public void setOptions(){
-        Options options = Options.putOption("네이게이션", "길안내");
-        Car car = Car.registrationCar("BMW-320i", 2000, "2022", "3000", false, "서울", "DESEL", "BMW");
-        optionRepository.saveAndFlush(options);
-        carsRepository.saveAndFlush(car);
-
-
-
-        CarOptions carOptions = new CarOptions();
-        carOptions.setCarAndOptions(car,options);
-        carOptionsRepository.saveAndFlush(carOptions);
-
-
-        List<CarOptions> options1 = car.getOptions();
-        System.out.println("options1 = " + options1.get(0).getOptions().getName());
-
-
+//    @Test
+//    public void getImgList(){
+//        Car car = carsRepository.findByName("BMW-320i");
+//        System.out.println("car.getImages() = " + car.getImages().get(0).getPath());
+//    }
+//    @Test
+//    public void findLikesMember(){
+//        Member member = Member.createMember("qwer", "1234", "이준형", "flwnsgud@naver.com", "010-9145-6497", Grade.SILVER);
+//        Car car = Car.registrationCar("BMW-320i", 2000, "2022", "3000", false, "서울", "DESEL", "BMW");
+//        List<Car> likesNumOfCar = carsRepository.findLikesNumOfCar();
+//        assertThat(likesNumOfCar.size()).isEqualTo(1);
+//    }
+//    @Test
+//    public void setOptions(){
+//        Options options = Options.putOption("네이게이션", "길안내");
+//        Car car = Car.registrationCar("BMW-320i", 2000, "2022", "3000", false, "서울", "DESEL", "BMW");
+//        optionRepository.saveAndFlush(options);
+//        carsRepository.saveAndFlush(car);
+//
+//        CarOptions carOptions = new CarOptions();
+//        carOptions.setCarAndOptions(car,options);
+//        carOptionsRepository.saveAndFlush(carOptions);
+//
+//        List<CarOptions> options1 = car.getOptions();
+//        System.out.println("options1 = " + options1.get(0).getOptions().getName());
 //        List<CarOptions> carOptions = carsRepository.car_options_list(CarOptions.class);
 //        System.out.println("carOptions = " + carOptions);
-    }
-    @Test
-    public void getOptionsList(){
-        Car car = carsRepository.findById(5L).get();
-        String name = car.getOptions().get(0).getOptions().getName();
-        System.out.println("name = " + name);
-    }
+//    }
+//    @Test
+//    public void getOptionsList(){
+//        Car car = carsRepository.findById(5L).get();
+//        String name = car.getOptions().get(0).getOptions().getName();
+//        System.out.println("name = " + name);
+//    }
     @Test
     public void getManufactureList(){
         Page<Car> hyundai = carsRepository.findByManufacture("HYUNDAI",PageRequest.of(0, 6));

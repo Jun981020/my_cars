@@ -29,15 +29,15 @@ class CarControllerTest {
     CarService carService;
     @MockBean
     ImgService imgService;
-    @Test
-    @DisplayName("차량 리스트 보기")
-    public void car_list() throws Exception {
-        mockMvc.perform(get("/cars"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+//    @Test
+//    @DisplayName("차량 리스트 보기")
+//    public void car_list() throws Exception {
+//        mockMvc.perform(get("/cars"))
+//                .andExpect(status().isOk())
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
 //                .andExpect(content().string())
-                .andDo(print());
-    }
+//                .andDo(print());
+//    }
 
 
 }

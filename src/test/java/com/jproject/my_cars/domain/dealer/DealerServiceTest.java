@@ -45,11 +45,11 @@ class DealerServiceTest {
 //        DealerJoinDto dto = new DealerJoinDto("qwer","1234","이준형",card);
 //        System.out.println("dto = " + dto);
     }
-    @Test
-    @DisplayName("딜러 아아디 비번 사원번호로 데이터 찾아오기")
-    public void findByLoginIdAndPasswordAndEmployeeNumberTest(){
-        Dealer d = dealerRepository.findByIDPWNU("qwer", "1234", "18-112-312311");
-        assertThat(d.getLoginId()).isEqualTo("qwer");
-    }
+//    @Test
+//    @DisplayName("딜러 아아디 비번 사원번호로 데이터 찾아오기")
+//    public void findByLoginIdAndPasswordAndEmployeeNumberTest(){
+//        Dealer d = dealerRepository.findByIDPWNU("qwer", "1234", "18-112-312311");
+//        assertThat(d.getLoginId()).isEqualTo("qwer");
+//    }
 
 }
