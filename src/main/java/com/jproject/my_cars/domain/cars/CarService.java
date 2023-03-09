@@ -3,6 +3,7 @@ package com.jproject.my_cars.domain.cars;
 import com.jproject.my_cars.domain.cars.car_options.CarOptions;
 import com.jproject.my_cars.domain.cars.car_options.CarOptionsRepository;
 import com.jproject.my_cars.domain.cars.img.ImgService;
+import com.jproject.my_cars.domain.cars.img.S3FileUploadService;
 import com.jproject.my_cars.domain.cars.option.OptionRepository;
 import com.jproject.my_cars.domain.cars.option.Options;
 import com.jproject.my_cars.domain.dealer.Dealer;
@@ -32,6 +33,7 @@ public class CarService {
     private final LikesRepository likesRepository;
     private final CarOptionsRepository carOptionsRepository;
     private final ImgService imgService;
+    private final S3FileUploadService s3FileUploadService;
 
     //모든 차량 가져오기
     public List<Car> getAll(){
@@ -85,7 +87,7 @@ public class CarService {
     //차량 삭제
     public void removeCar(Long id, HttpServletRequest request) throws IOException {
         Car car = carRepository.findById(id).get();
-        imgService.removeImgDir(car,request);
+        s3FileUploadService.removeImg(car);
         carRepository.delete(car);
     }
     @Transactional

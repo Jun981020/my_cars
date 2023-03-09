@@ -25,7 +25,7 @@ public class ImgService {
 
     //차량등록 폼에서 넘어온 이미지 리스트를 메인 사진과 사이드 사진으로 저장
     public void uploadImg(List<MultipartFile> images, String carName, Car car, HttpServletRequest request) throws IOException {
-        String path = request.getSession().getServletContext().getRealPath("/")+"img/cars";
+        String path = request.getSession().getServletContext().getRealPath("/resources/static/")+"img/cars";
         log.info("path"+path);
         int findMainIndex = 0;
         String uuid = UUID.randomUUID().toString();
@@ -52,7 +52,7 @@ public class ImgService {
                 image.transferTo(new File((savePath)));
 
                 //db에 저장될 경로 핸들링
-                String dbPath = newDir.substring(newDir.lastIndexOf("/webapp"))+ "/" +savedName;
+                String dbPath = newDir.substring(newDir.lastIndexOf("/")) +savedName;
                 log.info("dbPath: " + dbPath);
                 Img img = Img.addImg(fileName, dbPath);
                 img.setCar(car);
@@ -71,7 +71,7 @@ public class ImgService {
                 String savedPath = newDir + "/" +savedName;
                 image.transferTo(new File(savedPath));
 
-                String dbPath = newDir.substring(newDir.lastIndexOf("/webapp"))+ "/" +savedName;
+                String dbPath = newDir.substring(newDir.lastIndexOf("/"))+savedName;
                 log.info("dbPath: " + dbPath);
                 Img img = Img.addImg(fileName, dbPath);
                 img.setCar(car);

@@ -7,14 +7,17 @@ import com.jproject.my_cars.domain.cars.CarService;
 import com.jproject.my_cars.domain.dealer.Dealer;
 import com.jproject.my_cars.domain.member.Member;
 import com.jproject.my_cars.web.session.SessionManager;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,8 +29,9 @@ public class MainController {
     private final SessionManager sessionManager;
     private final CarService carService;
     @GetMapping({"/main","/"})
-    public String main(HttpServletRequest request,Model model){
-        System.out.println("request.getSession().getServletContext().getRealPath(\"/\") = " + request.getSession().getServletContext().getRealPath("/"));
+    public String main(Model model,HttpServletRequest request) throws MalformedURLException {
+        String path = request.getSession().getServletContext().getResource("/").getPath();
+        System.out.println("servletContext = " + path);
         log.info("/main or /");
         List<Car> topTwoCar = carService.getTopTwoCar();
         model.addAttribute("top2car",topTwoCar);

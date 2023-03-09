@@ -1,16 +1,14 @@
 package com.jproject.my_cars.web;
 
-import com.jproject.my_cars.domain.board.member_board.MemberBoardService;
 import com.jproject.my_cars.domain.cars.Car;
 import com.jproject.my_cars.domain.cars.CarService;
 import com.jproject.my_cars.domain.cars.car_options.CarOptions;
-import com.jproject.my_cars.domain.cars.car_options.CarOptionsService;
 import com.jproject.my_cars.domain.cars.img.ImgService;
+import com.jproject.my_cars.domain.cars.img.S3FileUploadService;
 import com.jproject.my_cars.domain.cars.option.OptionService;
 import com.jproject.my_cars.domain.cars.option.Options;
 import com.jproject.my_cars.domain.dealer.Dealer;
 import com.jproject.my_cars.domain.member.Member;
-import com.jproject.my_cars.domain.member.MemberService;
 import com.jproject.my_cars.dto.CarPostsDto;
 import com.jproject.my_cars.dto.ImagesFiles;
 import com.jproject.my_cars.web.session.SessionManager;
@@ -32,11 +30,11 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class CarController {
-    private final CarOptionsService carOptionsService;
     private final CarService carService;
     private final ImgService imgService;
     private final SessionManager sessionManager;
     private final OptionService optionService;
+    private final S3FileUploadService s3FileUploadService;
     @GetMapping(value = "/cars/all")
     public String cars(@RequestParam(value = "page",defaultValue = "0")int pageNum,
                        @RequestParam(value = "value",required = false)String value,
@@ -78,7 +76,7 @@ public class CarController {
         //car entity 생성
         Car car = carService.registration(dealer,dto,options);
         //img 저장
-        imgService.uploadImg(images,dto.getName(),car,request);
+        s3FileUploadService.upload(images,dto.getName(),car);
         return "redirect:/main";
     }
     @GetMapping("/cars/getOptionList")

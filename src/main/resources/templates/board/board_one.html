@@ -14,7 +14,7 @@
 
         <div class="d-flex flex-row pt-5 pb-5" style="width: 200px;">
           <div class="d-flex mr-4 col-3">
-            <img src="/webapp/img/icon/user_image.png" alt="" class="rounded-circle" style="width: 40px;height: 40px">
+            <img src="/img/icon/user_image.png" alt="" class="rounded-circle" style="width: 40px;height: 40px">
           </div>
           <div class="d-flex flex-column ml-3 w-100">
             <div th:text="${writer}">아이디</div>
@@ -70,19 +70,19 @@
           <div class="row">
             <div class="pt-3 d-flex justify-content-between">
               <div>
-                <img src="/webapp/img/icon/user_image.png" class="rounded-circle" style="width: 36px;height: 36px;" alt="">
+                <img src="/img/icon/user_image.png" class="rounded-circle" style="width: 36px;height: 36px;" alt="">
                 &nbsp;&nbsp;
                 <strong id="role" th:text="${reply.loginId}+[+${reply.replyRole}+]">작성자</strong>
               </div>
               <th:block th:if="${idAndSession} == (${reply.loginId}+${reply.replyRole})">
               <div class="dropdown px-3" id="more">
-                <img src="/webapp/img/icon/more_icon.png" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="width:20px;height:20px;cursor:pointer;">
+                <img src="/img/icon/more_icon.png" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="width:20px;height:20px;cursor:pointer;">
                 <ul class="dropdown-menu">
                   <li>
-                    <button class="dropdown-item" th:replyId="${reply.id}" onclick="modifyReplyButton(this.getAttribute('replyId'))"><img src="/webapp/img/icon/edit-icon.png" style="width:15px;height:15px;">수정하기</button>
+                    <button class="dropdown-item" th:replyId="${reply.id}" onclick="modifyReplyButton(this.getAttribute('replyId'))"><img src="/img/icon/edit-icon.png" style="width:15px;height:15px;">수정하기</button>
                   </li>
                   <li>
-                    <a class="dropdown-item" th:href="@{/reply/remove/{role}(role=${#strings.toLowerCase(reply.replyRole)},id=${reply.id},num=${boardNum})}"><img src="/webapp/img/icon/recycle-icon.png" style="width:15px;height:15px;">삭제하기</a>
+                    <a class="dropdown-item" th:href="@{/reply/remove/{role}(role=${#strings.toLowerCase(reply.replyRole)},id=${reply.id},num=${boardNum})}"><img src="/img/icon/recycle-icon.png" style="width:15px;height:15px;">삭제하기</a>
                   </li>
                 </ul>
               </div>
