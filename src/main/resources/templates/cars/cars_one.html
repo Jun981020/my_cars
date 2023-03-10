@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:insert = "~{fragment/head :: header}"></th:block>
+    <title>Cars</title>
+    <style>
+        .img-wrapper{display:inline-block;overflow:hidden;}
+        .img-wrapper img{
+        transition:all .5s ease;
+        -webkit-transition:all .5s ease;
+        -moz-transition:all .5s ease;
+        -ms-transition:all .5s ease;
+        -o-transition:all .5s ease;
+        -vertical-aligm:middle;
+        }
+        .img-wrapper img:hover{
+        transform:scale(1.2);
+        -webkit-transform:scale(1.2);
+        -ms-transform:scale(1.2);
+        -moz-transform:scale(1.2);
+        -o-transform:scale(1.2);
+        }
+        </style>
+</head>
+<body class="bg-secondary">
+<div class="container">
+    <th:block th:insert="~{fragment/nav :: nav}"></th:block>
+    <div class="container rounded mt-5 mb-5" style="background-color: #adb5bd;">
+        <!-- search bar -->
+        <div class="container p-5 w-75">
+            <form class="form-group d-flex justify-content-around">
+                <input type="text" class="form-control mr-2" id="exampleFormControlInput1" placeholder="원하시는 차량을 입력해주세요!" style="border-radius: 30px;height: 50px;">
+                <button class="btn ml-2" type="submit" style="background-color: rgba(31, 163, 150, 0)"><img src="/webapp/img/icon/free-icon-search-6968650.png" alt="" style="width: 30px; height: 30px;"></button>
+            </form>
+        </div>
+
+        <div class="w-100 d-flex justify-content-evenly rounded mt-5 pt-5 pb-5">
+            <div id="carouselExampleIndicators" class="carousel slide"style="height: 400px; width: 500px;">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img th:src="${car.images[0].path}" class="d-block w-100" alt="...">
+                    </div>
+                    <div th:each="img , i : ${car.images}">
+                        <div th:if="${i.count < 4 && i.count != 1}" class="carousel-item">
+                            <img th:src="${img.path}" class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+            <div class="w-25 pt-5">
+                <h2 th:text="${car.name}">차량이름</h2>
+                <h4 th:text="${car.distance_driven} + ((KM))">주행거리</h4>
+                <h4 th:text="${car.price} + 만원">가격</h4>
+            </div>
+        </div>
+        <hr class="border border-dark border-2 opacity-5 ">
+        <div id="info_car" class="d-flex flex-column">
+            <div class="d-flex flex-column align-items-center justify-content-center">
+                <div class="my-5">
+                    <h2>차량정보</h2>
+                </div>
+                <table class="table table-hover w-50">
+                    <tr>
+                        <th>차량이름:</th>
+                        <td th:text="${car.name}">null</td>
+                    </tr>
+                    <tr>
+                        <th>차량가격:</th>
+                        <td th:text="${car.price} + 만원">null</td>
+                    </tr>
+                    <tr>
+                        <th>년식:</th>
+                        <td th:text="${car.year} + 년식">null</td>
+                    </tr>
+                    <tr>
+                        <th>주행거리:</th>
+                        <td th:text="${car.distance_driven} + ((KM))">null</td>
+                    </tr>
+                    <tr>
+                        <th>사고유무:</th>
+                        <td th:if="${car.accident_history == true}" th:text="유">null</td>
+                        <td th:if="${car.accident_history == false}" th:text="무">null</td>
+                    </tr>
+                    <tr>
+                        <th>연료:</th>
+                        <td th:text="${car.fuel}">null</td>
+                    </tr>
+                    <tr>
+                        <th>제조사:</th>
+                        <td th:text="${car.manufacture}">null</td>
+                    </tr>
+                </table>
+
+                <h2 class="my-5">옵션정보</h2>
+                <table class="table table-striped w-50">
+                    <thead>
+                    <tr>
+                        <th>옵션이름</th>
+                        <th>옵션기능</th>
+                    </tr>
+                    </thead>
+                    <th:block th:if="${options} != null">
+                    <tbody>
+                        <tr th:each="options : ${options}">
+                            <td th:text="${options.options.name}">이름</td>
+                            <td th:text="${options.options.description}">기능</td>
+                        </tr>
+                    </tbody>
+                    </th:block>
+                </table>
+            </div>
+        </div>
+        <hr class="border border-dark border-2 opacity-5 ">
+        <div id="car_img_list" class="container d-flex justify-content-center">
+            <div class="d-flex flex-column align-items-center w-75">
+                <h2 class="my-5">차량사진</h2>
+                <div class="img-wrapper">
+                    <div>
+                        <img th:each="img : ${car.images}" th:src="${img.path}" onclick="window.open(this.src)" class="rounded img-thumbnail col-sm-4 m-5 " alt="...">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="border border-dark border-2 opacity-5 ">
+        <div id="dealer_connect" class="container d-flex justify-content-center">
+            <div class="d-flex flex-column align-items-center w-75">
+                <h2 class="my-5">딜러에게 연락하기</h2>
+                <table class="table table-hover w-50">
+                    <tr>
+                        <th>딜러이름</th>
+                        <td th:text="${car.dealer.name}">뭐시기</td>
+                    </tr>
+                    <tr>
+                        <th>차량 판매수</th>
+                        <td th:text="${car.dealer.sale_count} + '개'">뭐시기</td>
+                    </tr>
+                    <tr>
+                        <th>딜러 휴대폰번호</th>
+                        <td th:text="${car.dealer.phone}">뭐시기</td>
+                    </tr>
+                </table>
+                <p class="my-5">(차량에 관심이 있으시다면 아래 버튼을 눌러주세요^^)</p>
+                <button type="button" onclick="getMode()" class="btn btn-secondary position-relative my-5">
+                    관심있어요!!
+                    <span th:text="${car.point}" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        1
+                        <span class="visually-hidden">unread messages</span>
+                    </span>
+                </button>
+            </div>
+        </div>
+
+
+    </div>
+    <th:block th:insert="~{fragment/footer :: footer}"></th:block>
+</div>
+<script th:inline="javascript">
+    function getObject(){
+        let mode = [[${session.mode}]];
+        if(mode == 'dealer'){
+            alert("딜러님은 관심표현을 할수없습니다. 회원으로 로그인 해주세요");
+        }else{
+            doUpPoint();
+        }
+    }
+    function getMode(){
+        var mode = [[${session.mode}]];
+        if(mode == null){
+            alert("로그인하지 않으셧습니다!");
+            location.href = '/member/login';
+        }else{
+            getObject();
+        }
+    }
+    function doUpPoint(){
+        var carNum = [[${car.id}]];
+        $.ajax({
+                url : '/cars/upPoint',
+                method : "GET",
+                data : {"carNum" : carNum}
+                }).done(function(res){
+                    var length = res.length;
+                    if(length == 0){
+                        location.reload();
+                    }else{
+                        alert(res);
+                    }
+                }).fail(function(xhr,status,error){
+                    alert("오류발생 doUpPoint()"+error);
+                });
+
+
+    }
+</script>
+</body>
+</html>

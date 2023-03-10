@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:insert = "~{fragment/head :: header}"></th:block>
+    <title>Car_Posts</title>
+</head>
+<body class="bg-secondary">
+<div class="container">
+    <th:block th:insert="~{fragment/nav :: nav}"></th:block>
+    <!-- body -->
+    <div class="container rounded mt-5 mb-5" style="background-color: #adb5bd;">
+        <div class="d-flex justify-content-center w-100 pt-5">
+            <form class="was-validated w-75" name="frm" method="post" action="/cars/modifyAction" enctype="multipart/form-data">
+                <input type="hidden" name="_method" value="put" id="mapping">
+                <input type="hidden" name="id" th:value="${car.id}">
+                <div class="mb-3">
+                    <label for="validationTextarea1" class="form-label">차량 이름</label>
+                    <input type="text" th:value="${car.name}" name="name" class="form-control" id="validationTextarea1" placeholder="차량이름을 입력해주세요" required>
+                    <div class="invalid-feedback">
+                        차량이름은 필수입니다.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="validationTextarea2" class="form-label">차량 가격(:만원)</label>
+                    <input type="text" th:value="${car.price}" name="price" class="form-control" id="validationTextarea2" placeholder="차량가격을 입력해주세요" required>
+                    <div class="invalid-feedback">
+                        차량가격은 필수입니다.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="validationTextarea" class="form-label">년식</label>
+                    <select name="year" class="form-select">
+                        <option selected th:value="${car.year}" th:text="${car.year}"></option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="validationTextarea" class="form-label">차량 주행거리(:KM)</label>
+                    <input type="text" name="distance_driven" th:value="${car.distance_driven}" class="form-control" id="validationTextarea" placeholder="주행거리를 입력해주세요" required>
+                    <div class="invalid-feedback">
+                        주행거리는 필수입니다.
+                    </div>
+                </div>
+
+                <th:block th:if="${car.accident_history} == true">
+                    <div class="form-check mb-3">
+                        <input type="radio" value="true" class="form-check-input" id="validationFormCheck2" checked name="accident_history" required>
+                        <label class="form-check-label" for="validationFormCheck2">사고기록 유</label>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input type="radio" value="false" class="form-check-input" id="validationFormCheck3" name="accident_history" required>
+                        <label class="form-check-label" for="validationFormCheck3">사고기록 무</label>
+                        <div class="invalid-feedback">사고유무는 필수입니다.</div>
+                    </div>
+                </th:block>
+
+                <th:block th:if="${car.accident_history} == false">
+                    <div class="form-check mb-3">
+                        <input type="radio" value="true" class="form-check-input" id="validationFormCheck2" name="accident_history" required>
+                        <label class="form-check-label" for="validationFormCheck2">사고기록 유</label>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input type="radio" value="false" class="form-check-input" id="validationFormCheck3"checked name="accident_history" required>
+                        <label class="form-check-label" for="validationFormCheck3">사고기록 무</label>
+                        <div class="invalid-feedback">사고유무는 필수입니다.</div>
+                    </div>
+                </th:block>
+
+                <div class="mb-3">
+                    <label for="validationTextarea" class="form-label">지역</label>
+                    <select name="area" class="form-select" id="area">
+                        <option selected th:value="${car.area}" th:text="${car.area}"></option>
+                        <option value="서울">서울</option>
+                        <option value="경기">경기</option>
+                        <option value="대구">대구</option>
+                        <option value="부산">부산</option>
+                        <option value="세종">세종</option>
+                        <option value="대전">대전</option>
+                        <option value="광주">광주</option>
+                        <option value="강릉">강릉</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="validationTextarea" class="form-label">연료</label>
+                    <select name="fuel" class="form-select" id="fuel">
+                        <option th:value="${car.fuel}" th:text="${car.fuel}" selected></option>
+                        <option value="휘발유">휘발유</option>
+                        <option value="경유">경유</option>
+                        <option value="전기">전기</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="validationTextarea" class="form-label">제조사</label>
+                    <select name="manufacture" class="form-select" id="">
+                        <option th:value="${car.manufacture}" th:text="${car.manufacture}" selected></option>
+                        <option value="HYUNDAI">hyundai</option>
+                        <option value="KIA">kia</option>
+                        <option value="BMW">bmw</option>
+                        <option value="BENZ">benz</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <span>옵션 선택</span>
+                    <select class="form-select" id="options">
+                        <option selected disabled>옵션을 선택해주세요</option>
+                        <option th:each="option : ${options}" th:value="${option.name}" th:text="${option.name}">옵션</option>
+                    </select>
+                    <ul id="ulList">
+                        <th:block th:if="${car_options} != null">
+                            <li th:each="car_options : ${car_options}"  th:text="${car_options.options.name}"></li>
+                        </th:block>
+                        <th:block th:if="${car_options} == null">
+                            <li ></li>
+                        </th:block>
+                    </ul>
+                    <input type="hidden" name="options">
+                </div>
+
+                <div class="mb-3">
+                    <h5>최소 1장의 메인사진과 5장의 사이드 사진을 등록해야합니다.</h5>
+                    <div class="mb-3">
+                        <span>메인사진</span>
+                        <input type="file" multiple="multiple" onchange="readURL(this,1);" name="main" class="form-control" aria-label="file example">
+                        <img class="pt-5 pb-3" id="preview1" th:src="${car.images[0].path}" style="width:300px; height:200px">
+                    </div>
+                    <div class="mb-3">
+                        <span>사이드사진1</span>
+                        <input type="file"  multiple="multiple" onchange="readURL(this,2);" name="side1" class="form-control" aria-label="file example">
+                        <img class="pt-5 pb-3" id="preview2" th:src="${car.images[1].path}" style="width:300px; height:200px">
+                    </div>
+                    <div class="mb-3">
+                        <span>사이드사진2</span>
+                        <input type="file" multiple="multiple" name="side2" onchange="readURL(this,3);" class="form-control" aria-label="file example">
+                        <img class="pt-5 pb-3" id="preview3" th:src="${car.images[2].path}" style="width:300px; height:200px">
+                    </div>
+                    <div class="mb-3">
+                        <span>사이드사진3</span>
+                        <input type="file" multiple="multiple" name="side3" onchange="readURL(this,4);" class="form-control" aria-label="file example">
+                        <img class="pt-5 pb-3" id="preview4" th:src="${car.images[3].path}" style="width:300px; height:200px">
+                    </div>
+                    <div class="mb-3">
+                        <span>사이드사진4</span>
+                        <input type="file" multiple="multiple" name="side4" onchange="readURL(this,5);" class="form-control" aria-label="file example">
+                        <img class="pt-5 pb-3" id="preview5" th:src="${car.images[4].path}" style="width:300px; height:200px">
+                    </div>
+                    <div class="mb-3">
+                        <span>사이드사진5</span>
+                        <input type="file" multiple="multiple" name="side5" onchange="readURL(this,6);" class="form-control" aria-label="file example">
+                        <img class="pt-5 pb-3" id="preview6" th:src="${car.images[5].path}" style="width:300px; height:200px">
+                    </div>
+                    <div class="mb-3">
+                        <th:block th:if="${#lists.size('car.images')} >= 7 ">
+                            <span>사이드사진6</span>
+                            <input type="file" multiple="multiple" name="side6" onchange="readURL(this,7);" class="form-control" aria-label="file example">
+                            <img class="pt-5 pb-3" id="preview7" th:src="${car.images[6].path}" style="width:300px; height:200px">
+                        </th:block>
+                        <th:block th:if="${#lists.size('car.images')} <= 6 ">
+                            <span>사이드사진6</span>
+                            <input type="file" multiple="multiple" name="images" class="form-control" aria-label="file example">
+                        </th:block>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <button class="btn btn-secondary float-right" name="submit" type="submit">수정</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <th:block th:insert="~{fragment/footer :: footer}"></th:block>
+</div>
+</body>
+<script th:inline="javascript">
+
+    $(document).ready(function(){
+        getYear();
+    })
+    <!--년도 option 만들기-->
+    function getYear(){
+        var date = new Date();
+        var selYear = date.getFullYear();
+
+        for(var i = selYear;i >=2000; i--){
+            $("select[name=year]").append("<option value = " + i + "년식>" +i +"</option>");
+        }
+    }
+    <!--옵션기능 배열화-->
+    let optionList = [];
+    $("select[id=options]").change(function(){
+        var text = $("select[id=options] option:selected").text();
+        var value = $(this).val();
+        $("#ulList").append("<li value ="+value+ ">" +text+"</li>");
+    })
+
+    $("button[name=submit]").on('click',function(){
+        const result =  confirm("차량등록을 하시겠습니까?");
+        if(result){
+            var length = $("li").length;
+            for(var i = 0 ; i < length; i++){
+                var values = $("#ulList").find("li").eq(i).text();
+                optionList.push(values);
+            }
+           $("input[name=options]").attr("value",optionList);
+        }else{
+            return null;
+        }
+    })
+
+    function readURL(input,num) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('preview'+num).src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+      } else {
+        document.getElementById('preview'+num).src = "";
+      }
+    }
+</script>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script th:inline="javascript">
+    function getCookie(){
+        	console.log(document.cookie);
+    }
+</script>
+<body>
+    <th:block th:fragment = "nav">
+    <nav class="d-flex justify-content-around text-white rounded" id="nav" style="height: 70px; font-size: 24px; line-height: 70px; background-color: #adb5bd;">
+        <div>
+            <button class="btn" onclick="location.href='/main'">
+                <img src="/img/icon/logo2.png" style="width: 150px; height: 50px;" alt="">
+            </button>
+        </div>
+        <div class="d-flex">
+            <a href="/cars/all"><span><b>차량검색</b></span></a>
+            <img src="/img/icon/free-icon-magnifier-2311526.png" alt="" style="width: 30px ;height: 30px;margin-top: 20px;margin-left: 5px;">
+        </div>
+        <div>
+            <a href="/board/list/member"><span><b>게시판</b></span></a>
+            <img src="/img/icon/free-icon-noticeboard-3000409.png" alt="" style="width: 30px ;height: 30px;margin-bottom: 2px;margin-left: 5px;">
+        </div>
+        <div>
+                <a href="/member/login" th:if="${session.mode} == null" th:utext="'<b>로그인</b>'">
+
+                </a>
+                <a href="/member/mypage" th:if="${session.mode} == member" th:utext="'<b>마이페이지</b>'">
+
+                </a>
+                <a href="/dealer/dealerPage" th:if="${session.mode} == dealer" th:utext="'<b>딜러페이지</b>'">
+
+                </a>
+            <img src="/img/icon/free-icon-user-5264565.png" alt="" style="width: 30px ;height: 30px;margin-bottom: 6px;">
+        </div>
+        <!-- 로그인일땐 마이페이지 비로그인일땐 로그인버튼 -->
+    </nav>
+    </th:block>
+</body>
+</html>

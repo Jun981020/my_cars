@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:insert = "~{fragment/head :: header}"></th:block>
+  <title>Board</title>
+</head>
+<body class="bg-secondary">
+<div class="container">
+  <th:block th:insert="~{fragment/nav :: nav}"></th:block>
+  <!-- body -->
+  <div class="container rounded mt-5 mb-5" style="background-color: #adb5bd;">
+    <div class="text-center p-5"><h2>게시판</h2></div>
+    <div class="d-flex justify-content-center">
+      <button type="button" id="member" onclick="refresh1()" class="btn btn-outline-light">회원게시판</button>
+      <button type="button" id="dealer" onclick="refresh2()" class="btn btn-light">딜러게시판</button>
+    </div>
+    <div class="px-5 w-auto h-auto text-center pt-5 d-flex flex-column align-items-center text-center" style="border-radius: 30px;">
+      <table class="table table-striped" style="border-radius: 60px;">
+        <tr>
+          <td>번호</td>
+          <td>아이디</td>
+          <td>제목</td>
+          <td>등록날짜</td>
+          <td>공개&비밀</td>
+        </tr>
+        <tr th:each="board : ${page.content}">
+          <td th:text="${board.id}"></td>
+          <td th:text="${board.dealer.name}"></td>
+          <td>
+            <a th:if="${board.secret_content == 1}"
+               th:href="@{/board/dealerBoard/{num}(num = ${board.id})}"
+               th:boardId="${board.id}"
+               th:text="${board.title}"
+               class="title"
+               data-bs-toggle="modal" data-bs-target="#exampleModal"
+               th:onclick="sendData(this.getAttribute('boardId'))">
+            </a>
+            <a th:unless="${board.secret_content == 1}"
+               th:href="@{/board/dealerBoard/{num}(num = ${board.id})}"
+               th:text="${board.title}"
+               class="title"
+            >
+            </a>
+          </td>
+          <td th:text="${#temporals.format(board.createAt,'yyyy-MM-dd')}"></td>
+          <td th:if="${board.secret_content == 0}" th:text="공개"></td>
+          <td th:unless="${board.secret_content == 0}" th:text="비공개"></td>
+        </tr>
+      </table>
+      <div class="w-100 pt-5 d-flex justify-content-end">
+        <button class="btn btn-secondary" onclick="boardWriteButton()">글쓰기</button>
+      </div>
+      <div class="container p-5 w-75">
+        <!--search bar-->
+        <form class="form-group d-flex justify-content-around" action="/board/search/dealer">
+          <input type="text" name="str" class="form-control mr-2 mt-2" id="exampleFormControlInput1" placeholder="찾으시는 글제목을 입력해주세요!" style="border-radius: 30px;height: 30px;">
+          <button class="btn ml-2" type="submit" style="background-color: rgba(31, 163, 150, 0)"><img src="/img/icon/free-icon-search-6968650.png" alt="" style="width: 30px; height: 30px;"></button>
+        </form>
+
+        <!--딜러 게시판 페이징처리-->
+        <div th:if="${page.totalPages > 1}" class="d-flex flex-row justify-content-around">
+          <ul class="pagination">
+            <li th:classappend="${page.number == 0} ? disabled : ''" class="my-3">
+              <a th:href="@{/board/list/dealer(page=0)}">&laquo;</a>
+            </li>
+            <li th:each="i : ${#numbers.sequence((page.number > 3 ? page.number - 3 : 0),(page.number + 2 > page.totalPages - 1 ? page.totalPages - 1 : page.number + 2))}"  th:classappend="${page.number == i} ? active : ''" class="mx-1 px-3 my-3">
+              <a th:href="@{/board/list/dealer(page=${i})}" th:text="${i + 1}"></a>
+            </li>
+            <li th:if="${page.totalPages} >= 6" class="mx-1 px-3 my-3">
+              <a th:href="@{/board/list/dealer(page=${page.totalPages-1})}" th:text="...${page.totalPages}"></a>
+            </li>
+            <li th:classappend="${page.number == page.totalPages - 1} ? disabled : ''" class="my-3">
+              <a th:href="@{/board/list/dealer(page=${page.totalPages - 1})}">&raquo;</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">비밀글 비밀번호 확인</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="text" name="password" id="password" value="" placeholder="비밀번호를 입력해주세요" class="w-100 form-control" maxlength="4">
+          <input type="hidden" name="id" id="resData" value="">
+          <div id="passwordResult" class="text-center" style="display:none;color:red">비밀번호가 틀렸습니다.</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+          <button type="button" class="btn btn-primary" th:boardCat="${cat}" th:onclick="checkPrivateContentPassword(this.getAttribute('boardCat'))">비밀번호 확인</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <th:block th:insert="~{fragment/footer :: footer}"></th:block>
+</div>
+</body>
+<script>
+    $(document).ready(function(){
+      $(".active").css("border-bottom","5px solid rgb(120, 120, 120)");
+    })
+</script>
+</html>

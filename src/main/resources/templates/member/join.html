@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:insert = "~{fragment/head :: header}"></th:block>
+    <title>login</title>
+</head>
+<body class="bg-secondary">
+<div class="container">
+    <th:block th:insert="~{fragment/nav :: nav}"></th:block>
+    <!-- body -->
+    <div class="container rounded mt-5 mb-5 " style="background-color: #adb5bd;">
+        <div class="text-center p-5"><h2>회원가입을 해주세요</h2></div>
+        <div class="d-flex justify-content-center pt-5 pb-5">
+            <form action="/member/joinAction" method="post" class="pt-5 w-75 border border-secondary">
+                <div class="mb-3 d-flex justify-content-center">
+                    <label for="id" class="col-1 col-form-label">ID</label>
+                    <div class="w-25">
+                        <input type="text" class="form-control" id="id" placeholder="아이디를 입력해주세요" name="login_id">
+                    </div>
+                </div>
+
+                <div class="mb-3 d-flex justify-content-center">
+                    <label for="password" class="col-1 col-form-label">Password</label>
+                    <div class="w-25">
+                        <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해주세요" name="password">
+                    </div>
+                </div>
+
+                <div class="mb-3 d-flex justify-content-center">
+                    <label for="name" class="col-1 col-form-label">Name</label>
+                    <div class="w-25">
+                        <input type="text" class="form-control" placeholder="이름을 입력해주세요" id="name" name="name">
+                    </div>
+                </div>
+
+                <div class="mb-3 d-flex justify-content-center">
+                    <label for="email" class="col-1 col-form-label">Email</label>
+                    <div class="w-25">
+                        <input type="text" class="form-control" placeholder="이메일을 입력해주세요" id="email" name="email">
+                    </div>
+                </div>
+
+                <div class="mb-3 d-flex justify-content-center ">
+                    <label for="phone" class="col-1 col-form-label">Phone</label>
+                    <div class="w-25">
+                        <input type="text" class="form-control" placeholder="전화번호를 입력해주세요" id="phone" name="phone">
+                    </div>
+                </div>
+                <div class="mb-3 d-flex justify-content-center pt-5">
+                    <button type="button" onclick="check_id_duplicate()" class="form-control btn btn-secondary" style="width: 150px;" >아이디 중복확인</button>
+                    <input type="submit" id="joinbutton" value="회원가입" class="form-control btn btn-secondary" disabled style="width: 150px; margin-left: 30px;" >
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:insert="~{fragment/footer :: footer}"></th:block>
+</div>
+</body>
+<script>
+    function check_id_duplicate(){
+        const id = document.getElementById("id").value;
+        if(id.length == 0){
+            alert("아이디를 입력해주세요");
+        }else{
+            const data = id;
+            $.ajax({
+                url : "/member/checkLoginIdDuplicate",
+                data : {login_id : data},
+                method : "GET",
+                dataType : "json",
+                contentType: 'application/json'
+            }).done(function(res){
+                if(res){
+                   alert("아이디 중복확인이 완료되었습니다.");
+                   $("#joinbutton").attr("disabled",false);
+                }else{
+                    alert("이미가입한 아이디입니다.다른 아이디를 입력해주세요")
+                }
+            }).fail(function(xhr,status,error){
+                alert("오류발생"+error);
+            })
+        }
+    }
+ </script>
+</html>

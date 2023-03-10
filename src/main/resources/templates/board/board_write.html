@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:insert = "~{fragment/head :: header}"></th:block>
+    <title>Board</title>
+</head>
+<body class="bg-secondary">
+<div class="container">
+    <th:block th:insert="~{fragment/nav :: nav}"></th:block>
+    <!-- body -->
+    <div class="container rounded mt-5 mb-5" style="background-color: #adb5bd;">
+        <div class="pt-5 pb-5">
+            <h2 class="text-center mt-5"> 게시글을 작성하세요! </h2>
+            <div class="d-flex justify-content-center w-100">
+                <form class="d-flex flex-column w-75" th:action="@{/board/writeAction/{data}(data=${data})}" method="post" onsubmit="return nepCheck();">
+                    <div class="form-group pt-3 pb-3">
+                        <label for="exampleFormControlTextarea1" class="pb-2">제목을 입력해주세요</label>
+                        <input type="text" class="form-group w-100 rounded" name="title"  style="height: 40px;">
+                    </div>
+                    <div class="form-group pt-3 pb-3">
+                        <label for="exampleFormControlTextarea1" class="pb-2">게시글을 작성해주세요!</label>
+                        <textarea class="form-control rounded" id="exampleFormControlTextarea1" rows="10" name="content"></textarea>
+                    </div>
+                    <div class="d-flex flex-row w-100 justify-content-lg-between">
+                        <div class="pt-3">
+                            <select name="secret_content" id="secret_content" onchange="checking()" class="custom-select rounded" style="width: 100px;">
+                                <option value="0">공개</option>
+                                <option value="1">비공개</option>
+                            </select>
+                            <input type="hidden" placeholder="비밀번호를 입력하세요" id="secret_password" maxlength="4" name="secret_password" style="width: 200px; margin-left: 20px;" class="rounded">
+                            <input type="hidden" name="num" th:value="${num}">
+                        </div>
+
+                        <button class="btn btn-secondary btn-lg float-right" style="width: 100px;">작성!</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <th:block th:insert="~{fragment/footer :: footer}"></th:block>
+</div>
+</body>
+</html>
