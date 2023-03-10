@@ -112,38 +112,25 @@ public class S3FileUploadService {
     public void modifyImg(HashMap<String,MultipartFile> map,String carName,Car car)throws IOException{
         try {
             map.forEach(
-                    (key, value) -> {
-                        try {
-                            final String likeFileName = imgRepository.findNameMainOrSide(car.getId(), key);
-                            File file = new File(System.getProperty("user.dir")+likeFileName);
-                            value.transferTo(file);
-                            uploadOnS3(likeFileName,file);
-                            file.delete();
-                        } catch (IOException e) {
-                            e.getMessage();
-                            throw new RuntimeException(e);
-                        }
-                    }
-            );
+                            (key, value) -> {
+                                try {
+                                    final String likeFileName = imgRepository.findNameMainOrSide(car.getId(), key);
+                                    File file = new File(System.getProperty("user.dir")+likeFileName);
+                                    value.transferTo(file);
+                                    uploadOnS3(likeFileName,file);
+                                    file.delete();
+                                } catch (IOException e) {
+                                    e.getMessage();
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                        );
 
         }catch (Exception e){
             e.getMessage();
         }
 
     }
-//    public void modifyImg(HashMap<String,MultipartFile> map, String carName, Car car, HttpServletRequest request) throws IOException {
-//        //해당 차량의 전체 이미지 파일 경로는 가져옴
-//        List<String> pathList = imgRepository.findPathByCarId(car.getId());
-//        //해당 차량의 디렉토리 찾기
-//        String str = pathList.get(0);
-//        map.forEach( (key, value) -> {
-//            try{
-//                changeImg(key,car.getId(),value,request);
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//        });
-//    }
     private String getUuid(){
         return UUID.randomUUID().toString().replaceAll("-","");
     }

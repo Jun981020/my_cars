@@ -136,7 +136,7 @@ public class CarService {
         Car one = getOne(id);
         Dealer dealer = one.getDealer();
         dealer.saleCar(one);
-        imgService.removeImgDir(one,request);
+        s3FileUploadService.removeImg(one);
         likesRepository.deleteByCarId(one.getId());
         carRepository.delete(one);
     }
