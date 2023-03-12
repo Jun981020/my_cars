@@ -2,7 +2,6 @@ package com.jproject.my_cars.domain.cars;
 
 import com.jproject.my_cars.domain.cars.car_options.CarOptions;
 import com.jproject.my_cars.domain.cars.car_options.CarOptionsRepository;
-import com.jproject.my_cars.domain.cars.img.ImgService;
 import com.jproject.my_cars.domain.cars.img.S3FileUploadService;
 import com.jproject.my_cars.domain.cars.option.OptionRepository;
 import com.jproject.my_cars.domain.cars.option.Options;
@@ -10,7 +9,6 @@ import com.jproject.my_cars.domain.dealer.Dealer;
 import com.jproject.my_cars.domain.likes.Likes;
 import com.jproject.my_cars.domain.likes.LikesRepository;
 import com.jproject.my_cars.domain.member.Member;
-import com.jproject.my_cars.domain.member.MemberRepository;
 import com.jproject.my_cars.dto.CarPostsDto;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +30,6 @@ public class CarService {
     private final OptionRepository optionRepository;
     private final LikesRepository likesRepository;
     private final CarOptionsRepository carOptionsRepository;
-    private final ImgService imgService;
     private final S3FileUploadService s3FileUploadService;
 
     //모든 차량 가져오기

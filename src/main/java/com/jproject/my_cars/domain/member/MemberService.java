@@ -1,6 +1,5 @@
 package com.jproject.my_cars.domain.member;
 
-import com.jproject.my_cars.domain.cars.CarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
