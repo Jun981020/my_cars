@@ -11,7 +11,7 @@
     <div class="container rounded mt-5 mb-5 " style="background-color: #adb5bd;">
         <div class="text-center p-5"><h2>딜러등록을 진행해주세요</h2></div>
         <div class="d-flex justify-content-center pt-5 pb-5">
-            <form action="/dealer/joinAction" method="post" class="pt-5 w-75 border border-secondary">
+            <form action="/dealer/joinAction" method="post" name="frm" class="pt-5 w-75 border border-secondary">
                 <div class="mb-3 d-flex justify-content-center">
                     <label for="id" class="col-2 col-form-label">ID</label>
                     <div class="w-25">
@@ -43,7 +43,7 @@
                 <div class="mb-3 d-flex justify-content-center ">
                     <label for="employee_number" class="col-2 col-form-label">employee_number</label>
                     <div class="w-25">
-                        <input type="text" class="form-control" id="employee_number" placeholder="사원번호를 입력해주세요" name="employee_number">
+                        <input type="text" class="form-control" id="employee_number" placeholder="사원번호를 입력해주세요(-포함)" name="employee_number">
                     </div>
                 </div>
 
@@ -62,7 +62,7 @@
                 </div>
                 <div class="mb-3 d-flex justify-content-center pt-5">
                     <button type="button" onclick="check_id_duplicate()" class="form-control btn btn-secondary" style="width: 150px;" >아이디 중복확인</button>
-                    <input type="submit" id="joinbutton" value="딜러등록" class="form-control btn btn-secondary" disabled style="width: 150px; margin-left: 30px;" >
+                    <input type="submit" id="joinbutton" value="딜러등록" onclick="return checkDealerJoinNep()" class="form-control btn btn-secondary" disabled style="width: 150px; margin-left: 30px;" >
                 </div>
             </form>
         </div>

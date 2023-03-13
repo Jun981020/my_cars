@@ -223,4 +223,70 @@ function cancelReplyModify(id){
     $(edit_comment_form).hide();
     $(reply_text).show();
 }
+function checkMemberJoinNep(){
+    if(frm.id.value.length == 0){
+        alert("아이디를 입력해주세요");
+        frm.id.focus();
+        return false;
+    }
+    if(frm.password.value.length == 0){
+        alert("비밀번호를 입력해주세요");
+        frm.password.focus();
+        return false;
+    }
+    if(frm.name.value.length == 0){
+        alert("이름을 입력해주세요");
+        frm.name.focus();
+        return false;
+    }
+    if(frm.email.value.length == 0){
+        alert("이메일을 입력해주세요");
+        frm.email.focus();
+        return false;
+    }
+    if(frm.phone.value.length == 0){
+        alert("이메일을 입력해주세요");
+        frm.phone.focus();
+        return false;
+    }
+    alert("회원가입이 완료되었습니다.");
+    return true;
+}
+function checkDealerJoinNep(){
+    if(frm.id.value.length == 0){
+        alert("아이디를 입력해주세요");
+        frm.id.focus();
+        return false;
+    }
+    if(frm.password.value.length == 0){
+        alert("비밀번호를 입력해주세요");
+        frm.password.focus();
+        return false;
+    }
+    if(frm.name.value.length == 0){
+        alert("이름을 입력해주세요");
+        frm.name.focus();
+        return false;
+    }
+    if(frm.phone.value.length == 0){
+        alert("전화번호를 입력해주세요");
+        frm.phone.focus();
+        return false;
+    }
+    if(frm.employee_number.value.length == 0){
+        alert("사원번호를 입력해주세요");
+        frm.employee_number.focus();
+        return false;
+    }
+    if(frm.company.value.length == 0){
+        alert("소속된 회사를 입력해주세요");
+        frm.company.focus();
+        return false;
+    }
+    if(frm.acquisition_date.value == null || frm.acquisition_date.value == ''){
+        alert("사원증발급 날짜를 입력해주세요");
+        frm.acquisition_date.focus();
+        return false;
+    }
+}
 console.log('현재 이페이지에 적용중입니다.');
