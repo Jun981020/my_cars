@@ -1,5 +1,6 @@
 package com.jproject.my_cars.web;
 
+import com.jproject.my_cars.configuration.WebMvcConfig;
 import com.jproject.my_cars.domain.board.dealer_board.DealerBoard;
 import com.jproject.my_cars.domain.board.dealer_board.DealerBoardService;
 import com.jproject.my_cars.domain.cars.Car;
@@ -13,10 +14,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -59,9 +65,10 @@ public class DealerController {
         return dealerService.check_join_id(login_id);
     }
     @PostMapping("/dealer/joinAction")
-    public String dealer_join(DealerJoinDto dto){
+    public String dealer_join(@ModelAttribute DealerJoinDto dto){
         log.info("/dealer/joinAction");
-        Card card = new Card(dto.getEmployee_number(),dto.getCompany(),dto.getAcquisition_date());
+        LocalDate date = LocalDate.parse(dto.getAcquisition_date());
+        Card card = new Card(dto.getEmployee_number(),dto.getCompany(),date);
         Dealer dealer = Dealer.joinDealer(dto, card);
         dealerService.saveDealer(dealer);
         return "redirect:/main";

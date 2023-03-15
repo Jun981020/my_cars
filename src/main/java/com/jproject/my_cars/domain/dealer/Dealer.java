@@ -1,6 +1,7 @@
 package com.jproject.my_cars.domain.dealer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jproject.my_cars.domain.BaseEntity;
 import com.jproject.my_cars.domain.cars.Car;
 import com.jproject.my_cars.domain.dealer.employee.Card;
 import com.jproject.my_cars.dto.DealerJoinDto;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @Entity
 @Getter
-public class Dealer {
+public class Dealer extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull

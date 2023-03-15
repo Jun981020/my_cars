@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Embeddable
 @Getter
@@ -25,10 +26,10 @@ public class Card {
     //사원증 발급날짜
     private LocalDate acquisition_date;
 
-    public Card(String employee_number,String company, String date){
+    public Card(String employee_number,String company, LocalDate date){
         this.employee_number = employee_number;
         this.company = company;
-        this.acquisition_date = LocalDate.parse(date);
+        this.acquisition_date = date;
     }
 
     @Override
