@@ -43,7 +43,7 @@
                 <div class="mb-3 d-flex justify-content-center ">
                     <label for="employee_number" class="col-2 col-form-label">employee_number</label>
                     <div class="w-25">
-                        <input type="text" class="form-control" id="employee_number" placeholder="사원번호를 입력해주세요(-포함)" name="employee_number">
+                        <input type="text" class="form-control" id="employee_number" pattern="\d{3}-\d{5}-\d{2}" maxlength="12" placeholder="사원번호를 입력해주세요(-포함)" required name="employee_number">
                     </div>
                 </div>
 
