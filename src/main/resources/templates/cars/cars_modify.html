@@ -108,7 +108,7 @@
 
                 <div class="mb-3">
                     <span>옵션 선택</span>
-                    <select class="form-select" id="options">
+                    <select class="form-select" id="optionsModify">
                         <option selected disabled>옵션을 선택해주세요</option>
                         <option th:each="option : ${options}" th:value="${option.name}" th:text="${option.name}">옵션</option>
                     </select>
@@ -120,6 +120,9 @@
                             <li ></li>
                         </th:block>
                     </ul>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary" id="optionsListClear">옵션 초기화</button>
+                    </div>
                     <input type="hidden" name="options">
                 </div>
 
@@ -169,7 +172,7 @@
                 </div>
                 <div class="d-flex justify-content-end">
                 <div class="mb-3">
-                    <button class="btn btn-secondary" name="submit" type="submit">수정</button>
+                    <button class="btn btn-secondary" name="submitModify" type="submit">수정</button>
                 </div>
                 </div>
             </form>
@@ -183,48 +186,11 @@
 
     $(document).ready(function(){
         getYear();
-    })
-    <!--년도 option 만들기-->
-    function getYear(){
-        var date = new Date();
-        var selYear = date.getFullYear();
-
-        for(var i = selYear;i >=2000; i--){
-            $("select[name=year]").append("<option value = " + i + "년식>" +i +"</option>");
-        }
-    }
-    <!--옵션기능 배열화-->
-    let optionList = [];
-    $("select[id=options]").change(function(){
-        var text = $("select[id=options] option:selected").text();
-        var value = $(this).val();
-        $("#ulList").append("<li value ="+value+ ">" +text+"</li>");
+        $("#optionsListClear").click(function(){
+            $("#ulList").empty();
+            optionList = [];
+        })
     })
 
-    $("button[name=submit]").on('click',function(){
-        const result =  confirm("차량등록을 하시겠습니까?");
-        if(result){
-            var length = $("li").length;
-            for(var i = 0 ; i < length; i++){
-                var values = $("#ulList").find("li").eq(i).text();
-                optionList.push(values);
-            }
-           $("input[name=options]").attr("value",optionList);
-        }else{
-            return null;
-        }
-    })
-
-    function readURL(input,num) {
-      if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-          document.getElementById('preview'+num).src = e.target.result;
-        };
-        reader.readAsDataURL(input.files[0]);
-      } else {
-        document.getElementById('preview'+num).src = "";
-      }
-    }
 </script>
 </html>

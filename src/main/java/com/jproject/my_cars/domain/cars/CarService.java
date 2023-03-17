@@ -92,8 +92,10 @@ public class CarService {
     public void modifyCar(Long carNum,CarPostsDto dto,String[] options){
         Car entity = carRepository.findById(carNum).get();
         Car car = entity.carModify(dto);
+        car.getOptions().clear();
         carOptionsRepository.deleteByCarId(car.getId());
         if(options.length != 0){
+            System.out.println("options = " + options.length);
             for (String name : options) {
                 Options findOption = optionRepository.findByName(name);
                 CarOptions carOptions = new CarOptions();

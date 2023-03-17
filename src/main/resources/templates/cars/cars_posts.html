@@ -105,11 +105,11 @@
 
                 <div class="mb-3">
                     <span>옵션 선택</span>
-                    <select class="form-select" id="options">
+                    <select class="form-select" id="optionsPost">
                         <option selected disabled>옵션을 선택해주세요</option>
                         <option th:each="option : ${options}" th:value="${option.name}" th:text="${option.name}">옵션</option>
                     </select>
-                    <ul id="ulList">
+                    <ul id="ulListPost">
 
                     </ul>
                     <div class="d-flex justify-content-end">
@@ -164,7 +164,7 @@
                 </div>
 
                 <div class="mb-3 d-flex justify-content-end">
-                    <button class="btn btn-secondary" name="submit" type="submit" style="width:100px">등록</button>
+                    <button class="btn btn-secondary" name="submitPost" type="submit" style="width:100px">등록</button>
                 </div>
             </form>
         </div>

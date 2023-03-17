@@ -146,21 +146,41 @@ function getYear(){
         }
 }
 //옵션기능 배열화
-let optionList = [];
-$("select[id=options]").change(function(){
-      var text = $("select[id=options] option:selected").text();
+let optionListPost = [];
+$("select[id=optionsPost]").change(function(){
+      var text = $("select[id=optionsPost] option:selected").text();
       var value = $(this).val();
-      $("#ulList").append("<li value ="+value+ ">" +text+"</li>");
-      optionList.push(text);
+      $("#ulListPost").append("<li value ="+value+ ">" +text+"</li>");
+      optionListPost.push(text);
 })
-$("button[name=submit]").on('click',function(){
+$("button[name=submitPost]").on('click',function(){
       const result =  confirm("차량등록을 하시겠습니까?");
       if(result){
-         $("input[name=options]").attr("value",optionList);
+         $("input[name=options]").attr("value",optionListPost);
       }else{
           return null;
       }
 })
+let optionListModify = [];
+$("select[id=optionsModify]").change(function(){
+      var text = $("select[id=optionsModify] option:selected").text();
+      var value = $(this).val();
+      $("#ulList").append("<li value ="+value+ ">" +text+"</li>");
+      optionListModify.push(text);
+})
+    $("button[name=submitModify]").on('click',function(){
+        const result =  confirm("차량등록을 하시겠습니까?");
+        if(result){
+            var length = $("#ulList li").length;
+            for(var i = 0 ; i < length; i++){
+                var values = $("#ulList").find("li").eq(i).text();
+                optionListModify.push(values);
+            }
+           $("input[name=options]").attr("value",optionListModify);
+        }else{
+            return null;
+        }
+    })
 //이미지 클릭시 미리보기 사진 보여주기
 function readURL(input,num) {
       if (input.files && input.files[0]) {

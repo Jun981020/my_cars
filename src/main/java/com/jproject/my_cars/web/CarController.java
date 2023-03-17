@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -126,10 +127,14 @@ public class CarController {
         log.info("/cars/modifyAction");
         Long carNum = (long)id;
         String[] options = {};
+        System.out.println("str = " + str);
+        System.out.println("str.length() = " + str.length());
         if(!str.isEmpty()){
             //options 배열 분리하기
             options = str.split(",");
         }
+        System.out.println("options = " + options);
+        System.out.println("options = " + options.length);
         //car entity 가져오기
         Car car = carService.getOne(carNum);
         //options & car 정보 수정
@@ -169,8 +174,8 @@ public class CarController {
                            Model model){
         log.info("/cars/fuel");
         String fuel = switch (value) {
-            case "Gasoline" -> "가솔린";
-            case "Diesel" -> "디젤";
+            case "Gasoline" -> "휘발유";
+            case "Diesel" -> "경유";
             case "Electricity" -> "전기";
             default -> "";
         };

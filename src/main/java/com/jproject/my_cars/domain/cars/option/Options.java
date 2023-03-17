@@ -15,7 +15,7 @@ public class Options {
     //옵션 이름
     private String name;
     @NotNull
-    @Column(name = "description",length = 50)
+    @Column(name = "description")
     //옵션 설명
     private String description;
 
