@@ -166,7 +166,6 @@ $("select[id=optionsModify]").change(function(){
       var text = $("select[id=optionsModify] option:selected").text();
       var value = $(this).val();
       $("#ulList").append("<li value ="+value+ ">" +text+"</li>");
-      optionListModify.push(text);
 })
     $("button[name=submitModify]").on('click',function(){
         const result =  confirm("차량등록을 하시겠습니까?");
