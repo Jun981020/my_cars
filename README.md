@@ -2,14 +2,12 @@
 중고차 판매사이트 프로젝트
 
 <h2>Description</h2>
-Site Public DNS : <b>ec2-15-165-66-97.ap-northeast-2.compute.amazonaws.com </b><br>
-Using Port : <b>8085 </b> <br>
+<h3>Site Public DNS :</h3> ec2-15-165-66-97.ap-northeast-2.compute.amazonaws.com </b>
+<h3>Using Port :</h3> <b>8085 </b> <br>
 http://ec2-15-165-66-97.ap-northeast-2.compute.amazonaws.com:8085/main <br> <br> <br>
-Test Member & Dealer IDPW : <br>
-Member : <br> { login_id : parrot,<br> password : xokoninobo } <br>
-Member : <br> { login_id : vixen,<br> password : gerepogadu } <br>
-Dealer : <br> { login_id : stair,<br> password : tutakeneme, <br> employee_number : 412-48975-73} <br>
-Dealer : <br> { login_id : tensor,<br> password : jicuzidaqe,<br> employee_number : 665-10241-40} <br>
+<h2>Test Member & Dealer IDPW :</h2> <br>
+<h3>Member :</h3> <br> { login_id : parrot,<br> password : xokoninobo },<br> <br>{ login_id : vixen,<br> password : gerepogadu } <br><br><br>
+<h3>Dealer :</h3> <br> { login_id : stair,<br> password : tutakeneme, <br> employee_number : 412-48975-73} ,<br><br>{ login_id : tensor,<br> password : jicuzidaqe,<br> employee_number : 665-10241-40} <br>
 
 <h2>Dependencies(Gradle)</h2>
 <code><pre>
