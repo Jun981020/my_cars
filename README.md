@@ -5,7 +5,7 @@
 Site Public DNS : <b>ec2-15-165-66-97.ap-northeast-2.compute.amazonaws.com </b><br>
 Using Port : <b>8085 </b> <br>
 http://ec2-15-165-66-97.ap-northeast-2.compute.amazonaws.com:8085/main <br> <br> <br>
-Product Demonstration : <br>
+Test Member & Dealer IDPW : <br>
 Member : <br> { login_id : parrot,<br> password : xokoninobo } <br>
 Member : <br> { login_id : vixen,<br> password : gerepogadu } <br>
 Dealer : <br> { login_id : stair,<br> password : tutakeneme, <br> employee_number : 412-48975-73} <br>
