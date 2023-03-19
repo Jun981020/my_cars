@@ -42,7 +42,6 @@ public class S3FileUploadService {
 
     private final ImgRepository imgRepository;
     private AmazonS3 amazonS3Client;
-    private CarRepository carRepository;
 
     @PostConstruct
     public void setS3Client() {

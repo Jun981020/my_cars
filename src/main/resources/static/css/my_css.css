@@ -1,12 +1,18 @@
 a{
     text-decoration: none;
 }
-    #nav > div > a{
-        color: rgb(31, 163, 149);
+
+.nav-item a {
+    color: rgb(31, 163, 149);
+    text-decoration: none;
 }
+
 li > a {
   color: rgb(120, 120, 120);
 }
 ::-webkit-input-placeholder { /* Chrome, Safari, Opera */
     text-align: center;
+}
+.toggle-li{
+    background-color : #adb5bdb9;
 }
