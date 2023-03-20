@@ -14,5 +14,6 @@ li > a {
     text-align: center;
 }
 .toggle-li{
-    background-color : #adb5bdb9;
+    background-color : #adb5bdf6;
+    z-index: 99;
 }

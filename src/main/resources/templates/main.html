@@ -17,10 +17,9 @@
     <!--Nav-->
     <th:block th:insert="~{fragment/nav :: nav}"></th:block>
     <!--Main Page Body-->
-    <div class="container d-lg-flex justify-content-lg-center h-auto mt-5 mb-5 rounded" style="background-color: #adb5bd;">
-
+    <div class="container d-lg-flex justify-content-lg-center h-auto mb-5 rounded" style="background-color: #adb5bd; margin-top: 100px;">
         <!-- search bar -->
-        <div class="container-lg p-lg-2 w-lg-75 pt-xs-5 col-lg-6">
+        <div class="container-lg p-lg-2 w-lg-75 mt-lg-5 pt-xs-5 col-lg-6">
             <form class="form-group d-flex justify-content-around" action="/cars/search">
                 <input type="text" class="form-control mr-2" name="value" id="exampleFormControlInput1" placeholder="원하시는 차량을 입력해주세요!" style="border-radius: 30px;height: 50px;">
                 <button class="btn ml-2" type="submit" style="background-color: rgba(31, 163, 150, 0)"><img src="/img/icon/free-icon-search-6968650.png" alt="" style="width: 30px; height: 30px;"></button>
