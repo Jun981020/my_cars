@@ -4,29 +4,22 @@
 <head>
     <th:block th:insert = "~{fragment/head :: header}"></th:block>
     <title>Main</title>
-    <style>
-        @media (min-width: 0) {
-            .pt-xs-5{
-                padding-top: 30px;
-            }
-        }
-    </style>
 </head>
 <body class="bg-secondary">
 <div class="container">
     <!--Nav-->
     <th:block th:insert="~{fragment/nav :: nav}"></th:block>
     <!--Main Page Body-->
-    <div class="container d-lg-flex justify-content-lg-center h-auto mb-5 rounded" style="background-color: #adb5bd; margin-top: 100px;">
+    <div class="container d-lg-flex justify-content-lg-center mb-5 rounded" style="background-color: #adb5bd; margin-top: 100px;">
         <!-- search bar -->
-        <div class="container-lg p-lg-2 w-lg-75 mt-lg-5 pt-xs-5 col-lg-6">
+        <div class="container-sm p-lg-2 mt-lg-5 pt-xs-5 col-lg-6">
             <form class="form-group d-flex justify-content-around" action="/cars/search">
                 <input type="text" class="form-control mr-2" name="value" id="exampleFormControlInput1" placeholder="원하시는 차량을 입력해주세요!" style="border-radius: 30px;height: 50px;">
-                <button class="btn ml-2" type="submit" style="background-color: rgba(31, 163, 150, 0)"><img src="/img/icon/free-icon-search-6968650.png" alt="" style="width: 30px; height: 30px;"></button>
+                <button class="btn ml-2" type="submit" style="background-color: rgba(31, 163, 150, 0)"><img src="/img/icon/free-icon-search-6968650.png" class="search-bar-xs search-bar-lg" alt="" ></button>
             </form>
             <th:block th:if="${top2car} != null">
             <!--BEST1 CARD-->
-            <div class="container-sm d-flex justify-content-center"th:each="list , current: ${top2car}">
+            <div class="d-flex justify-content-center"th:each="list , current: ${top2car}">
                 <div class="card my-5 w-100" style="max-width:22rem">
                     <a th:href="@{/cars/carOne/{num}(num = ${list.id})}">
                         <img th:src="${list.images[0].path}" class="card-img-top img-fluid" alt="...">
@@ -48,7 +41,7 @@
             </th:block>
         </div>
         <!--carousel-->
-        <div id="carouselExampleIndicators" class="carousel slide carousel-fade col-lg-6 p-lg-2 w-lg-75 w-sm-100 mt-5 mb-sm-5 px-sm-3 h-auto" data-bs-ride="carousel" >
+        <div id="carouselExampleIndicators" class="carousel slide carousel-fade col-lg-6 p-lg-2 w-sm-100 mt-5 mb-sm-5 px-sm-3 h-auto" data-bs-ride="carousel" >
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>

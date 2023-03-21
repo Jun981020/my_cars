@@ -3,40 +3,6 @@
 <head>
     <th:block th:insert = "~{fragment/head :: header}"></th:block>
     <title>MyPage</title>
-    <style>
-        @media (min-width: 0) {
-            .btn{
-                font-size: 17px;
-            }
-            .flex-xs-column{
-               flex-direction: column;
-            }
-            .xs-font{
-                font-size: 14px;
-            }
-            .d-xs-flex{
-                display: flex;
-            }
-            .flex-xs-column{
-                flex-direction: column;
-                align-items: center;
-
-            }
-            .btn-xs{
-                width: 70%;
-                margin: 20px 0;
-            }
-
-        }
-        @media(min-width:768px){
-            .md-font{
-                font-size: 18px;
-            }
-            .btn-lg{
-                width: 20%;
-            }
-        }
-    </style>
 </head>
 <body class="bg-secondary">
 <div class="container">
@@ -45,7 +11,7 @@
     <div class="container rounded  mb-5" style="background-color: #adb5bd; margin-top: 100px;">
         <div class="text-center p-5"><h2>딜러페이지</h2></div>
         <div class="d-flex justify-content-center">
-            <table class="table w-75 md-font xs-font">
+            <table class="table w-lg-75 w-xs-100 md-font xs-font">
                 <thead>
                 <tr>
                     <th colspan="4" style="text-align: center; " th:text="${dealer.name}"></th>
@@ -84,17 +50,17 @@
             </table>
         </div>
         <div class="d-flex justify-content-around w-100 pt-5 pb-5">
-            <button class="btn btn-secondary btn-lg" th:onclick="|location.href='@{/cars/posts}'|" style="height:45px">
+            <button class="btn btn-secondary btn-lg md-font xs-font" th:onclick="|location.href='@{/cars/posts}'|" style="height:45px">
                 차량등록
             </button>
-            <button class="btn btn-danger btn-lg" th:onclick="|location.href='@{/dealer/logout}'|" style="height:45px">
+            <button class="btn btn-danger btn-lg md-font xs-font" th:onclick="|location.href='@{/dealer/logout}'|" style="height:45px">
                 로그아웃
             </button>
         </div>
         <hr>
          <!--딜러 개인 등록한 차량 리스트-->
         <div class="d-flex justify-content-center py-5">
-            <div class="accordion w-75" id="accordionExample1">
+            <div class="accordion w-lg-75 w-xs-100" id="accordionExample1">
                 <div class="accordion-item" style="background-color: #adb5bd;" >
                     <h2 class="accordion-header" id="headingOne1">
                         <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1" style="background-color: #cad0d6;">
@@ -103,12 +69,12 @@
                     </h2>
                     <div id="collapseOne1" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                         <div class="accordion-body" th:each="cars : ${list}">
-                            <div class="d-lg-flex flex-lg-row flex-xs-column">
+                            <div class="d-lg-flex flex-lg-row flex-xs-column align-item-xs-center">
                                 <a th:href="@{/cars/carOne/{num}(num = ${cars.id})}">
                                     <img class="border img-fluid"  th:src="${cars.images[0].path}" alt="" style="width: 400px;height: 300px;">
                                 </a>
                                 <div class="d-flex justify-content-center w-100 md-font xs-font">
-                                    <table class="table w-75">
+                                    <table class="table w-lg-75 w-xs-100">
                                         <thead>
                                         <tr>
                                             <th colspan="4" style="text-align: center;" th:text="${cars.name}"><b>차량이름</b></th>
@@ -132,10 +98,10 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="d-md-flex flex-md-row justify-content-md-around pt-5 pb-3 d-xs-flex flex-xs-column ">
-                                <button class="btn btn-lg btn-xs btn-secondary" th:carId="${cars.id}" th:onclick="modifyCar(this.getAttribute('carId'))">차량수정</button>
-                                <button class="btn btn-lg btn-xs btn-secondary" th:carId="${cars.id}" th:onclick="saleCar(this.getAttribute('carId'))">차량판매완료</button>
-                                <button class="btn btn-lg btn-xs btn-danger" th:carId="${cars.id}" th:onclick="removeCar(this.getAttribute('carId'))">차량삭제</button>
+                            <div class="d-md-flex flex-md-row justify-content-md-around pt-5 pb-3 d-xs-flex flex-xs-column align-item-xs-center">
+                                <button class="btn btn-lg mb-xs-2  btn-secondary md-font xs-font" th:carId="${cars.id}" th:onclick="modifyCar(this.getAttribute('carId'))">차량수정</button>
+                                <button class="btn btn-lg mb-xs-2 btn-secondary md-font xs-font" th:carId="${cars.id}" th:onclick="saleCar(this.getAttribute('carId'))">차량판매완료</button>
+                                <button class="btn btn-lg  btn-danger md-font xs-font" th:carId="${cars.id}" th:onclick="removeCar(this.getAttribute('carId'))">차량삭제</button>
                             </div>
                             <hr>
                         </div>
@@ -146,7 +112,7 @@
 
     <!--딜러가 쓴 게시물 보기-->
         <div class="d-flex justify-content-center py-5">
-            <div class="accordion w-75" id="accordionExample2">
+            <div class="accordion w-lg-75 w-xs-100" id="accordionExample2">
                 <div class="accordion-item" style="background-color: #adb5bd;" >
                     <h2 class="accordion-header" id="headingOne2">
                         <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne2" aria-expanded="true" aria-controls="collapseOne2" style="background-color: #cad0d6;">

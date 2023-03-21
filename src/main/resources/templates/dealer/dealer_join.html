@@ -3,88 +3,58 @@
 <head>
     <th:block th:insert = "~{fragment/head :: header}"></th:block>
     <title>Dealer_Join</title>
-    <style>
-        @media (min-width: 0) {
-            .d-xs-flex{
-                display: flex;
-                padding-left: 10px;
-                padding-right: 10px;
-            }
-            .flex-xs-column{
-               flex-direction: column;
-            }
-            .mb-xs-3{
-                margin-bottom: 1.5rem;
-            }
-            .w-xs-100{
-                width: 100%;
-            }
-            .align-items-xs-center{
-                align-items: center;
-            }
-            .mb-xs-5{
-                margin-bottom: 30px;
-            }
-
-        }
-        @media(min-width:768px){
-            .w-md-25{
-                width: 25%;
-            }
-        }
-    </style>
 </head>
 <body class="bg-secondary">
 <div class="container">
     <th:block th:insert="~{fragment/nav :: nav}"></th:block>
     <!-- body -->
     <div class="container rounded mb-5 " style="background-color: #adb5bd;margin-top: 100px;">
-        <div class="text-center p-5"><h2>딜러등록을 진행해주세요</h2></div>
+        <div class="text-center p-5"><h2>딜러등록</h2></div>
         <div class="d-flex justify-content-center pt-lg-5 pb-5">
-            <form action="/dealer/joinAction" method="post" name="frm" class="pt-5 w-75 border border-secondary">
-                <div class="mb-md-3 d-md-flex flex-md-row justify-content-md-around mb-xs-3 d-xs-flex flex-xs-column">
+            <form action="/dealer/joinAction" method="post" name="frm" class="pt-5 w-lg-75 w-xs-100 border border-secondary">
+                <div class="mb-md-3 d-md-flex flex-md-row justify-content-md-around mb-xs-3 d-xs-flex d-xs-flex-p flex-xs-column">
                     <label for="id" class="col-2 col-form-label">ID</label>
                     <div class="w-md-25">
                         <input type="text" class="form-control" placeholder="아이디를 입력해주세요" id="id" name="loginId">
                     </div>
                 </div>
 
-                <div class="mb-md-3 d-md-flex flex-md-row justify-content-md-around mb-xs-3 d-xs-flex flex-xs-column">
+                <div class="mb-md-3 d-md-flex flex-md-row justify-content-md-around mb-xs-3 d-xs-flex d-xs-flex-p flex-xs-column">
                     <label for="password" class="col-2 col-form-label">Password</label>
                     <div class="w-md-25">
                         <input type="password" class="form-control" placeholder="비밀번호를 입력해주세요" id="password" name="password">
                     </div>
                 </div>
 
-                <div class="mb-md-3 d-md-flex flex-md-row justify-content-md-around mb-xs-3 d-xs-flex flex-xs-column">
+                <div class="mb-md-3 d-md-flex flex-md-row justify-content-md-around mb-xs-3 d-xs-flex d-xs-flex-p flex-xs-column">
                     <label for="name" class="col-2 col-form-label">Name</label>
                     <div class="w-md-25">
                         <input type="text" class="form-control" placeholder="이름을 입력해주세요" id="name" name="name">
                     </div>
                 </div>
 
-                <div class="mb-md-3 d-md-flex flex-md-row justify-content-md-around mb-xs-3 d-xs-flex flex-xs-column">
+                <div class="mb-md-3 d-md-flex flex-md-row justify-content-md-around mb-xs-3 d-xs-flex d-xs-flex-p flex-xs-column">
                     <label for="phone" class="col-2 col-form-label">Phone</label>
                     <div class="w-md-25">
                         <input type="text" class="form-control" id="phone" placeholder="전화번호를 입력해주세요" name="phone">
                     </div>
                 </div>
 
-                <div class="mb-md-3 d-md-flex flex-md-row justify-content-md-around mb-xs-3 d-xs-flex flex-xs-column">
+                <div class="mb-md-3 d-md-flex flex-md-row justify-content-md-around mb-xs-3 d-xs-flex d-xs-flex-p flex-xs-column">
                     <label for="employee_number" class="col-2 col-form-label">employee_number</label>
                     <div class="w-md-25">
                         <input type="text" class="form-control" id="employee_number" pattern="\d{3}-\d{5}-\d{2}" maxlength="12" placeholder="사원번호를 입력해주세요(-포함)" required name="employee_number">
                     </div>
                 </div>
 
-                <div class="mb-md-3 d-md-flex flex-md-row justify-content-md-around mb-xs-3 d-xs-flex flex-xs-column">
+                <div class="mb-md-3 d-md-flex flex-md-row justify-content-md-around mb-xs-3 d-xs-flex d-xs-flex-p flex-xs-column">
                     <label for="company" class="col-2 col-form-label">company</label>
                     <div class="w-md-25">
                         <input type="text" class="form-control" id="company" placeholder="회사명을 입력해주세요" name="company">
                     </div>
                 </div>
 
-                <div class="mb-md-3 d-md-flex flex-md-row justify-content-md-around mb-xs-3 d-xs-flex flex-xs-column">
+                <div class="mb-md-3 d-md-flex flex-md-row justify-content-md-around mb-xs-3 d-xs-flex d-xs-flex-p flex-xs-column">
                     <label for="acquisition_date" class="col-2 col-form-label">acquisition_date</label>
                     <div class="w-md-25">
                         <input type="date" class="form-control" id="acquisition_date" name="acquisition_date">
