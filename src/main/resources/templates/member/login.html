@@ -14,10 +14,16 @@
             .w-xs-50{
                 width : 50%;
             }
+            .xs-font{
+                font-size : 13px;
+            }
         }
         @media(min-width: 992px){
             .w-lg-25{
                 width : 25%;
+            }
+            .md-font{
+                font-size : 16px;
             }
         }
     </style>
@@ -28,7 +34,7 @@
     <th:block th:insert="~{fragment/nav :: nav}"></th:block>
     <!-- LonginPageBody -->
     <div class="container rounded mb-5" style="background-color: #adb5bd; margin-top: 100px;">
-        <div class="text-center p-5"><h2>로그인을 해주세요</h2></div>
+        <div class="text-center p-5"><h2>회원로그인</h2></div>
 
         <form name="frm" class="container" method="post" action="/member/loginAction">
             <div class="d-md-flex flex-md-row justify-content-md-center d-xs-flex justify-content-xs-center mb-5 pt-5">
@@ -42,13 +48,13 @@
             <div class="d-flex flex-row justify-content-center pb-5">
                 <button type="button" onclick="check_IDPW()" class="btn btn-secondary" style="width: 120px; height: 50px;">로그인</button>
             </div>
-            <div id="warn" class="pb-4" style="color:red;text-align : center; display : none">
+            <div id="warn" class="pb-4 md-font xs-font" style="color:red;text-align : center; display : none">
                 아이디 또는 비밀번호가 틀렸습니다.
             </div>
-            <div class="text-center h-auto pb-5">
+            <div class="text-center h-auto pb-5 md-font xs-font">
                 혹시 회원이 아니신가요? <b><a href="/member/join">(회원가입 바로가기)</a></b>
             </div>
-            <div class="text-center h-auto pb-5">
+            <div class="text-center h-auto pb-5 md-font xs-font">
                 딜러님이신가요? <b><a href="/dealer/login">(딜러로 로그인하기)</a></b> <br>
                 딜러등록을 하시겠습니까? <b><a href="/dealer/join">(딜러등록 하기)</a></b>
             </div>

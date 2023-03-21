@@ -3,23 +3,64 @@
 <head>
   <th:block th:insert = "~{fragment/head :: header}"></th:block>
   <title>Cars</title>
+  <style>
+        @media (min-width: 0) {
+            .search-bar-xs{
+                width: 22px;
+                height: 22px;
+            }
+            .py-xs-5{
+              padding-top : 32px;
+              padding-bottom : 32px;
+            }
+            .w-xs-100{
+              width : 100%;
+            }
+            .xs-font{
+              font-size : 13px;
+            }
+            .w-xs-100{
+              width : 100%;
+            }
+
+        }
+        @media(min-width:768px){
+            .search-bar-lg{
+                width: 30px;
+                height: 30px;
+            }
+            .py-md-5{
+              padding-top : 48px;
+              padding-bottom : 48px;
+            }
+            .w-md-75{
+              width : 50%;
+            }
+            .md-font {
+              font-size : 16px;
+            }
+            .w-md-75{
+              width : 75%;
+            }
+        }
+    </style>
 </head>
 <body class="bg-secondary">
 <div class="container">
   <th:block th:insert="~{fragment/nav :: nav}"></th:block>
-  <div class="container-fluid rounded mt-5 mb-5" style="background-color: #adb5bd;">
+  <div class="container-fluid rounded mb-5" style="background-color: #adb5bd;margin-top : 100px">
     <!-- search bar -->
-    <div class="container p-5 w-75">
+    <div class="container py-md-5 py-xs-5 w-md-75 w-xs-100">
       <form class="form-group d-flex justify-content-around" action="/cars/search">
         <input type="text" class="form-control mr-2" name="value" id="exampleFormControlInput1" placeholder="원하시는 차량을 입력해주세요!" style="border-radius: 30px;height: 50px;">
-        <button class="btn ml-2" type="submit" style="background-color: rgba(31, 163, 150, 0)"><img src="/img/icon/free-icon-search-6968650.png" alt="" style="width: 30px; height: 30px;"></button>
+        <button class="btn ml-2 " type="submit" style="background-color: rgba(31, 163, 150, 0)"><img src="/img/icon/free-icon-search-6968650.png" class="search-bar-lg search-bar-xs" alt=""></button>
       </form>
     </div>
 
     <!--catNavBar-->
     <div class="d-flex justify-content-center">
       <nav class="navbar navbar-expand-lg rounded w-75" style="background-color: #cbd1d652;">
-        <div class="container-fluid">
+        <div class="container-fluid d-flex justify-content-end">
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -82,11 +123,11 @@
 
     <!-- carList -->
     <div class="container d-flex justify-content-around flex-wrap rounded">
-      <div class="card m-5" style="width: 22rem;" th:each="list : ${page.content}">
+      <div class="card my-5 w-xs-100 w-md-75" style="width: 22rem;" th:each="list : ${page.content}">
         <a th:href="@{/cars/carOne/{num}(num = ${list.id})}">
           <img th:src="${list.images[0].path}" class="card-img-top" alt="...">
         </a>
-        <div class="card-body" style="background-color: #d1dbe8;">
+        <div class="card-body md-font xs-font" style="background-color: #d1dbe8;">
           <h5 class="card-title" th:text="${list.name}">BWM-320</h5>
           <p class="card-text">가격: [[${list.price}]] (만원)</p>
           <p class="card-text">주행거리: [[${list.distance_driven}]] (KM)</p>

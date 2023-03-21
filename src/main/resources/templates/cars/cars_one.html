@@ -21,21 +21,88 @@
         -o-transform:scale(1.2);
         }
         </style>
+        <style>
+            @media (min-width: 0) {
+                .search-bar-xs{
+                    width: 22px;
+                    height: 22px;
+                }
+                .d-xs-flex{
+                    display : flex;
+                }
+                .flex-xs-column{
+                    flex-direction: column;
+                }
+                .py-xs-5{
+                  padding-top : 32px;
+                  padding-bottom : 32px;
+                }
+                .w-xs-100{
+                  width : 100%;
+                }
+                .xs-font{
+                  font-size : 13px;
+                }
+                .w-xs-100{
+                  width : 100%;
+                }
+                .xs-text-center{
+                    text-align : center;
+                }
+                .my-xs-3{
+                    margin-top : 20px;
+                    margin-bottom : 20px;
+                }
+
+            }
+            @media(min-width:768px){
+                .search-bar-lg{
+                    width: 30px;
+                    height: 30px;
+                }
+                .py-md-5{
+                  padding-top : 48px;
+                  padding-bottom : 48px;
+                }
+                .w-md-75{
+                  width : 50%;
+                }
+                .md-font {
+                  font-size : 16px;
+                }
+                .w-md-75{
+                  width : 75%;
+                }
+            }
+            @media(min-width:992px){
+                .w-lg-25{
+                    width: 25%;
+                }
+                .w-lg-50{
+                    width : 50%;
+                }
+                .carousel-lg{
+                    width : 500px;
+                    height : 400px;
+                    text-align : center;
+                }
+            }
+        </style>
 </head>
 <body class="bg-secondary">
 <div class="container">
     <th:block th:insert="~{fragment/nav :: nav}"></th:block>
-    <div class="container rounded mt-5 mb-5" style="background-color: #adb5bd;">
+    <div class="container rounded mb-5" style="background-color: #adb5bd;margin-top : 100px">
         <!-- search bar -->
-        <div class="container p-5 w-75">
-            <form class="form-group d-flex justify-content-around">
-                <input type="text" class="form-control mr-2" id="exampleFormControlInput1" placeholder="원하시는 차량을 입력해주세요!" style="border-radius: 30px;height: 50px;">
-                <button class="btn ml-2" type="submit" style="background-color: rgba(31, 163, 150, 0)"><img src="/img/icon/free-icon-search-6968650.png" alt="" style="width: 30px; height: 30px;"></button>
+        <div class="container py-md-5 py-xs-5 w-md-75 w-xs-100">
+            <form class="form-group d-flex justify-content-around" action="/cars/search">
+                <input type="text" class="form-control mr-2" name="value" id="exampleFormControlInput1" placeholder="원하시는 차량을 입력해주세요!" style="border-radius: 30px;height: 50px;">
+                <button class="btn ml-2 " type="submit" style="background-color: rgba(31, 163, 150, 0)"><img src="/img/icon/free-icon-search-6968650.png" class="search-bar-lg search-bar-xs" alt=""></button>
             </form>
         </div>
 
-        <div class="w-100 d-flex justify-content-evenly rounded mt-5 pt-5 pb-5">
-            <div id="carouselExampleIndicators" class="carousel slide"style="height: 400px; width: 500px;">
+        <div class="w-100 d-lg-flex flex-lg-row d-xs-flex flex-xs-column justify-content-lg-evenly rounded mt-5 py-5 px-lg-3">
+            <div id="carouselExampleIndicators" class="carousel slide carousel-lg">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -43,11 +110,11 @@
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img th:src="${car.images[0].path}" class="d-block w-100" alt="...">
+                        <img th:src="${car.images[0].path}" class="d-block w-100 img-fluid" alt="...">
                     </div>
                     <div th:each="img , i : ${car.images}">
                         <div th:if="${i.count < 4 && i.count != 1}" class="carousel-item">
-                            <img th:src="${img.path}" class="d-block w-100" alt="...">
+                            <img th:src="${img.path}" class="d-block w-100 img-fluid" alt="...">
                         </div>
                     </div>
                 </div>
@@ -61,7 +128,7 @@
                 </button>
             </div>
 
-            <div class="w-25 pt-5">
+            <div class="w-lg-25 w-xs-100 pt-5 xs-text-center">
                 <h2 th:text="${car.name}">차량이름</h2>
                 <h4 th:text="${car.distance_driven} + ((KM))">주행거리</h4>
                 <h4 th:text="${car.price} + 만원">가격</h4>
@@ -73,7 +140,7 @@
                 <div class="my-5">
                     <h2>차량정보</h2>
                 </div>
-                <table class="table table-hover w-50">
+                <table class="table table-hover w-lg-50 w-xs-100 w-md-75 xs-font md-font">
                     <tr>
                         <th>차량이름:</th>
                         <td th:text="${car.name}">null</td>
@@ -106,7 +173,7 @@
                 </table>
 
                 <h2 class="my-5">옵션정보</h2>
-                <table class="table table-striped w-50">
+                <table class="table table-striped w-lg-50 w-xs-100 w-md-75 xs-font md-font">
                     <thead>
                     <tr>
                         <th>옵션이름</th>
@@ -130,7 +197,7 @@
                 <h2 class="my-5">차량사진</h2>
                 <div class="img-wrapper">
                     <div>
-                        <img th:each="img : ${car.images}" th:src="${img.path}" onclick="window.open(this.src)" class="rounded img-thumbnail col-sm-4 m-5 " alt="...">
+                        <img th:each="img : ${car.images}" th:src="${img.path}" onclick="window.open(this.src)" class="rounded img-thumbnail img-fluid col-sm-5 m-sm-2 col-md-5 m-md-3 col-lg-5 m-lg-3 my-xs-3" alt="...">
                     </div>
                 </div>
             </div>
@@ -139,7 +206,7 @@
         <div id="dealer_connect" class="container d-flex justify-content-center">
             <div class="d-flex flex-column align-items-center w-75">
                 <h2 class="my-5">딜러에게 연락하기</h2>
-                <table class="table table-hover w-50">
+                <table class="table table-hover w-lg-50 w-xs-100 xs-font md-font">
                     <tr>
                         <th>딜러이름</th>
                         <td th:text="${car.dealer.name}">뭐시기</td>
@@ -153,7 +220,7 @@
                         <td th:text="${car.dealer.phone}">뭐시기</td>
                     </tr>
                 </table>
-                <p class="my-5">(차량에 관심이 있으시다면 아래 버튼을 눌러주세요^^)</p>
+                <p class="my-5 xs-font md-font">(차량에 관심이 있으시다면 아래 버튼을 눌러주세요^^)</p>
                 <button type="button" onclick="getMode()" class="btn btn-secondary position-relative my-5">
                     관심있어요!!
                     <span th:text="${car.point}" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">

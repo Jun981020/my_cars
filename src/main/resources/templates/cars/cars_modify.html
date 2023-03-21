@@ -8,7 +8,7 @@
 <div class="container">
     <th:block th:insert="~{fragment/nav :: nav}"></th:block>
     <!-- body -->
-    <div class="container rounded mt-5 mb-5" style="background-color: #adb5bd;">
+    <div class="container rounded mb-5" style="background-color: #adb5bd;margin-top : 100px">
         <div class="d-flex justify-content-center w-100 pt-5">
             <form class="was-validated w-75" name="frm" method="post" action="/cars/modifyAction" enctype="multipart/form-data">
                 <input type="hidden" name="_method" value="put" id="mapping">
@@ -131,38 +131,38 @@
                     <div class="mb-3">
                         <span>메인사진</span>
                         <input type="file" multiple="multiple" onchange="readURL(this,1);" name="main" class="form-control" aria-label="file example">
-                        <img class="pt-5 pb-3" id="preview1" th:src="${car.images[0].path}" style="width:300px; height:200px">
+                        <img class="pt-5 pb-3 img-fluid" id="preview1" th:src="${car.images[0].path}" style="width:300px; height:200px">
                     </div>
                     <div class="mb-3">
                         <span>사이드사진1</span>
                         <input type="file"  multiple="multiple" onchange="readURL(this,2);" name="side1" class="form-control" aria-label="file example">
-                        <img class="pt-5 pb-3" id="preview2" th:src="${car.images[1].path}" style="width:300px; height:200px">
+                        <img class="pt-5 pb-3 img-fluid" id="preview2" th:src="${car.images[1].path}" style="width:300px; height:200px">
                     </div>
                     <div class="mb-3">
                         <span>사이드사진2</span>
                         <input type="file" multiple="multiple" name="side2" onchange="readURL(this,3);" class="form-control" aria-label="file example">
-                        <img class="pt-5 pb-3" id="preview3" th:src="${car.images[2].path}" style="width:300px; height:200px">
+                        <img class="pt-5 pb-3 img-fluid" id="preview3" th:src="${car.images[2].path}" style="width:300px; height:200px">
                     </div>
                     <div class="mb-3">
                         <span>사이드사진3</span>
                         <input type="file" multiple="multiple" name="side3" onchange="readURL(this,4);" class="form-control" aria-label="file example">
-                        <img class="pt-5 pb-3" id="preview4" th:src="${car.images[3].path}" style="width:300px; height:200px">
+                        <img class="pt-5 pb-3 img-fluid" id="preview4" th:src="${car.images[3].path}" style="width:300px; height:200px">
                     </div>
                     <div class="mb-3">
                         <span>사이드사진4</span>
                         <input type="file" multiple="multiple" name="side4" onchange="readURL(this,5);" class="form-control" aria-label="file example">
-                        <img class="pt-5 pb-3" id="preview5" th:src="${car.images[4].path}" style="width:300px; height:200px">
+                        <img class="pt-5 pb-3 img-fluid" id="preview5" th:src="${car.images[4].path}" style="width:300px; height:200px">
                     </div>
                     <div class="mb-3">
                         <span>사이드사진5</span>
                         <input type="file" multiple="multiple" name="side5" onchange="readURL(this,6);" class="form-control" aria-label="file example">
-                        <img class="pt-5 pb-3" id="preview6" th:src="${car.images[5].path}" style="width:300px; height:200px">
+                        <img class="pt-5 pb-3 img-fluid" id="preview6" th:src="${car.images[5].path}" style="width:300px; height:200px">
                     </div>
                     <div class="mb-3">
                         <th:block th:if="${#lists.size('car.images')} >= 7 ">
                             <span>사이드사진6</span>
                             <input type="file" multiple="multiple" name="side6" onchange="readURL(this,7);" class="form-control" aria-label="file example">
-                            <img class="pt-5 pb-3" id="preview7" th:src="${car.images[6].path}" style="width:300px; height:200px">
+                            <img class="pt-5 pb-3 img-fluid" id="preview7" th:src="${car.images[6].path}" style="width:300px; height:200px">
                         </th:block>
                         <th:block th:if="${#lists.size('car.images')} <= 6 ">
                             <span>사이드사진6</span>

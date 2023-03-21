@@ -26,8 +26,8 @@
             </form>
             <th:block th:if="${top2car} != null">
             <!--BEST1 CARD-->
-            <div class="container-sm d-md-flex justify-content-md-center">
-                <div class="card m-5" style="max-width:22rem" th:each="list , current: ${top2car}">
+            <div class="container-sm d-flex justify-content-center"th:each="list , current: ${top2car}">
+                <div class="card my-5 w-100" style="max-width:22rem">
                     <a th:href="@{/cars/carOne/{num}(num = ${list.id})}">
                         <img th:src="${list.images[0].path}" class="card-img-top img-fluid" alt="...">
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
