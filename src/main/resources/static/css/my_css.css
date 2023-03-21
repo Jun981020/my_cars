@@ -135,6 +135,9 @@ li > a {
     .w-lg-75{
         width : 75%;
     }
+    .w-lg-100{
+        width : 100%;
+    }
 
     .carousel-lg{
         width : 500px;
