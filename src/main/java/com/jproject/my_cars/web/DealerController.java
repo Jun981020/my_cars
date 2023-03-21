@@ -47,6 +47,7 @@ public class DealerController {
     @PostMapping("/dealer/loginAction")
     public String dealer_login_action(@ModelAttribute DealerLoginDto dto, HttpServletResponse response, HttpServletRequest request){
         log.info("/dealer/loginAction");
+        log.info("dto"+dto.toString());
         Dealer dealer = dealerService.findOneByLoginId(dto.getId());
         if(sessionManager.getSession(request) != null){
             sessionManager.expire(request);
@@ -79,6 +80,9 @@ public class DealerController {
                                          @RequestParam("password")String password,
                                          @RequestParam("number")String number){
         log.info("/dealer/check_IDPWNU");
+        System.out.println("id = " + id);
+        System.out.println("password = " + password);
+        System.out.println("number = " + number);
         return dealerService.check_login_id_pw_num(id,password,number);
     }
     @GetMapping("/dealer/dealerPage")

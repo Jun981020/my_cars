@@ -3,12 +3,46 @@
 <head>
     <th:block th:insert = "~{fragment/head :: header}"></th:block>
     <title>MyPage</title>
+    <style>
+        @media (min-width: 0) {
+            .btn{
+                font-size: 17px;
+            }
+            .flex-xs-column{
+               flex-direction: column;
+            }
+            .xs-font{
+                font-size: 14px;
+            }
+            .d-xs-flex{
+                display: flex;
+            }
+            .flex-xs-column{
+                flex-direction: column;
+                align-items: center;
+
+            }
+            .btn-xs{
+                width: 70%;
+                margin: 20px 0;
+            }
+
+        }
+        @media(min-width:768px){
+            .md-font{
+                font-size: 18px;
+            }
+            .btn-lg{
+                width: 20%;
+            }
+        }
+    </style>
 </head>
 <body class="bg-secondary">
 <div class="container">
     <th:block th:insert="~{fragment/nav :: nav}"></th:block>
     <!-- body -->
-    <div class="container rounded mt-5 mb-5" style="background-color: #adb5bd;">
+    <div class="container rounded  mb-5" style="background-color: #adb5bd; margin-top: 100px;">
         <div class="text-center p-5"><h2>딜러페이지</h2></div>
         <div class="d-flex justify-content-center">
             <table class="table w-75">
@@ -69,11 +103,11 @@
                     </h2>
                     <div id="collapseOne1" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                         <div class="accordion-body" th:each="cars : ${list}">
-                            <div class="d-flex">
+                            <div class="d-lg-flex flex-lg-row flex-xs-column">
                                 <a th:href="@{/cars/carOne/{num}(num = ${cars.id})}">
-                                    <img class="border"  th:src="${cars.images[0].path}" alt="" style="width: 400px;height: 300px;">
+                                    <img class="border img-fluid"  th:src="${cars.images[0].path}" alt="" style="width: 400px;height: 300px;">
                                 </a>
-                                <div class="d-flex justify-content-center w-100">
+                                <div class="d-flex justify-content-center w-100 md-font xs-font">
                                     <table class="table w-75">
                                         <thead>
                                         <tr>
@@ -98,10 +132,10 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-around pt-5 pb-3">
-                                <button class="btn btn-lg btn-secondary" th:carId="${cars.id}" th:onclick="modifyCar(this.getAttribute('carId'))">차량수정</button>
-                                <button class="btn btn-lg btn-secondary" th:carId="${cars.id}" th:onclick="saleCar(this.getAttribute('carId'))">차량판매완료</button>
-                                <button class="btn btn-lg btn-danger" th:carId="${cars.id}" th:onclick="removeCar(this.getAttribute('carId'))">차량삭제</button>
+                            <div class="d-md-flex flex-md-row justify-content-md-around pt-5 pb-3 d-xs-flex flex-xs-column ">
+                                <button class="btn btn-lg btn-xs btn-secondary" th:carId="${cars.id}" th:onclick="modifyCar(this.getAttribute('carId'))">차량수정</button>
+                                <button class="btn btn-lg btn-xs btn-secondary" th:carId="${cars.id}" th:onclick="saleCar(this.getAttribute('carId'))">차량판매완료</button>
+                                <button class="btn btn-lg btn-xs btn-danger" th:carId="${cars.id}" th:onclick="removeCar(this.getAttribute('carId'))">차량삭제</button>
                             </div>
                             <hr>
                         </div>

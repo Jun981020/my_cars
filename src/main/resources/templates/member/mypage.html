@@ -3,14 +3,32 @@
 <head>
     <th:block th:insert = "~{fragment/head :: header}"></th:block>
     <title>MyPage</title>
+    <style>
+        @media (min-width: 0) {
+            .btn{
+                font-size: 17px;
+            }
+            .flex-xs-column{
+               flex-direction: column;
+            }
+            .xs-font{
+                font-size: 14px;
+            }
+        }
+        @media(min-width:768px){
+            .md-font{
+                font-size: 18px;
+            }
+        }
+    </style>
 </head>
 <body class="bg-secondary">
 <div class="container">
     <th:block th:insert="~{fragment/nav :: nav}"></th:block>
     <!-- body -->
-    <div class="container rounded mt-5 mb-5" style="background-color: #adb5bd;">
+    <div class="container rounded mb-5" style="background-color: #adb5bd;margin-top:100px">
         <div class="text-center p-5"><h2>마이페이지</h2></div>
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center xs-font md-font">
             <table class="table w-75">
                 <thead>
                 <tr>
@@ -82,14 +100,14 @@
                     <div id="collapseOne1" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                         <th:block th:if="${likesList} != null">
                         <div class="accordion-body" th:each="likes : ${likesList}">
-                            <div class="d-flex">
+                            <div class="d-lg-flex flex-lg-row flex-xs-column">
                                 <a th:href="@{/cars/carOne/{num}(num = ${likes.car.id} )}">
-                                    <img class="border"  th:src="${likes.car.images[0].path}" alt="" style="width: 400px;height: 300px;">
+                                    <img class="border img-fluid"  th:src="${likes.car.images[0].path}" alt="" style="width: 400px;height: 300px;">
                                 </a>
-                                <div class="d-flex justify-content-center w-100">
+                                <div class="d-flex justify-content-center w-100 md-font xs-font">
                                     <table class="table w-75">
                                         <thead>
-                                        <tr>
+                                        <tr class="md-font">
                                             <th colspan="4" style="text-align: center;" th:text="${likes.car.name}"><b>차량이름</b></th>
                                         </tr>
                                         </thead>
