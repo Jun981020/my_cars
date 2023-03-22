@@ -46,6 +46,9 @@ http://ec2-15-165-66-97.ap-northeast-2.compute.amazonaws.com:8085/main <br> <br>
 
 <h2>DataBase</h2>
     <b>mysql,RDS</b>
+    <img width="70%" alt="스크린샷 2023-03-22 오후 3 27 56" src="https://user-images.githubusercontent.com/98084692/226820245-748c0e4e-6fa9-4ffa-aceb-0d3a83d11396.png">
+    <img width="70%" alt="스크린샷 2023-03-22 오후 3 28 11" src="https://user-images.githubusercontent.com/98084692/226820567-8f4af786-1630-4607-bcb6-7b657fe9f0b0.png">
+
 <h2>ORM</h2>
     <b>JPA</b>
 <h2>Server</h2>
