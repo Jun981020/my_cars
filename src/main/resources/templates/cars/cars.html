@@ -10,16 +10,16 @@
   <th:block th:insert="~{fragment/nav :: nav}"></th:block>
   <div class="container-fluid rounded mb-5" style="background-color: #adb5bd;margin-top : 100px">
     <!-- search bar -->
-    <div class="container py-md-5 py-xs-5 w-md-75 w-xs-100">
+    <div class="container py-md-5 py-xs-5 w-md-75 w-xs-100 ">
       <form class="form-group d-flex justify-content-around" action="/cars/search">
-        <input type="text" class="form-control mr-2" name="value" id="exampleFormControlInput1" placeholder="원하시는 차량을 입력해주세요!" style="border-radius: 30px;height: 50px;">
+        <input type="text" class="form-control mr-2" name="value" id="exampleFormControlInput1" placeholder="원하시는 차량을 입력해주세요!" style="border-radius: 30px;height: auto;">
         <button class="btn ml-2 " type="submit" style="background-color: rgba(31, 163, 150, 0)"><img src="/img/icon/free-icon-search-6968650.png" class="search-bar-lg search-bar-xs" alt=""></button>
       </form>
     </div>
 
     <!--catNavBar-->
     <div class="d-flex justify-content-center">
-      <nav class="navbar navbar-expand-lg rounded w-75" style="background-color: #cbd1d652;">
+      <nav class="navbar navbar-expand-lg rounded w-xs-100 w-lg-75" style="background-color: #cbd1d652;">
         <div class="container-fluid d-flex justify-content-end">
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -82,20 +82,20 @@
     </div>
 
     <!-- carList -->
-    <div class="container d-flex justify-content-around flex-wrap rounded">
-      <div class="card my-5 w-xs-100 w-md-75" style="width: 22rem;" th:each="list : ${page.content}">
-        <a th:href="@{/cars/carOne/{num}(num = ${list.id})}">
-          <img th:src="${list.images[0].path}" class="card-img-top" alt="...">
-        </a>
-        <div class="card-body md-font xs-font" style="background-color: #d1dbe8;">
-          <h5 class="card-title" th:text="${list.name}">BWM-320</h5>
-          <p class="card-text">가격: [[${list.price}]] (만원)</p>
-          <p class="card-text">주행거리: [[${list.distance_driven}]] (KM)</p>
-          <p class="card-text">년식: [[${list.year}]] (년식)</p>
-          <div class="w-100 d-flex justify-content-end">
-            <a th:href="@{/cars/carOne/{num}(num = ${list.id})}" class="btn" style="background-color: #adb5bd;">차량보기</a>
+    <div class="px-lg-5 px-md-2 px-xs-5 my-lg-5 my-md-2 my-xs-5 d-md-flex justify-content-md-around flex-md-wrap">
+      <div class="card col-md-5 col-lg-4 mx-md-2 mb-xs-5 my-md-2 mx-lg-5 my-lg-5"  th:each="list : ${page.content}">
+          <a th:href="@{/cars/carOne/{num}(num = ${list.id})}">
+            <img th:src="${list.images[0].path}" class="card-img-top img-fluid" alt="...">
+          </a>
+          <div class="card-body md-font xs-font" style="background-color: #d1dbe8;">
+            <h5 class="card-title" th:text="${list.name}">BWM-320</h5>
+            <p class="card-text">가격: [[${list.price}]] (만원)</p>
+            <p class="card-text">주행거리: [[${list.distance_driven}]] (KM)</p>
+            <p class="card-text">년식: [[${list.year}]] (년식)</p>
+            <div class="w-100 d-flex justify-content-end">
+              <a th:href="@{/cars/carOne/{num}(num = ${list.id})}" class="btn" style="background-color: #adb5bd;">차량보기</a>
+            </div>
           </div>
-        </div>
       </div>
     </div>
     <!--전체차량 리스트 페이징처리-->

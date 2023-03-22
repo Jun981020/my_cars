@@ -94,6 +94,17 @@ li > a {
     .mb-xs-2{
         margin-bottom : 25px
     }
+    .px-xs-5{
+        padding-left : 3px;
+        padding-right : 3px;
+    }
+    .my-xs-5{
+        margin-top : 3rem;
+        margin-bottom : 3rem;
+    }
+    .mb-xs-5{
+        margin-bottom : 3rem;
+    }
 }
 @media(min-width:768px){
     .search-bar-lg{
@@ -119,6 +130,13 @@ li > a {
     }
     .w-md-25{
         width: 25%;
+    }
+    .w-md-50{
+        width : 50%;
+    }
+    .cars-col{
+        flex : 0 , 0 , auto;
+        width : 41.66666667%;
     }
 
 }
