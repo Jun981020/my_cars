@@ -70,8 +70,6 @@
                 &nbsp;&nbsp;
                 <strong id="role" th:text="${reply.loginId}+[+${reply.replyRole}+]">작성자</strong>
               </div>
-              <div th:text="${idAndSession}"></div>
-              <div th:text="${reply.loginId}+${reply.replyRole}"></div>
               <th:block th:if="${idAndSession} == (${reply.loginId}+${reply.replyRole})">
               <div class="dropdown px-3" id="more">
                 <img src="/img/icon/more_icon.png" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="width:20px;height:20px;cursor:pointer;">
