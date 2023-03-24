@@ -4,6 +4,8 @@ import com.jproject.my_cars.domain.board.dealer_board.DealerBoard;
 import com.jproject.my_cars.domain.board.dealer_board.DealerBoardService;
 import com.jproject.my_cars.domain.board.member_board.MemberBoard;
 import com.jproject.my_cars.domain.board.member_board.MemberBoardService;
+import com.jproject.my_cars.domain.dealer.Dealer;
+import com.jproject.my_cars.domain.member.Member;
 import com.jproject.my_cars.dto.*;
 import com.jproject.my_cars.web.session.SessionManager;
 import jakarta.servlet.http.HttpServletRequest;
@@ -67,9 +69,17 @@ public class BoardController {
         String id = board.getMember().getLoginId();
         if (session != null){
             String sessionClazzName = session.getClass().getSimpleName().toUpperCase();
-            String idAndSession = id+sessionClazzName;
-            log.info("idAndSession"+idAndSession);
-            model.addAttribute("idAndSession",idAndSession);
+            if(sessionClazzName.equals("MEMBER")){
+                Member member = (Member) sessionManager.getSession(request);
+                String idAndSession = member.getLoginId()+sessionClazzName;
+                log.info("idAndSession"+idAndSession);
+                model.addAttribute("idAndSession",idAndSession);
+            }else{
+                Dealer dealer = (Dealer) sessionManager.getSession(request);
+                String idAndSession = dealer.getLoginId()+sessionClazzName;
+                log.info("idAndSession"+idAndSession);
+                model.addAttribute("idAndSession",idAndSession);
+            }
         }
         model.addAttribute("board",board);
         model.addAttribute("cat","member");
