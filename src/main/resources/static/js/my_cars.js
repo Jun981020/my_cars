@@ -120,9 +120,9 @@ function getSessionTypeLoginId(){
         async: false,
         success: function(response) {
             // JSON 데이터를 객체로 변환
-            var data = JSON.parse(response);
-            id = data.data;
-            session = data.session;
+            let res = JSON.parse(response);
+            id = res.data;
+            session = res.session;
         }
     });
     let data = {id,session};

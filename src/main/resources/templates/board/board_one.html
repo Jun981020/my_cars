@@ -35,9 +35,6 @@
       </div>
     </div>
     <div class="container px-0 mb-5 w-75 d-flex justify-content-end">
-<!--      <button th:if="${session.member.name == board.member.name}" class="btn btn-secondary btn-lg mt-3">-->
-<!--        <a th:href="@{/board/modify/{num}(num = ${board.id})}" id="title">수정!</a>-->
-<!--      </button>-->
       <button id="edit-btn" class="btn btn-secondary btn-lg mt-3" style="display:none">
         수정!
       </button>
@@ -73,6 +70,8 @@
                 &nbsp;&nbsp;
                 <strong id="role" th:text="${reply.loginId}+[+${reply.replyRole}+]">작성자</strong>
               </div>
+              <div th:text="${idAndSession}"></div>
+              <div th:text="${reply.loginId}+${reply.replyRole}"></div>
               <th:block th:if="${idAndSession} == (${reply.loginId}+${reply.replyRole})">
               <div class="dropdown px-3" id="more">
                 <img src="/img/icon/more_icon.png" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="width:20px;height:20px;cursor:pointer;">
@@ -120,6 +119,9 @@
 <script th:inline="javascript">
 $(document).ready(function() {
       let data = getSessionTypeLoginId();
+      console.log(data);
+      console.log(data.id);
+      console.log(data.session);
       let id = '';
       let session = '';
       if(data != null){

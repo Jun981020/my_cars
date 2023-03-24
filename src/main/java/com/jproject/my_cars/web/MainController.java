@@ -84,6 +84,7 @@ public class MainController {
         log.info("/main/getSessionTypeLoginId");
         HashMap<String, String> map = new HashMap<>();
         Object session = sessionManager.getSession(request);
+        log.info("session"+session);
         //로그인 하지 않았을때
         if(session == null){
             map.put("data",null);
@@ -93,18 +94,22 @@ public class MainController {
 
         }
         String typeName = sessionManager.getSession(request).getClass().getSimpleName();
+        log.info("typeName"+typeName);
         if(typeName.equals("Member")){
             Member member = (Member) sessionManager.getSession(request);
             map.put("session","member");
             map.put("data",member.getLoginId());
+            log.info("map"+map);
         }else{
             Dealer dealer = (Dealer) sessionManager.getSession(request);
             map.put("session","dealer");
             map.put("data",dealer.getLoginId());
+            log.info("map"+map);
         }
         //Hashmap 을 JSON으로 변환
         ObjectMapper mapper = new ObjectMapper();
         String jsonString = mapper.writeValueAsString(map);
+        log.info("jsonString"+jsonString);
         return jsonString;
     }
 }

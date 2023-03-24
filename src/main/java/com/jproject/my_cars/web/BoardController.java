@@ -68,6 +68,7 @@ public class BoardController {
         if (session != null){
             String sessionClazzName = session.getClass().getSimpleName().toUpperCase();
             String idAndSession = id+sessionClazzName;
+            log.info("idAndSession"+idAndSession);
             model.addAttribute("idAndSession",idAndSession);
         }
         model.addAttribute("board",board);
@@ -85,6 +86,7 @@ public class BoardController {
         if(session != null){
             String sessionClazzName = session.getClass().getSimpleName().toUpperCase();
             String idAndSession = id+sessionClazzName;
+            log.info("idAndSession"+idAndSession);
             model.addAttribute("idAndSession",idAndSession);
         }
         model.addAttribute("board",board);
