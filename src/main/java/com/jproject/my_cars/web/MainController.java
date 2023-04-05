@@ -28,8 +28,6 @@ public class MainController {
     private final CarService carService;
     @GetMapping({"/main","/"})
     public String main(Model model,HttpServletRequest request) throws MalformedURLException {
-        String path = request.getSession().getServletContext().getResource("/").getPath();
-        System.out.println("servletContext = " + path);
         log.info("/main or /");
         List<Car> topTwoCar = carService.getTopTwoCar();
         model.addAttribute("top2car",topTwoCar);
